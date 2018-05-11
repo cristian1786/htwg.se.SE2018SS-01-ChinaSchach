@@ -42,4 +42,4 @@ project/.sbtserver
 /.sonar/
 
 # Application
-/sudoku.log
+/ChinaSchach.log
