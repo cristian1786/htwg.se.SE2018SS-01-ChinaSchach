@@ -10,5 +10,6 @@ object Hello {
     var y = x + 5
     println("Hello I love big butts: " + y)
     println(student.f(7))
+    println("Blabla und wieder Bla")
   }
 }
