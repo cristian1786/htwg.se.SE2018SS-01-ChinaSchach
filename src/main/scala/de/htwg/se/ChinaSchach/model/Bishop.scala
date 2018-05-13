@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Bishop() {
+case class Bishop() {
   //TODO: implement Bishop Shogi
 }

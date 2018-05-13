@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Lance() {
+case class Lance() {
   //TODO: implement Lance Shogi
 }

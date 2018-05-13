@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Silver() {
+case class Silver() {
   //TODO: implement Silver Shogi
 }

@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Rook() {
+case class Rook() {
   //TODO: implement Rook Shogi
 }

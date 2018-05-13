@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Knight() {
+case class Knight() {
   //TODO: implement Knight Shogi
 }

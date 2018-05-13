@@ -1,5 +1,5 @@
 package de.htwg.se.ChinaSchach.model
 
-class Gold() {
+case class Gold() {
   //TODO: implement Gold Shogi
 }
