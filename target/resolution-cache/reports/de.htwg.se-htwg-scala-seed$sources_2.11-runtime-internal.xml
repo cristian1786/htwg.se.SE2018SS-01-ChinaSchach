@@ -7,7 +7,7 @@
 		revision="0.0.1"
 		conf="runtime-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20180511123028"/>
+		date="20180513143608"/>
 	<dependencies>
 		<module organisation="com.sksamuel.scapegoat" name="scalac-scapegoat-plugin_2.11">
 			<revision name="1.0.0" status="release" pubdate="20150529191951" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/sksamuel/scapegoat" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="1">
