@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach
 
-object Hello {
+object ChinaSchach {
   def main(args: Array[String]): Unit = {
     var x = 2
     var y = x + 5
