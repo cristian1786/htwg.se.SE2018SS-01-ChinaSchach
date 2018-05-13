@@ -1,4 +1,4 @@
-name          := "htwg-scala-seed"
+name          := "htwg-se-SE2018SS-01-ChinaSchach"
 organization  := "de.htwg.se"
 version       := "0.0.1"
 scalaVersion  := "2.11.8"
