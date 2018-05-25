@@ -1,10 +1,14 @@
-[info] Updating {file:/Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/}htwg-se-se2018ss-01-chinaschach-build...
+[info] Updating {file:/C:/SE%20SS2018/htwg.se.SE2018SS-01-ChinaSchach/project/}htwg-se-se2018ss-01-chinaschach-build...
 [debug] :: resolving dependencies :: default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT
 [debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
 [debug] 	validate = true
 [debug] 	refresh = false
 [debug] resolving dependencies for configuration 'compile'
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
+[info] Resolving org.scala-sbt#global-plugins;0.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#global-plugins;0.0 {compile=[default(compile)]}
+[debug] 	found org.scala-sbt#global-plugins;0.0 in inter-project
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [info] Resolving com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 ...
 [debug] sbt-chain: Checking cache for: dependency: com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 {compile=[default(compile)]}
@@ -267,6 +271,7 @@
 [debug] resolving dependencies for configuration 'runtime'
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [runtime]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}
 [debug] == resolving dependencies com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0->org.scalaz#scalaz-core_2.10;7.1.0 [compile->default(compile)]
@@ -471,6 +476,7 @@
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [test]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [runtime]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}
 [debug] == resolving dependencies com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0->org.scalaz#scalaz-core_2.10;7.1.0 [compile->default(compile)]
@@ -802,9 +808,9 @@
 [debug] 	found jline#jline;2.13 in sbt-chain
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->runtime]
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->compile]
-[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(compile)]
+[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(*)]
 [info] Resolving org.fusesource.jansi#jansi;1.11 ...
-[debug] sbt-chain: Checking cache for: dependency: org.fusesource.jansi#jansi;1.11 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] sbt-chain: Checking cache for: dependency: org.fusesource.jansi#jansi;1.11 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
 [debug] sbt-chain: module revision found in cache: org.fusesource.jansi#jansi;1.11
 [debug] 	found org.fusesource.jansi#jansi;1.11 in sbt-chain
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->compile(*)]
@@ -1515,6 +1521,7 @@
 [debug] resolving dependencies for configuration 'compile-internal'
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile-internal]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}
 [debug] == resolving dependencies com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0->org.scalaz#scalaz-core_2.10;7.1.0 [compile->default(compile)]
@@ -1791,7 +1798,7 @@
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->runtime]
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->compile]
-[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(compile)]
+[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->compile(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [runtime->runtime(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [runtime->compile]
@@ -2341,6 +2348,7 @@
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [runtime-internal]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [runtime]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}
 [debug] == resolving dependencies com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0->org.scalaz#scalaz-core_2.10;7.1.0 [compile->default(compile)]
@@ -2547,6 +2555,7 @@
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [test]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [runtime]
 [debug] == resolving dependencies for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->org.scala-sbt#global-plugins;0.0 [compile->default(compile)]
 [debug] == resolving dependencies default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}
 [debug] == resolving dependencies com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0->org.scalaz#scalaz-core_2.10;7.1.0 [compile->default(compile)]
@@ -2823,7 +2832,7 @@
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->runtime]
 [debug] == resolving dependencies org.scala-sbt#completion;0.13.11->jline#jline;2.13 [compile->compile]
-[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(compile)]
+[debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->master(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [compile->compile(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [runtime->runtime(*)]
 [debug] == resolving dependencies jline#jline;2.13->org.fusesource.jansi#jansi;1.11 [runtime->compile]
@@ -3484,19 +3493,19 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.11!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.6!jline.jar
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar
-[debug] :: resolution report :: resolve 2960ms :: artifacts dl 46ms
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-compile.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-runtime.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-test.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT provided produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-provided.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT optional produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-optional.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-compile-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-runtime-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-test-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT plugin produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-plugin.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT sources produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-sources.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT docs produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-docs.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT pom produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-pom.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT scala-tool produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-scala-tool.xml
-[debug] 	resolve done (2960ms resolve - 46ms download)
+[debug] :: resolution report :: resolve 5494ms :: artifacts dl 123ms
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-compile.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-runtime.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-test.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT provided produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-provided.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT optional produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-optional.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-compile-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-runtime-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-test-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT plugin produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-plugin.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT sources produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-sources.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT docs produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-docs.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT pom produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-pom.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT scala-tool produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-scala-tool.xml
+[debug] 	resolve done (5494ms resolve - 123ms download)
 [info] Done updating.
