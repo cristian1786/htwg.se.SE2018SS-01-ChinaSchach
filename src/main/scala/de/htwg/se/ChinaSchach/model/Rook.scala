@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Rook(point: Tuple2[Int, Int], promoted: Boolean) {
+case class Rook(promotable: String) extends Piece {
   //TODO: implement Rook Shogi
 
 

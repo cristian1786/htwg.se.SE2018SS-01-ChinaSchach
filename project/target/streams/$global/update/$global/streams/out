@@ -1,4 +1,4 @@
-[info] Updating {file:/C:/SE%20SS2018/htwg.se.SE2018SS-01-ChinaSchach/project/}htwg-se-se2018ss-01-chinaschach-build...
+[info] Updating {file:/home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/}htwg-se-se2018ss-01-chinaschach-build...
 [debug] :: resolving dependencies :: default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT
 [debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
 [debug] 	validate = true
@@ -3493,19 +3493,19 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.11!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.6!jline.jar
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar
-[debug] :: resolution report :: resolve 5494ms :: artifacts dl 123ms
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-compile.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-runtime.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-test.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT provided produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-provided.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT optional produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-optional.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-compile-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-runtime-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test-internal produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-test-internal.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT plugin produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-plugin.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT sources produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-sources.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT docs produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-docs.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT pom produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-pom.xml
-[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT scala-tool produced in C:\SE SS2018\htwg.se.SE2018SS-01-ChinaSchach\project\target\resolution-cache\reports\default-htwg-se-se2018ss-01-chinaschach-build-scala-tool.xml
-[debug] 	resolve done (5494ms resolve - 123ms download)
+[debug] :: resolution report :: resolve 2086ms :: artifacts dl 51ms
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-compile.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-runtime.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-test.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT provided produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-provided.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT optional produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-optional.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT compile-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-compile-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT runtime-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-runtime-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT test-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-test-internal.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT plugin produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-plugin.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT sources produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-sources.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT docs produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-docs.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT pom produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-pom.xml
+[debug] 	report for default#htwg-se-se2018ss-01-chinaschach-build;0.1-SNAPSHOT scala-tool produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/project/target/resolution-cache/reports/default-htwg-se-se2018ss-01-chinaschach-build-scala-tool.xml
+[debug] 	resolve done (2086ms resolve - 51ms download)
 [info] Done updating.

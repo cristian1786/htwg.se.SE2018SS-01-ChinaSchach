@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Silver(point: Tuple2[Int, Int], promoted: Boolean) {
+case class Silver(promotable: String) extends Piece {
   //TODO: implement Silver Shogi
   // Movement unpromoted
 

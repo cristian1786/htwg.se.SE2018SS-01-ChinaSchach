@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Knight(koord: Tuple2[Int, Int], promoted: Boolean) {
+case class Knight(promotable: String) extends Piece {
   //TODO: implement Knight Shogi
 
   //TODO: promoted Knight

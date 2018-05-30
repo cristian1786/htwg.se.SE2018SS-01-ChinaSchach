@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
-class controller() {
+class Controller() {
   //TODO: implement Controller
 
   //TODO: initialize player

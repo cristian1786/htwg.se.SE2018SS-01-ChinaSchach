@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Lance(point: Tuple2[Int, Int], promoted: Boolean) {
+case class Lance(promotable: String) extends Piece {
   //TODO: implement Lance Shogi
 
 
