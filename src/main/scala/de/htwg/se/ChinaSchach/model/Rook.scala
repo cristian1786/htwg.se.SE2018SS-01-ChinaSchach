@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Rook(promotable: String) extends Piece {
+case class Rook(side: String, promotable: String) extends Piece {
   //TODO: implement Rook Shogi
 
 

@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.model
 
-case class Lance(promotable: String) extends Piece {
+case class Lance(side: String, promotable: String) extends Piece {
   //TODO: implement Lance Shogi
 
 
