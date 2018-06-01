@@ -2,11 +2,11 @@ package de.htwg.se.ChinaSchach.model
 
 
 class Board() {
-
+  val MAX_NUMBER = 9
 //  val gameBoard = Map.newBuilder[Tuple2[Int, Int], Piece]
-  val gameBoard = Array.ofDim[Piece](9,9)
+  val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
-  def go(): Unit = {
+  def go() : Unit = {
     placeBottomPieces()
     placeUpperPieces()
   }
@@ -42,13 +42,13 @@ class Board() {
     }
   }*/
 
-  def placePawn(y: Int, side: String, promotable: String): Unit = {
+  def placePawn(y: Int, side: String, promotable: String) : Unit = {
     for (x <- 0 until 9) {
       gameBoard(x)(y) =  Pawn(side, promotable)
     }
   }
 
-  def placeBishop(y: Int, side: String, promotable: String): Unit = {
+  def placeBishop(y: Int, side: String, promotable: String) : Unit = {
     if (side == "bottom") {
       gameBoard(1)(y) = Bishop(side, promotable)
     }
@@ -89,4 +89,9 @@ class Board() {
     gameBoard(3)(y) = Silver(side, promotable)
     gameBoard(5)(y) = Silver(side, promotable)
   }
+
+  def get(field: Tuple2[Int, Int]): Piece = {
+    gameBoard(field._1)(field._2)
+  }
+
 }
