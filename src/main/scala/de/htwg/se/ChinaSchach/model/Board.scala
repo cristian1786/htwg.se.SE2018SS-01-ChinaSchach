@@ -12,23 +12,25 @@ class Board() {
   }
 
   def placeUpperPieces(): Unit = {
-    placeBishop(8, "top", "yes")
+    placeBishop(7, "top", "yes")
     placeGold(8, "top", "no")
     placeKing(8, "top", "no")
     placeLance(8, "top", "yes")
     placePawn(6, "top", "yes")
     placeRook(7, "top", "yes")
-    placeSilver(7, "top", "yes")
+    placeSilver(8, "top", "yes")
+    placeKnight(8, "top", "yes")
   }
 
   def placeBottomPieces(): Unit = {
-    placeBishop(0, "bottom", "yes")
+    placeBishop(1, "bottom", "yes")
     placeGold(0, "bottom", "no")
     placeKing(0, "bottom", "no")
     placeLance(0, "bottom", "yes")
     placePawn(2, "bottom", "yes")
     placeRook(1, "bottom", "yes")
     placeSilver(0, "bottom", "yes")
+    placeKnight(0, "bottom", "yes")
   }
 
   /*def setEmptyFields(): Unit = {
@@ -78,10 +80,10 @@ class Board() {
 
   def placeRook(y: Int, side: String, promotable: String): Unit = {
     if (side == "bottom") {
-      gameBoard(1)(y) = Bishop(side, promotable)
+      gameBoard(7)(y) = Rook(side, promotable)
     }
     else if (side == "top") {
-      gameBoard(7)(y) = Bishop(side, promotable)
+      gameBoard(1)(y) = Rook(side, promotable)
     }
   }
 
