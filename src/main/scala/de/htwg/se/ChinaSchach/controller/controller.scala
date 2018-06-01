@@ -8,8 +8,6 @@ class Controller() {
   //TODO: initialize player
 
   //TODO: initialze Field
-  var board = new Board
-  board.go()
 
 
   //TODO: check for valid/invalid moves
