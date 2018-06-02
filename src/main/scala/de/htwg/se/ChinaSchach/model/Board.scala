@@ -43,14 +43,14 @@ class Board() {
       }
     }
     for (x <- 2 to 6) {
-      gameBoard(x)(1) = EmptyField(" ", " ")
-      gameBoard(x)(7) = EmptyField(" ", " ")
+      gameBoard(x)(MAX_NUMBER - 8) = EmptyField(" ", " ")
+      gameBoard(x)(MAX_NUMBER - 2) = EmptyField(" ", " ")
     }
-    gameBoard(0)(1) = EmptyField(" ", " ")
-    gameBoard(8)(1) = EmptyField(" ", " ")
+    gameBoard(MAX_NUMBER - 9)(MAX_NUMBER - 8) = EmptyField(" ", " ")
+    gameBoard(MAX_NUMBER - 1)(MAX_NUMBER - 8) = EmptyField(" ", " ")
 
-    gameBoard(0)(7) = EmptyField(" ", " ")
-    gameBoard(8)(7) = EmptyField(" ", " ")
+    gameBoard(MAX_NUMBER - 9)(MAX_NUMBER - 2) = EmptyField(" ", " ")
+    gameBoard(MAX_NUMBER - 1)(MAX_NUMBER - 2) = EmptyField(" ", " ")
 
   }
 
