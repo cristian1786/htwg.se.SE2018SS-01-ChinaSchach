@@ -95,5 +95,4 @@ class Board() {
   def get(field: Tuple2[Int, Int]): Piece = {
     gameBoard(field._1)(field._2)
   }
-
 }

@@ -9,5 +9,6 @@ object ChinaSchach {
   def main(args: Array[String]): Unit = {
     val controller = new Controller("Peter", "Opa")
     controller.boardInit()
+
   }
 }
