@@ -13,4 +13,12 @@ trait Piece {
   def getPromotable() : String = {
     promotable
   }
+
+  def checkValidPoss(poss: Tuple2[Int, Int]): Boolean = {
+    var isValid: Boolean = false
+    if (poss._1 >= 0 && poss._1 <= 9 && poss._2 >= 0 && poss._2 <= 9) {
+      isValid = true
+    }
+    isValid
+  }
 }

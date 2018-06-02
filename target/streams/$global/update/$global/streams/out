@@ -1,4 +1,4 @@
-[info] Updating {file:/home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/}htwg-se-se2018ss-01-chinaschach...
+[info] Updating {file:/Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/}htwg-se-se2018ss-01-chinaschach...
 [debug] :: resolving dependencies :: de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1
 [debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
 [debug] 	validate = true
@@ -7,7 +7,7 @@
 [debug] == resolving dependencies for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 [compile]
 [debug] == resolving dependencies de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1->org.scala-lang#scala-library;2.11.8 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-library;2.11.8 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3f051da
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@419f5ea0
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.8
 [debug] 	found org.scala-lang#scala-library;2.11.8 in sbt-chain
 [debug] 	[2.11.8] org.scala-lang#scala-library;2.11.8
@@ -738,19 +738,19 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.11.8!scala-reflect.jar
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)
 [debug] 	[NOT REQUIRED] jline#jline;2.12.1!jline.jar
-[debug] :: resolution report :: resolve 385ms :: artifacts dl 9ms
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 compile produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-compile.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 runtime produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-runtime.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 test produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-test.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 provided produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-provided.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 optional produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-optional.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 compile-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-compile-internal.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 runtime-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-runtime-internal.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 test-internal produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-test-internal.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 plugin produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-plugin.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 sources produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-sources.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 docs produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-docs.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 pom produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-pom.xml
-[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 scala-tool produced in /home/ntz/IdeaProjects/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-scala-tool.xml
-[debug] 	resolve done (385ms resolve - 9ms download)
+[debug] :: resolution report :: resolve 725ms :: artifacts dl 14ms
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 compile produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-compile.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 runtime produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-runtime.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 test produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-test.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 provided produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-provided.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 optional produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-optional.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 compile-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-compile-internal.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 runtime-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-runtime-internal.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 test-internal produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-test-internal.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 plugin produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-plugin.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 sources produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-sources.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 docs produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-docs.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 pom produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-pom.xml
+[debug] 	report for de.htwg.se#htwg-se-se2018ss-01-chinaschach_2.11;0.0.1 scala-tool produced in /Users/cristian_ntz/Documents/SEDings/htwg.se.SE2018SS-01-ChinaSchach/target/resolution-cache/reports/de.htwg.se-htwg-se-se2018ss-01-chinaschach_2.11-scala-tool.xml
+[debug] 	resolve done (725ms resolve - 14ms download)
 [info] Done updating.
