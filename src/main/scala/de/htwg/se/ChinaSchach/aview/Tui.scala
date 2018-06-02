@@ -16,7 +16,6 @@ class Tui(board: Board) {
       for (y <- 0 to 8) {
         if (board.get(x, y) != null) {
           println("Field(" + x + ", " + y + ") contains " + board.get(x, y))
-
         }
       }
     }
@@ -27,6 +26,7 @@ class Tui(board: Board) {
     if (list.head.getSide() == "top") println("Player 1: ")
     else println("Player 2: ")
     list.foreach(println)
+    println("")
   }
 
   //TODO: which figures are left on the field
