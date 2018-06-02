@@ -7,9 +7,10 @@ import scala.runtime.ScalaRunTime._
 import scala.collection.SeqView
 import scala.collection.mutable.ListBuffer
 
+//TODO: implement TUI
 class Tui(board: Board) {
-  //TODO: implement TUI for ChinaSchach
 
+  // prints an overview over the fields with the respective figures
   def outputField(): Unit = {
     var counter = 0
     for (x <- 0 to 8) {
@@ -22,18 +23,13 @@ class Tui(board: Board) {
     println("")
   }
 
+  //prints a list with figures for each player
   def outputPlayerFigures(list: ListBuffer[Piece]): Unit = {
     if (list.head.getSide() == "top") println("Player 1: ")
     else println("Player 2: ")
     list.foreach(println)
     println("")
   }
-
-  //TODO: which figures are left on the field
-
-
-  //TODO: killed figures
-
 
   //TODO: which Round
 }

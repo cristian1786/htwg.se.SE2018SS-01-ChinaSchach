@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 class Player(name: String) {
 
-  //TODO: figures
+  // Assigns figures to the player(s)
   def setFigures(board: Board, side: String) : ListBuffer[Piece] = {
     val listPlayer= ListBuffer.empty[Piece]
     for (x <- 0 to 8) {
