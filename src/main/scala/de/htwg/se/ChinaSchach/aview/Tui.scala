@@ -3,8 +3,9 @@ package de.htwg.se.ChinaSchach.aview
 import de.htwg.se.ChinaSchach.controller.Controller
 import de.htwg.se.ChinaSchach.model.Board
 import scala.runtime.ScalaRunTime._
+import scala.collection.SeqView
 
-class Tui(controller: Controller, board: Board) {
+class Tui(board: Board) {
   //TODO: implement TUI for ChinaSchach
 
   def outputField(): Unit = {
@@ -17,9 +18,7 @@ class Tui(controller: Controller, board: Board) {
         }
       }
     }
-    println(" ")
-    println(" ")
-    println(counter)
+    println("\n" + counter)
   }
 
   //TODO: which figures are left on the field

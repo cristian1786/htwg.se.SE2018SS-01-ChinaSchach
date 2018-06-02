@@ -6,4 +6,11 @@ trait Piece {
   val promotable: String
   val side: String
 
+  def getSide() : String = {
+    side
+  }
+
+  def getPromotable() : String = {
+    promotable
+  }
 }

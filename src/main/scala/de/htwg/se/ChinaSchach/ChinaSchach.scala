@@ -7,19 +7,7 @@ import de.htwg.se.ChinaSchach.model.Board
 
 object ChinaSchach {
   def main(args: Array[String]): Unit = {
-    val controller = new Controller
-    val board = new Board
-//    var playingField = board.go()
-    board.go()
-    val tui = new Tui(controller, board)
-    tui.outputField()
-//    var end = false
-//    breakable {
-//      while (true) {
-//        tui.outputField()
-//        end = true
-//        if (end) break
-//      }
-//    }
+    val controller = new Controller("Peter", "Opa")
+    controller.boardInit()
   }
 }
