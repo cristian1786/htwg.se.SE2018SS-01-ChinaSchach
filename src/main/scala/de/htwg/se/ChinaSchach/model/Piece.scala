@@ -3,16 +3,16 @@ package de.htwg.se.ChinaSchach.model
 trait Piece {
 
   //TODO something
-  val promotable: String
-  val side: String
+  def promotable: String
+  def side: String
 
-  def getSide() : String = {
-    side
-  }
+//  def setSide(side: String) : Unit = this.side = side
+//
+//  def setPromotable(promotable: String) : Unit = this.promotable = promotable
 
-  def getPromotable() : String = {
-    promotable
-  }
+  def getSide() : String = side
+
+  def getPromotable() : String = promotable
 
   def checkValidPoss(poss: (Int, Int)): Boolean = {
     var isValid: Boolean = false

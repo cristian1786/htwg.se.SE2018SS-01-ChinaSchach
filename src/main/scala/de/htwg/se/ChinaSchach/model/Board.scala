@@ -8,6 +8,7 @@ class Board() {
   def go() : Unit = {
     placeBottomPieces()
     placeTopPieces()
+    placeEmptyFields()
   }
 
   //places top pieces
@@ -34,10 +35,29 @@ class Board() {
     placeKnight(MAX_NUMBER - 9, "bottom", "yes")
   }
 
+  //initialize empty fields
+  def placeEmptyFields(): Unit = {
+    for (x <- 0 to 8) {
+      for (y <- 3 to 5) {
+        gameBoard(x)(y) = EmptyField(" ", " ")
+      }
+    }
+    for (x <- 2 to 6) {
+      gameBoard(x)(1) = EmptyField(" ", " ")
+      gameBoard(x)(7) = EmptyField(" ", " ")
+    }
+    gameBoard(0)(1) = EmptyField(" ", " ")
+    gameBoard(8)(1) = EmptyField(" ", " ")
+
+    gameBoard(0)(7) = EmptyField(" ", " ")
+    gameBoard(8)(7) = EmptyField(" ", " ")
+
+  }
+
   //place Pawns
   def placePawn(y: Int, side: String, promotable: String) : Unit = {
     for (x <- 0 to 8) {
-      gameBoard(x)(y) =  Pawn(side, promotable)
+      gameBoard(x)(y) = Pawn(side, promotable)
     }
   }
 
@@ -93,5 +113,9 @@ class Board() {
   //returns the value at the respective field-point
   def get(field: (Int, Int)): Piece = {
     gameBoard(field._1)(field._2)
+  }
+
+  def deletePiece(field: (Int, Int)): Unit = {
+    gameBoard(field._1)(field._2) = EmptyField("empty", "empty")
   }
 }

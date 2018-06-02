@@ -2,7 +2,6 @@ package de.htwg.se.ChinaSchach.controller
 
 import de.htwg.se.ChinaSchach.aview.Tui
 import de.htwg.se.ChinaSchach.model.{Board, Piece, Player}
-
 import scala.collection.mutable.ListBuffer
 
 
@@ -27,12 +26,20 @@ class Controller(name1: String, name2: String) {
   //initialize player
   def playerInit(name1: String, name2: String) : Unit = {
 
-    listPlayer1 = player1.setFigures(board, "top")
-    listPlayer2 = player2.setFigures(board, "bottom")
+    listPlayer1 = player1.setPieces(board, "top")
+    listPlayer2 = player2.setPieces(board, "bottom")
 
     tui.outputPlayerFigures(listPlayer1)
     tui.outputPlayerFigures(listPlayer2)
 
+  }
+
+  //TODO: remove beat Piece from playerList and board
+  def beatEnemyPieces(): Unit = {
+    //if beat piece from player1 => deletePiece(listPlayer1, ...)
+    //if beat piece from player2 => deletePiece(listPlayer2, ...)
+
+    //delete piece from board
   }
 
   //TODO: check for valid/invalid moves

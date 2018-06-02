@@ -2,14 +2,15 @@ package de.htwg.se.ChinaSchach.model
 
 import scala.collection.mutable.ListBuffer
 
+
 class Player(name: String) {
 
   // Assigns figures to the player(s)
-  def setFigures(board: Board, side: String) : ListBuffer[Piece] = {
+  def setPieces(board: Board, side: String) : ListBuffer[Piece] = {
     val listPlayer= ListBuffer.empty[Piece]
     for (x <- 0 to 8) {
       for (y <- 0 to 8) {
-        if (board.get(x, y) != null && board.get(y, y).getSide() == side) {
+        if (board.get(x, y).getPromotable() != " " && board.get(x, y).getSide() == side) {
           listPlayer.append(board.get(x, y))
         }
       }
@@ -17,4 +18,11 @@ class Player(name: String) {
     listPlayer
   }
 
+  /* delete beat pieces from playerList
+  / @params takes a playerList and the beat piece
+  / @returns list with remaining pieces
+   */
+  def deletePiece(list: ListBuffer[Piece], piece: Piece): ListBuffer[Piece] = {
+    list.-=(piece)
+  }
 }
