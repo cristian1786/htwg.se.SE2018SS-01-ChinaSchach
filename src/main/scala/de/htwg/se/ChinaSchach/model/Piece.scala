@@ -21,4 +21,18 @@ trait Piece {
     }
     isValid
   }
+
+  def movesAllowed(source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
+    for (x <- possibleMoves) {
+      val checkMove = (source._1 + x._1)(source._2 + x._2)
+      if (destination == checkMove) {
+        true
+      }
+    }
+    false
+  }
+
+  def movesPossible(source: (Int, Int), destination: (Int, Int)): Boolean = {
+    false
+  }
 }

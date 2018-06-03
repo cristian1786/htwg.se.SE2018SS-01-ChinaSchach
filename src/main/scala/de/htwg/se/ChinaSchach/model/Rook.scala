@@ -5,4 +5,5 @@ case class Rook(side: String, promotable: String) extends Piece {
 
 
   //TODO: promoted Rook
+
 }

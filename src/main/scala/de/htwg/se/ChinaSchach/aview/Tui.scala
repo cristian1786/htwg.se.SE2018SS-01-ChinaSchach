@@ -11,9 +11,9 @@ class Tui(board: Board) {
   def outputField(): Unit = {
     for (x <- 0 to 8) {
       for (y <- 0 to 8) {
-        if (board.get(y, y).getSide() != " " && board.get(x, y).getPromotable() != " ") {
+        //if (board.get(y, y).getSide() != " " && board.get(x, y).getPromotable() != " ") {
           println("Field(" + x + ", " + y + ") contains " + board.get(x, y))
-        }
+        //}
       }
     }
     println("")
