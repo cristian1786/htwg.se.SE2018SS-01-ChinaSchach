@@ -116,6 +116,6 @@ class Board() {
   }
 
   def deletePiece(field: (Int, Int)): Unit = {
-    gameBoard(field._1)(field._2) = EmptyField("empty", "empty")
+    gameBoard(field._1)(field._2) = EmptyField(" ", " ")
   }
 }

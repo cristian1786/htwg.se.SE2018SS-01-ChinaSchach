@@ -2,7 +2,7 @@ package de.htwg.se.ChinaSchach.model
 
 trait Piece {
 
-  //TODO something
+  //TODO: something
   def promotable: String
   def side: String
 
