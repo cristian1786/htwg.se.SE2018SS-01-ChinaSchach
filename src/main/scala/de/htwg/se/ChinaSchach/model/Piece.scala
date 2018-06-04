@@ -25,7 +25,7 @@ trait Piece {
   def movesAllowed(source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
     if (checkValidPoss(destination)) {
       for (x <- possibleMoves) {
-        val checkMove = (source._1 + x._1) (source._2 + x._2)
+        val checkMove = (source._1 + x._1, source._2 + x._2)
         if (destination == checkMove) {
           true
         }
