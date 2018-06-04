@@ -1,11 +1,13 @@
 package de.htwg.se.ChinaSchach.model
 
+import scala.collection.mutable.ListBuffer
+
 case class Lance(side: String, promotable: String) extends Piece {
   //TODO: implement Lance Shogi
-  val possibleMoves: List[(Int, Int)] = {
-    val m: List[(Int, Int)] = List.empty
+  val possibleMoves: ListBuffer[(Int, Int)] = {
+    val m: ListBuffer[(Int, Int)] = ListBuffer.empty[(Int, Int)]
     for (x <- 1 to 8) {
-      val m = :+ (0, x)
+      m.+=((0, x))
     }
     m
   }
