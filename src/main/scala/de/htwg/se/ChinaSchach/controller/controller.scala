@@ -45,4 +45,13 @@ class Controller(name1: String, name2: String) {
   //TODO: check for valid/invalid moves
   def checkMove(): Unit = {
   }
+
+  def ifEnemy(player: Player, board: Board, source: (Int, Int), destination: (Int, Int)): Unit = {
+    if (board.get(source).getSide() != board.get(destination).getSide() && board.get(source).getSide() != "") {
+      if (board.get(source).getSide() == "top") {
+        player.deletePiece(listPlayer1, board.get(destination))
+      }
+      player.deletePiece(listPlayer2, board.get(destination))
+    }
+  }
 }

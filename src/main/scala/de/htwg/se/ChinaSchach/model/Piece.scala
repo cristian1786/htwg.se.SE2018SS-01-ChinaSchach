@@ -45,10 +45,4 @@ trait Piece {
     }
     false
   }
-
-  def ifEnemy(player: Player, board: Board, source: (Int, Int), destination: (Int, Int)): Boolean = {
-    if (board.get(source).getSide() != board.get(destination).getSide() && board.get(source).getSide() != "") {}
-      //TODO: where does this belong?
-    false
-  }
 }
