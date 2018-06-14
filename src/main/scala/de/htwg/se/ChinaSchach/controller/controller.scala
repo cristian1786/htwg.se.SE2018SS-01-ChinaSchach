@@ -14,6 +14,11 @@ class Controller(name1: String, name2: String) {
   val player2 = new Player(name2)
   var listPlayer1: ListBuffer[Piece] = _
   var listPlayer2: ListBuffer[Piece] = _
+  var topKingDead = false
+  var bottomKingDead = false
+  var selected = false
+  var winner = ""
+  var gameOver = false
 
   //initializes playing board
   def boardInit() : Unit = {
@@ -54,4 +59,16 @@ class Controller(name1: String, name2: String) {
       listPlayer2 -= board.get(destination)
     }
   }
+
+  def gameWon() : Unit = {}
+
+  def reset(): Unit = {}
+
+  def exit(): Unit = {}
+
+  def notifyView(): Unit = {}
+
+  def selectPiece(): Unit = {}
+
+
 }
