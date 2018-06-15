@@ -1,11 +1,14 @@
 package de.htwg.se.ChinaSchach.model
 
+import scala.collection.mutable.ListBuffer
+
 trait Piece {
 
   //TODO: something
   def promotable: String
   def side: String
-
+  def possibleMoves: ListBuffer[(Int, Int)] = ListBuffer.empty
+  def possibleMovesPromoted: ListBuffer[(Int, Int)] = ListBuffer.empty
 //  def setSide(side: String) : Unit = this.side = side
 //
 //  def setPromotable(promotable: String) : Unit = this.promotable = promotable
@@ -13,6 +16,10 @@ trait Piece {
   def getSide() : String = side
 
   def getPromotable() : String = promotable
+
+  def getPossibleMoves() : ListBuffer[(Int, Int)] = possibleMoves
+
+  def getPossibleMovesPromoted() : ListBuffer[(Int, Int)] = possibleMovesPromoted
 
   def checkValidPoss(poss: (Int, Int)): Boolean = {
     var isValid: Boolean = false

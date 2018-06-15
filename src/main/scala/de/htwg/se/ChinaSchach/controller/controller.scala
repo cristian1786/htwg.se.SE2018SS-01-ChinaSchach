@@ -1,7 +1,8 @@
 package de.htwg.se.ChinaSchach.controller
 
 import de.htwg.se.ChinaSchach.aview.Tui
-import de.htwg.se.ChinaSchach.model.{Board, Piece, Player}
+import de.htwg.se.ChinaSchach.model.{Board, Pawn, Piece, Player}
+
 import scala.collection.mutable.ListBuffer
 
 
@@ -58,6 +59,13 @@ class Controller(name1: String, name2: String) {
       }
       listPlayer2 -= board.get(destination)
     }
+  }
+
+  def kingDanger(piece: Piece): Unit = {
+    for (x <- piece.getPossibleMoves()) {
+
+    }
+
   }
 
   def gameWon() : Unit = {}
