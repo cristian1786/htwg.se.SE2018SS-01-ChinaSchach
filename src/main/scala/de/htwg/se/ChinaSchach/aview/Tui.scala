@@ -9,9 +9,9 @@ class Tui(board: Board) {
 
   // prints an overview over the fields with the respective pieces
   def outputField(): Unit = {
-    for (x <- 0 to 8) {
-      for (y <- 0 to 8) {
-        if (board.get(y, y).getSide() != " " && board.get(x, y).getPromotable() != " ") {
+    for (x <- 0 to 7) {
+      for (y <- 0 to 7) {
+        if (board.get(x, y).getSide() != " ") {
           println("Field(" + x + ", " + y + ") contains " + board.get(x, y))
         }
       }

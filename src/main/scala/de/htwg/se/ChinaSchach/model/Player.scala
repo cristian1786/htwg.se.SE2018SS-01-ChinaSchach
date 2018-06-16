@@ -8,9 +8,9 @@ class Player(name: String) {
   // Assigns figures to the player(s)
   def setPieces(board: Board, side: String) : ListBuffer[Piece] = {
     val listPlayer= ListBuffer.empty[Piece]
-    for (x <- 0 to 8) {
-      for (y <- 0 to 8) {
-        if (board.get(x, y).getPromotable() != " " && board.get(x, y).getSide() == side) {
+    for (x <- 0 to 7) {
+      for (y <- 0 to 7) {
+        if (board.get(x, y).getSide() == side) {
           listPlayer.append(board.get(x, y))
         }
       }

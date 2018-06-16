@@ -32,8 +32,8 @@ class Controller(name1: String, name2: String) {
   //initialize player
   def playerInit(name1: String, name2: String) : Unit = {
 
-    listPlayer1 = player1.setPieces(board, "top")
-    listPlayer2 = player2.setPieces(board, "bottom")
+    listPlayer1 = player1.setPieces(board, "w")
+    listPlayer2 = player2.setPieces(board, "b")
 
     tui.outputPlayerFigures(listPlayer1)
     tui.outputPlayerFigures(listPlayer2)
@@ -65,7 +65,7 @@ class Controller(name1: String, name2: String) {
 
   def movePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {
     board.gameBoard(destination._1)(destination._2) = board.get(source)
-    board.gameBoard(source._1)(source._2) = EmptyField(" ", " ")
+    board.gameBoard(source._1)(source._2) = EmptyField(" ")
   }
 
 /*  def takePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {

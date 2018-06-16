@@ -71,7 +71,7 @@ class Board() {
 
   //place Rook
   def placeRook(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER)(y) = Rook(side)
+    gameBoard(MAX_NUMBER - 1)(y) = Rook(side)
     gameBoard(MAX_NUMBER - 8)(y) = Rook(side)
   }
 
