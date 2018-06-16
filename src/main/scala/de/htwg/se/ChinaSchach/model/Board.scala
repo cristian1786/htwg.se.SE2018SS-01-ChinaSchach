@@ -6,92 +6,73 @@ class Board() {
   val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
   def go() : Unit = {
-    placeBottomPieces()
-    placeTopPieces()
+    placeBlackPieces()
+    placeWhitePieces()
     placeEmptyFields()
   }
 
   //places top pieces
-  def placeTopPieces(): Unit = {
-    placeBishop(MAX_NUMBER - 2, "top")
-    placeKing(MAX_NUMBER - 1, "top", "no")
-    placeKnight(MAX_NUMBER - 1, "top", "yes")
-    placePawn(MAX_NUMBER - 3, "top", "yes")
-    placeRook(MAX_NUMBER - 2, "top", "yes")
-    placeQueen()
+  def placeBlackPieces(): Unit = {
+    placeBishop(MAX_NUMBER - 1, "b")
+    placeKing(MAX_NUMBER - 1, "b")
+    placeKnight(MAX_NUMBER - 1, "b")
+    placePawn(MAX_NUMBER - 2, "b")
+    placeRook(MAX_NUMBER - 1, "b")
+    placeQueen(MAX_NUMBER - 1, "b")
 
   }
 
   //places bottom pieces
-  def placeBottomPieces(): Unit = {
-    placeBishop(MAX_NUMBER - 8, "bottom", "yes")
-    placeKing(MAX_NUMBER - 9, "bottom", "no")
-    placePawn(MAX_NUMBER - 7, "bottom", "yes")
-    placeRook(MAX_NUMBER - 8, "bottom", "yes")
-    placeKnight(MAX_NUMBER - 9, "bottom", "yes")
-    placeQueen()
+  def placeWhitePieces(): Unit = {
+    placeBishop(MAX_NUMBER - 8, "w")
+    placeKing(MAX_NUMBER - 8, "w")
+    placePawn(MAX_NUMBER - 7, "w")
+    placeRook(MAX_NUMBER - 8, "w")
+    placeKnight(MAX_NUMBER - 8, "w")
+    placeQueen(MAX_NUMBER - 8, "w")
   }
 
   //initialize empty fields
   def placeEmptyFields(): Unit = {
-    for (x <- 0 to 8) {
-      for (y <- 3 to 5) {
-        gameBoard(x)(y) = EmptyField(" ", " ")
-      }
+    for (x <- 2 to 5) {
+      gameBoard(x)(MAX_NUMBER - 7) = EmptyField(" ")
+      gameBoard(x)(MAX_NUMBER - 3) = EmptyField(" ")
     }
-    for (x <- 2 to 6) {
-      gameBoard(x)(MAX_NUMBER - 8) = EmptyField(" ", " ")
-      gameBoard(x)(MAX_NUMBER - 2) = EmptyField(" ", " ")
-    }
-    gameBoard(MAX_NUMBER - 9)(MAX_NUMBER - 8) = EmptyField(" ", " ")
-    gameBoard(MAX_NUMBER - 1)(MAX_NUMBER - 8) = EmptyField(" ", " ")
-
-    gameBoard(MAX_NUMBER - 9)(MAX_NUMBER - 2) = EmptyField(" ", " ")
-    gameBoard(MAX_NUMBER - 1)(MAX_NUMBER - 2) = EmptyField(" ", " ")
-
   }
 
   //place Pawns
-  def placePawn(y: Int, side: String, promotable: String) : Unit = {
-    for (x <- 0 to 8) {
-      gameBoard(x)(y) = Pawn(side, promotable)
+  def placePawn(y: Int, side: String) : Unit = {
+    for (x <- 0 to 7) {
+      gameBoard(x)(y) = Pawn(side)
     }
   }
 
   //place Bishop
   def placeBishop(y: Int, side: String) : Unit = {
-    if (side == "bottom") {
-      gameBoard(MAX_NUMBER - 8)(y) = Bishop(side)
-    }
-    else if (side == "top") {
-      gameBoard(MAX_NUMBER -2)(y) = Bishop(side)
-    }
+    gameBoard(MAX_NUMBER - 6)(y) = Bishop(side)
+    gameBoard(MAX_NUMBER - 3)(y) = Bishop(side)
   }
 
   //place King
   def placeKing(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 5)(y) = King(side)
+    gameBoard(MAX_NUMBER - 4)(y) = King(side)
   }
 
   //place Queen
-  def placeKing(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 5)(y) = King(side)
+  def placeQueen(y: Int, side: String): Unit = {
+    gameBoard(MAX_NUMBER - 5)(y) = Queen(side)
   }
 
   //place Knight
   def placeKnight(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 8)(y) = Knight(side)
-    gameBoard(MAX_NUMBER - 2)(y) = Knight(side)
+    gameBoard(MAX_NUMBER - 7)(y) = Knight(side)
+    gameBoard(MAX_NUMBER - 1)(y) = Knight(side)
   }
 
   //place Rook
   def placeRook(y: Int, side: String): Unit = {
-    if (side == "bottom") {
-      gameBoard(MAX_NUMBER - 2)(y) = Rook(side)
-    }
-    else if (side == "top") {
-      gameBoard(MAX_NUMBER - 8)(y) = Rook(side)
-    }
+    gameBoard(MAX_NUMBER)(y) = Rook(side)
+    gameBoard(MAX_NUMBER - 8)(y) = Rook(side)
   }
 
   //returns the value at the respective field-point
@@ -100,6 +81,6 @@ class Board() {
   }
 
   def deletePiece(field: (Int, Int)): Unit = {
-    gameBoard(field._1)(field._2) = EmptyField(" ", " ")
+    gameBoard(field._1)(field._2) = EmptyField(" ")
   }
 }
