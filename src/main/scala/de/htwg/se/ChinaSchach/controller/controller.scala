@@ -54,7 +54,7 @@ class Controller(name1: String, name2: String) {
 
   def ifEnemy(board: Board, source: (Int, Int), destination: (Int, Int)): Unit = {
     if (board.get(source).getSide() != board.get(destination).getSide() && board.get(source).getSide() != "") {
-      if (board.get(source).getSide() == "top") {
+      if (board.get(source).getSide() == "w") {
         listPlayer1 -= board.get(destination)
         movePiece(board, source, destination)
       }

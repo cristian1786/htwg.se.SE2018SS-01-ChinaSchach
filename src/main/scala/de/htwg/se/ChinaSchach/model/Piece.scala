@@ -26,13 +26,13 @@ trait Piece {
   def movesAllowed(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
     if (checkValidPoss(destination) && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
-        if (board.get(source).getSide() == "bottom") {
+        if (board.get(source).getSide() == "w") {
           val checkMove = (source._1 + x._1, source._2 + x._2)
           if (destination == checkMove) {
             true
           }
         }
-        if (board.get(source).getSide() == "top") {
+        if (board.get(source).getSide() == "b") {
           val checkMove = (source._1 - x._1, source._2 - x._2)
           if (destination == checkMove) {
             true
