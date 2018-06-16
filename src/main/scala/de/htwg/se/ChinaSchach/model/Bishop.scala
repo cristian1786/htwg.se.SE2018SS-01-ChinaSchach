@@ -2,7 +2,7 @@ package de.htwg.se.ChinaSchach.model
 
 import scala.collection.mutable.ListBuffer
 
-case class Bishop(side: String, promotable: String) extends Piece {
+case class Bishop(side: String) extends Piece {
   //Bishop moves
   override val possibleMoves: ListBuffer[(Int, Int)] = ListBuffer.empty
   for (x <- 1 to 8)
