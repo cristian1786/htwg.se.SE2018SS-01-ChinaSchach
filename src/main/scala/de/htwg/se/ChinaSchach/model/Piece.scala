@@ -32,17 +32,25 @@ trait Piece {
   def movesAllowed(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
     if (checkValidPoss(destination) && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
-        val checkMove = (source._1 + x._1, source._2 + x._2)
-        if (destination == checkMove) {
-          true
+        if (board.get(source).getSide() == "bottom") {
+          val checkMove = (source._1 + x._1, source._2 + x._2)
+          if (destination == checkMove) {
+            true
+          }
+        }
+        if (board.get(source).getSide() == "top") {
+          val checkMove = (source._1 - x._1, source._2 - x._2)
+          if (destination == checkMove) {
+            true
+          }
         }
       }
     }
     false
   }
 
-  def movesAllowed(player: Player, board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
-    if (checkValidPoss(destination) && board.get(source).getSide() != board.get(destination).getSide()) {
+/*  def movesAllowed(player: Player, board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
+    if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
         val checkMove = (source._1 + x._1, source._2 + x._2)
         if (destination == checkMove) {
@@ -51,5 +59,29 @@ trait Piece {
       }
     }
     false
+  }*/
+
+/*  def ifTop(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]) : Boolean = {
+    if (checkValidPoss(destination) && board.get(source).getSide() == "top" && board.get(source).getSide() != board.get(destination).getSide()) {
+      for (x <- possibleMoves) {
+        val checkMove = (source._1 - x._1, source._2 - x._2)
+        if (destination == checkMove) {
+          true
+        }
+      }
+    }
+    false
   }
+
+  def ifBottom(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]) : Boolean = {
+    if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
+      for (x <- possibleMoves) {
+        val checkMove = (source._1 + x._1, source._2 + x._2)
+        if (destination == checkMove) {
+          true
+        }
+      }
+    }
+    false
+  }*/
 }

@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach.controller
 
 import de.htwg.se.ChinaSchach.aview.Tui
-import de.htwg.se.ChinaSchach.model.{Board, Pawn, Piece, Player}
+import de.htwg.se.ChinaSchach.model._
 
 import scala.collection.mutable.ListBuffer
 
@@ -56,17 +56,21 @@ class Controller(name1: String, name2: String) {
     if (board.get(source).getSide() != board.get(destination).getSide() && board.get(source).getSide() != "") {
       if (board.get(source).getSide() == "top") {
         listPlayer1 -= board.get(destination)
+        movePiece(board, source, destination)
       }
       listPlayer2 -= board.get(destination)
+      movePiece(board, source, destination)
     }
   }
 
-  def kingDanger(piece: Piece): Unit = {
-    for (x <- piece.getPossibleMoves()) {
-
-    }
-
+  def movePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {
+    board.gameBoard(destination._1)(destination._2) = board.get(source)
+    board.gameBoard(source._1)(source._2) = EmptyField(" ", " ")
   }
+
+/*  def takePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {
+    board.gameBoard(destination._1)(destination._2) = board.get(source)
+  }*/
 
   def gameWon() : Unit = {}
 
