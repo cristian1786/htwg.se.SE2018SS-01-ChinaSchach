@@ -4,5 +4,6 @@ import scala.collection.mutable.ListBuffer
 
 case class Knight(side: String) extends Piece {
   //TODO: implement Knight Shogi
-  override val possibleMoves: ListBuffer[(Int, Int)] = ListBuffer((-1, 2), (1, 2))
+  val x = 2
+  override val possibleMoves: ListBuffer[(Int, Int)] = ListBuffer((-1, x), (1, x), (1, -x), (-1, -x))
 }
