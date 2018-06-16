@@ -20,19 +20,21 @@ pom.xml
 
 # sbt
 .cache
-.history
-.lib/
-dist/*
-target/
-lib_managed/
 src_managed/
 project/boot/
-project/plugins/project/
 project/target/
-project/project/
+project/plugins/project/
 logs/
 project/.sbtserver
 .sbtserver/
+.cache-main
+.cache-tests
+.history
+.lib/
+lib/*.tmp
+dist/*
+target/
+lib_managed/
 
 # Scala-IDE specific
 .scala_dependencies
