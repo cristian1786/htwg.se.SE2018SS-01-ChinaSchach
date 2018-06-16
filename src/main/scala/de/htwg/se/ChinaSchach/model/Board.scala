@@ -34,9 +34,11 @@ class Board() {
 
   //initialize empty fields
   def placeEmptyFields(): Unit = {
-    for (x <- 2 to 5) {
-      gameBoard(x)(MAX_NUMBER - 7) = EmptyField(" ")
+    for (x <- 0 to 7) {
+      gameBoard(x)(MAX_NUMBER - 6) = EmptyField(" ")
       gameBoard(x)(MAX_NUMBER - 3) = EmptyField(" ")
+      gameBoard(x)(MAX_NUMBER - 4) = EmptyField(" ")
+      gameBoard(x)(MAX_NUMBER - 5) = EmptyField(" ")
     }
   }
 
@@ -66,7 +68,7 @@ class Board() {
   //place Knight
   def placeKnight(y: Int, side: String): Unit = {
     gameBoard(MAX_NUMBER - 7)(y) = Knight(side)
-    gameBoard(MAX_NUMBER - 1)(y) = Knight(side)
+    gameBoard(MAX_NUMBER - 2)(y) = Knight(side)
   }
 
   //place Rook

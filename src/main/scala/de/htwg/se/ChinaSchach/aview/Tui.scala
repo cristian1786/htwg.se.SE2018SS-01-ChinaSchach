@@ -21,7 +21,7 @@ class Tui(board: Board) {
 
   //prints a list with pieces for each player
   def outputPlayerFigures(list: ListBuffer[Piece]): Unit = {
-    if (list.head.getSide() == "top") println("Player 1: ") else println("Player 2: ")
+    if (list.head.getSide() == "b") println("Player 1: ") else println("Player 2: ")
     list.foreach(println)
     println("")
   }
