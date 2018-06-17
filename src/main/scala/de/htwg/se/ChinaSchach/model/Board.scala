@@ -1,9 +1,11 @@
 package de.htwg.se.ChinaSchach.model
 
+import de.htwg.se.ChinaSchach.util.Point
+
 class Board() {
   val MAX_NUMBER = 8
-//  val gameBoard = Map.newBuilder[Tuple2[Int, Int], Piece]
-  val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
+  val gameBoard = Map.newBuilder[Point, Piece]
+ // val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
   def go() : Unit = {
     placeBlackPieces()
@@ -45,36 +47,36 @@ class Board() {
   //place Pawns
   def placePawn(y: Int, side: String) : Unit = {
     for (x <- 0 to 7) {
-      gameBoard(x)(y) = Pawn(side)
+      gameBoard += Point(x, y) -> Pawn(side)
     }
   }
 
   //place Bishop
   def placeBishop(y: Int, side: String) : Unit = {
-    gameBoard(MAX_NUMBER - 6)(y) = Bishop(side)
-    gameBoard(MAX_NUMBER - 3)(y) = Bishop(side)
+    gameBoard += Point(MAX_NUMBER - 6, y) -> Bishop(side)
+    gameBoard += Point(MAX_NUMBER - 3, y) -> Bishop(side)
   }
 
   //place King
   def placeKing(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 4)(y) = King(side)
+    gameBoard += Point(MAX_NUMBER - 4, y) -> King(side)
   }
 
   //place Queen
   def placeQueen(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 5)(y) = Queen(side)
+    gameBoard += Point(MAX_NUMBER - 5, y) -> Queen(side)
   }
 
   //place Knight
   def placeKnight(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 7)(y) = Knight(side)
-    gameBoard(MAX_NUMBER - 2)(y) = Knight(side)
+    gameBoard += Point(MAX_NUMBER - 7, y) -> Knight(side)
+    gameBoard += Point(MAX_NUMBER - 2, y) -> Knight(side)
   }
 
   //place Rook
   def placeRook(y: Int, side: String): Unit = {
-    gameBoard(MAX_NUMBER - 1)(y) = Rook(side)
-    gameBoard(MAX_NUMBER - 8)(y) = Rook(side)
+    gameBoard += Point(MAX_NUMBER - 1, y) -> Rook(side)
+    gameBoard += Point(MAX_NUMBER - 8, y) -> Rook(side)
   }
 
   //returns the value at the respective field-point
