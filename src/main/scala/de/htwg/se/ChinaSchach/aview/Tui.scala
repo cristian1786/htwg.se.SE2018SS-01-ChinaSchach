@@ -1,6 +1,8 @@
 package de.htwg.se.ChinaSchach.aview
 
 import de.htwg.se.ChinaSchach.model._
+import de.htwg.se.ChinaSchach.util.Point
+
 import scala.collection.mutable.ListBuffer
 
 
@@ -11,8 +13,8 @@ class Tui(board: Board) {
   def outputField(): Unit = {
     for (x <- 0 to 7) {
       for (y <- 0 to 7) {
-        if (board.get(x, y).getSide() != " ") {
-          println("Field(" + x + ", " + y + ") contains " + board.get(x, y))
+        if (board.getPiece(Point(x, y)).getSide() != " ") {
+          println("Field(" + x + ", " + y + ") contains " + board.getPiece(Point(x, y)))
         }
       }
     }

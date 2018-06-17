@@ -2,6 +2,7 @@ package de.htwg.se.ChinaSchach.controller
 
 import de.htwg.se.ChinaSchach.aview.Tui
 import de.htwg.se.ChinaSchach.model._
+import de.htwg.se.ChinaSchach.util.Point
 
 import scala.collection.mutable.ListBuffer
 
@@ -19,6 +20,7 @@ class Controller(name1: String, name2: String) {
   var bottomKingDead = false
   var selected = false
   var winner = ""
+  var selFigure = ""
   var gameOver = false
 
   //initializes playing board
@@ -40,6 +42,16 @@ class Controller(name1: String, name2: String) {
 
   }
 
+  def getSelectedPoint(point: Point): Unit = {
+    val testPoint = board.gameBoard.get(point)
+    testPoint match {
+      case None =>
+        selFigure = "Empty Field"
+      case Some(f) =>
+        //movePiece()
+    }
+  }
+
   //TODO: remove beat Piece from playerList and board
   def beatEnemyPieces(): Unit = {
     //if beat piece from player1 => deletePiece(listPlayer1, ...)
@@ -52,24 +64,24 @@ class Controller(name1: String, name2: String) {
   def checkMove(): Unit = {
   }
 
-  def ifEnemy(board: Board, source: (Int, Int), destination: (Int, Int)): Unit = {
-    if (board.get(source).getSide() != board.get(destination).getSide() && board.get(source).getSide() != "") {
-      if (board.get(source).getSide() == "w") {
-        listPlayer1 -= board.get(destination)
+  def ifEnemy(board: Board, source: Point, destination: Point): Unit = {
+    if (board.getPiece(source).getSide() != board.getPiece(destination).getSide() && board.getPiece(source).getSide() != "") {
+      if (board.getPiece(source).getSide() == "w") {
+        listPlayer1 -= board.getPiece(destination)
         movePiece(board, source, destination)
       }
-      listPlayer2 -= board.get(destination)
+      listPlayer2 -= board.getPiece(destination)
       movePiece(board, source, destination)
     }
   }
 
-  def movePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {
-    board.gameBoard(destination._1)(destination._2) = board.get(source)
-    board.gameBoard(source._1)(source._2) = EmptyField(" ")
+  def movePiece(board: Board, source: Point, destination: Point) : Unit = {
+    board.gameBoard(destination) = board.getPiece(source)
+    board.gameBoard(source) = EmptyField(" ")
   }
 
-/*  def takePiece(board: Board, source: (Int, Int), destination: (Int, Int)) : Unit = {
-    board.gameBoard(destination._1)(destination._2) = board.get(source)
+/*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {
+    board.gameBoard(destination._1)(destination._2) = board.getPiece(source)
   }*/
 
   def gameWon() : Unit = {}

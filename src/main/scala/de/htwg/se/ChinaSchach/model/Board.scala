@@ -1,10 +1,12 @@
 package de.htwg.se.ChinaSchach.model
 
 import de.htwg.se.ChinaSchach.util.Point
+import scala.collection.mutable.Map
 
 class Board() {
+
   val MAX_NUMBER = 8
-  val gameBoard = Map.newBuilder[Point, Piece]
+  val gameBoard = Map.empty[Point, Piece]
  // val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
   def go() : Unit = {
@@ -37,10 +39,10 @@ class Board() {
   //initialize empty fields
   def placeEmptyFields(): Unit = {
     for (x <- 0 to 7) {
-      gameBoard(x)(MAX_NUMBER - 6) = EmptyField(" ")
-      gameBoard(x)(MAX_NUMBER - 3) = EmptyField(" ")
-      gameBoard(x)(MAX_NUMBER - 4) = EmptyField(" ")
-      gameBoard(x)(MAX_NUMBER - 5) = EmptyField(" ")
+      gameBoard += Point(x, MAX_NUMBER - 6) -> EmptyField(" ")
+      gameBoard += Point(x, MAX_NUMBER - 3) -> EmptyField(" ")
+      gameBoard += Point(x, MAX_NUMBER - 4) -> EmptyField(" ")
+      gameBoard += Point(x, MAX_NUMBER - 5) -> EmptyField(" ")
     }
   }
 
@@ -80,11 +82,11 @@ class Board() {
   }
 
   //returns the value at the respective field-point
-  def get(field: (Int, Int)): Piece = {
-    gameBoard(field._1)(field._2)
+  def getPiece(point: Point): Piece = {
+    gameBoard(point)
   }
 
   def deletePiece(field: (Int, Int)): Unit = {
-    gameBoard(field._1)(field._2) = EmptyField(" ")
+    gameBoard += Point(field._1, field._2) -> EmptyField(" ")
   }
 }

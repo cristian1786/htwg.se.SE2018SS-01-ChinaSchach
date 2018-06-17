@@ -1,5 +1,7 @@
 package de.htwg.se.ChinaSchach.model
 
+import de.htwg.se.ChinaSchach.util.Point
+
 import scala.collection.mutable.ListBuffer
 
 
@@ -10,8 +12,8 @@ class Player(name: String) {
     val listPlayer= ListBuffer.empty[Piece]
     for (x <- 0 to 7) {
       for (y <- 0 to 7) {
-        if (board.get(x, y).getSide() == side) {
-          listPlayer.append(board.get(x, y))
+        if (board.getPiece(Point(x, y)).getSide() == side) {
+          listPlayer.append(board.getPiece(Point(x, y)))
         }
       }
     }

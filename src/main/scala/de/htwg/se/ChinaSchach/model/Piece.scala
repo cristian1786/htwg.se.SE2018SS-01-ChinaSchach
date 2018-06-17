@@ -1,6 +1,7 @@
 package de.htwg.se.ChinaSchach.model
 
 import scala.collection.mutable.ListBuffer
+import de.htwg.se.ChinaSchach.util.Point
 
 trait Piece {
 
@@ -15,25 +16,25 @@ trait Piece {
 
   def getPossibleMoves() : ListBuffer[(Int, Int)] = possibleMoves
 
-  def checkValidPoss(poss: (Int, Int)): Boolean = {
+  def checkValidPoss(poss: Point): Boolean = {
     var isValid: Boolean = false
-    if (poss._1 >= 0 && poss._1 <= 8 && poss._2 >= 0 && poss._2 <= 8) {
+    if (poss.x >= 0 && poss.x <= 8 && poss.y >= 0 && poss.y <= 8) {
       isValid = true
     }
     isValid
   }
 
-  def movesAllowed(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
-    if (checkValidPoss(destination) && board.get(source).getSide() != board.get(destination).getSide()) {
+  def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
+    if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
-        if (board.get(source).getSide() == "w") {
-          val checkMove = (source._1 + x._1, source._2 + x._2)
+        if (board.getPiece(source).getSide() == "w") {
+          val checkMove = Point(source.x + x._1, source.y + x._2)
           if (destination == checkMove) {
             true
           }
         }
-        if (board.get(source).getSide() == "b") {
-          val checkMove = (source._1 - x._1, source._2 - x._2)
+        if (board.getPiece(source).getSide() == "b") {
+          val checkMove = Point(source.x - x._1, source.y - x._2)
           if (destination == checkMove) {
             true
           }
@@ -43,7 +44,7 @@ trait Piece {
     false
   }
 
-/*  def movesAllowed(player: Player, board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]): Boolean = {
+/*  def movesAllowed(player: Player, board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
     if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
         val checkMove = (source._1 + x._1, source._2 + x._2)
@@ -55,7 +56,7 @@ trait Piece {
     false
   }*/
 
-/*  def ifTop(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]) : Boolean = {
+/*  def ifTop(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]) : Boolean = {
     if (checkValidPoss(destination) && board.get(source).getSide() == "top" && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
         val checkMove = (source._1 - x._1, source._2 - x._2)
@@ -67,7 +68,7 @@ trait Piece {
     false
   }
 
-  def ifBottom(board: Board, source: (Int, Int), destination: (Int, Int), possibleMoves: List[(Int, Int)]) : Boolean = {
+  def ifBottom(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]) : Boolean = {
     if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
       for (x <- possibleMoves) {
         val checkMove = (source._1 + x._1, source._2 + x._2)
