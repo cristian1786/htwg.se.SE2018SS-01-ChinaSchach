@@ -24,7 +24,7 @@ trait Piece {
     isValid
   }
 
-  def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
+  def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
         if (board.getPiece(source).getSide() == "w") {
@@ -33,7 +33,7 @@ trait Piece {
             true
           }
         }
-        if (board.getPiece(source).getSide() == "b") {
+        else if (board.getPiece(source).getSide() == "b") {
           val checkMove = Point(source.x - x._1, source.y - x._2)
           if (destination == checkMove) {
             true

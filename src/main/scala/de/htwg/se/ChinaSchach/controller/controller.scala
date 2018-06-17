@@ -18,10 +18,12 @@ class Controller(name1: String, name2: String) {
   var listPlayer2: ListBuffer[Piece] = _
   var topKingDead = false
   var bottomKingDead = false
-  var selected = false
+  var moveDone = false
   var winner = ""
-  var selFigure = ""
+  var message = ""
   var gameOver = false
+  var sourcePiece: Piece = _
+  var sourcePoint: Point = _
 
   //initializes playing board
   def boardInit() : Unit = {
@@ -43,14 +45,36 @@ class Controller(name1: String, name2: String) {
   }
 
   def getSelectedPoint(point: Point): Unit = {
-    val testPoint = board.gameBoard.get(point)
+    board.gameBoard.get(point) match {
+      case None =>
+        message = "Empty field selected"
+      case Some(x) =>
+        if (!moveDone) {
+          savePiecePoint(point)
+        }
+        val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+        if (justIf) {
+          ifEnemy(sourcePoint, point)
+        }
+    }
+   /* val testPoint = board.gameBoard.get(point)
     testPoint match {
       case None =>
-        selFigure = "Empty Field"
+        selectedWhat = "Empty Field selected"
       case Some(f) =>
-        //movePiece()
-    }
+        f.movesAllowed(board, point, )
+        movePiece()
+    }*/
   }
+
+  def savePiecePoint(point: Point): Unit = {
+    sourcePiece = board.getPiece(point)
+    sourcePoint = point
+    moveDone = true
+    message = "Please select destination"
+  }
+
+
 
   //TODO: remove beat Piece from playerList and board
   def beatEnemyPieces(): Unit = {
@@ -62,22 +86,23 @@ class Controller(name1: String, name2: String) {
 
   //TODO: check for valid/invalid moves
   def checkMove(): Unit = {
+
   }
 
-  def ifEnemy(board: Board, source: Point, destination: Point): Unit = {
+  def ifEnemy(source: Point, destination: Point): Unit = {
     if (board.getPiece(source).getSide() != board.getPiece(destination).getSide() && board.getPiece(source).getSide() != "") {
       if (board.getPiece(source).getSide() == "w") {
         listPlayer1 -= board.getPiece(destination)
-        movePiece(board, source, destination)
+        movePiece(source, destination)
       }
       listPlayer2 -= board.getPiece(destination)
-      movePiece(board, source, destination)
+      movePiece(source, destination)
     }
   }
 
-  def movePiece(board: Board, source: Point, destination: Point) : Unit = {
-    board.gameBoard(destination) = board.getPiece(source)
-    board.gameBoard(source) = EmptyField(" ")
+  def movePiece(source: Point, destination: Point) : Unit = {
+    board.gameBoard += destination -> board.getPiece(source)
+    board.gameBoard += source -> EmptyField(" ")
   }
 
 /*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {
