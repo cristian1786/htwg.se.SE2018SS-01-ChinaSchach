@@ -24,10 +24,14 @@ class Controller(name1: String, name2: String) {
   var gameOver = false
   var sourcePiece: Piece = _
   var sourcePoint: Point = _
+  var testPoint = Point(0, 1)
+  var testDest = Point(0, 2)
 
   //initializes playing board
   def boardInit() : Unit = {
     board.go()
+    getSelectedPoint(testPoint)
+    getSelectedPoint(testDest)
     tui.outputField()
     playerInit("Peter", "Hannes")
 
@@ -52,9 +56,12 @@ class Controller(name1: String, name2: String) {
         if (!moveDone) {
           savePiecePoint(point)
         }
-        val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-        if (justIf) {
-          ifEnemy(sourcePoint, point)
+        else {
+          val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+          println(justIf)
+          if (justIf) {
+            ifEnemy(sourcePoint, point)
+          }
         }
     }
    /* val testPoint = board.gameBoard.get(point)
@@ -92,17 +99,22 @@ class Controller(name1: String, name2: String) {
   def ifEnemy(source: Point, destination: Point): Unit = {
     if (board.getPiece(source).getSide() != board.getPiece(destination).getSide() && board.getPiece(source).getSide() != "") {
       if (board.getPiece(source).getSide() == "w") {
-        listPlayer1 -= board.getPiece(destination)
+        //listPlayer1 -= board.getPiece(destination)
         movePiece(source, destination)
       }
-      listPlayer2 -= board.getPiece(destination)
-      movePiece(source, destination)
+      else {
+        //listPlayer2 -= board.getPiece(destination)
+        movePiece(source, destination)
+      }
     }
+    //println("Moved!!!!")
+    //movePiece(source, destination)
   }
 
   def movePiece(source: Point, destination: Point) : Unit = {
     board.gameBoard += destination -> board.getPiece(source)
     board.gameBoard += source -> EmptyField(" ")
+    moveDone = false
   }
 
 /*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {

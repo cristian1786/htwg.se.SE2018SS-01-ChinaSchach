@@ -19,6 +19,8 @@ class Tui(board: Board) {
       }
     }
     println("")
+    println("Field (0, 2) contains " + board.getPiece(Point(0, 2)))
+    println("")
   }
 
   //prints a list with pieces for each player

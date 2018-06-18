@@ -25,23 +25,18 @@ trait Piece {
   }
 
   def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
+    var trueOrFalse = false
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
-        if (board.getPiece(source).getSide() == "w") {
-          val checkMove = Point(source.x + x._1, source.y + x._2)
-          if (destination == checkMove) {
-            true
-          }
+        if (board.getPiece(source).getSide() == "w" && Point(source.x + x._1, source.y + x._2) == destination) {
+          trueOrFalse = true
         }
-        else if (board.getPiece(source).getSide() == "b") {
-          val checkMove = Point(source.x - x._1, source.y - x._2)
-          if (destination == checkMove) {
-            true
-          }
+        else if (board.getPiece(source).getSide() == "b" && Point(source.x - x._1, source.y - x._2) == destination) {
+          trueOrFalse = true
         }
       }
     }
-    false
+    trueOrFalse
   }
 
 /*  def movesAllowed(player: Player, board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
