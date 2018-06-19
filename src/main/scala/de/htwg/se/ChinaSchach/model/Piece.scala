@@ -28,11 +28,13 @@ trait Piece {
     var trueOrFalse = false
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
-        if (board.getPiece(source).getSide() == "w" && Point(source.x + x._1, source.y + x._2) == destination) {
-          trueOrFalse = true
-        }
-        else if (board.getPiece(source).getSide() == "b" && Point(source.x - x._1, source.y - x._2) == destination) {
-          trueOrFalse = true
+        for (y <- x) {
+          if (board.getPiece(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination) {
+            trueOrFalse = true
+          }
+          else if (board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
+            trueOrFalse = true
+          }
         }
       }
     }
