@@ -4,10 +4,20 @@ import scala.collection.mutable.ListBuffer
 
 case class Bishop(side: String) extends Piece {
   //Bishop moves
-  override def getPossibleMoves(): ListBuffer[(Int, Int)] = {
-    val possibleMoves: ListBuffer[(Int, Int)] = ListBuffer.empty
+  override def getPossibleMovesQBR(): List[ListBuffer[(Int, Int)]] = {
+    val possibleMoves1: ListBuffer[(Int, Int)] = ListBuffer.empty
     for (x <- 1 to 8)
-      possibleMoves.+=((-x, x), (x, x), (-x, -x), (x, -x))
+      possibleMoves1.+=((-x, x))
+    val possibleMoves2: ListBuffer[(Int, Int)] = ListBuffer.empty
+    for (x <- 1 to 8)
+      possibleMoves2.+=((x, x))
+    val possibleMoves3: ListBuffer[(Int, Int)] = ListBuffer.empty
+    for (x <- 1 to 8)
+      possibleMoves3.+=((-x, -x))
+    val possibleMoves4: ListBuffer[(Int, Int)] = ListBuffer.empty
+    for (x <- 1 to 8)
+      possibleMoves4.+=((x, -x))
+    val possibleMoves: List[ListBuffer[(Int, Int)]] = List(possibleMoves1, possibleMoves2, possibleMoves3, possibleMoves4)
     possibleMoves
   }
 }

@@ -8,6 +8,7 @@ trait Piece {
   //TODO: something
   def side: String
   def possibleMoves: ListBuffer[(Int, Int)] = ListBuffer.empty
+  def possibleMovesQBR: List[ListBuffer[(Int, Int)]] = List.empty
 //  def setSide(side: String) : Unit = this.side = side
 //
 //  def setPromotable(promotable: String) : Unit = this.promotable = promotable
@@ -15,6 +16,7 @@ trait Piece {
   def getSide() : String = side
 
   def getPossibleMoves() : ListBuffer[(Int, Int)] = possibleMoves
+  def getPossibleMovesQBR(): List[ListBuffer[(Int, Int)]] = possibleMovesQBR
 
   def checkValidPoss(poss: Point): Boolean = {
     var isValid: Boolean = false
