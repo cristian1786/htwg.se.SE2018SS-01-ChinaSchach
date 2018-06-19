@@ -24,7 +24,7 @@ trait Piece {
     isValid
   }
 
-  def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
+  def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: List[ListBuffer[(Int, Int)]]): Boolean = {
     var trueOrFalse = false
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {

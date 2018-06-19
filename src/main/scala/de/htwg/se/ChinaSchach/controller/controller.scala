@@ -54,7 +54,7 @@ class Controller(name1: String, name2: String) {
         message = "Empty field selected"
       case Some(x) =>
         if (!moveDone) {
-          savePiecePoint(point)
+          savePiecePoint(x, point)
         }
         else {
           val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
@@ -74,8 +74,8 @@ class Controller(name1: String, name2: String) {
     }*/
   }
 
-  def savePiecePoint(point: Point): Unit = {
-    sourcePiece = board.getPiece(point)
+  def savePiecePoint(piece: Piece, point: Point): Unit = {
+    sourcePiece = piece
     sourcePoint = point
     moveDone = true
     message = "Please select destination"
@@ -97,7 +97,7 @@ class Controller(name1: String, name2: String) {
   }
 
   def ifEnemy(source: Point, destination: Point): Unit = {
-    if (board.getPiece(source).getSide() != board.getPiece(destination).getSide() && board.getPiece(source).getSide() != "") {
+    if (board.getPiece(source).getSide() != "") {
       if (board.getPiece(source).getSide() == "w") {
         //listPlayer1 -= board.getPiece(destination)
         movePiece(source, destination)
@@ -106,6 +106,9 @@ class Controller(name1: String, name2: String) {
         //listPlayer2 -= board.getPiece(destination)
         movePiece(source, destination)
       }
+    }
+    else {
+      movePiece(source, destination)
     }
     //println("Moved!!!!")
     //movePiece(source, destination)
