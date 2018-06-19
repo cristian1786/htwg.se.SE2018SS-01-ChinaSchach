@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 case class Bishop(side: String) extends Piece {
   //Bishop moves
-  override def getPossibleMovesQBR(): List[ListBuffer[(Int, Int)]] = {
+  override def getPossibleMoves(): List[ListBuffer[(Int, Int)]] = {
     val possibleMoves1: ListBuffer[(Int, Int)] = ListBuffer.empty
     for (x <- 1 to 8)
       possibleMoves1.+=((-x, x))
