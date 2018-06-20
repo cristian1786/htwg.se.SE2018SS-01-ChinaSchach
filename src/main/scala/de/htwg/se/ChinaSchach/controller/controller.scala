@@ -14,8 +14,8 @@ class Controller(name1: String, name2: String) {
   val tui = new Tui(board)
   val player1 = new Player(name1)
   val player2 = new Player(name2)
-  var listPlayer1: ListBuffer[Piece] = _
-  var listPlayer2: ListBuffer[Piece] = _
+  var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
+  var listPlayer2: ListBuffer[Piece] = ListBuffer.empty
   var topKingDead = false
   var bottomKingDead = false
   var moveDone = false
@@ -40,8 +40,9 @@ class Controller(name1: String, name2: String) {
   //initialize player
   def playerInit(name1: String, name2: String) : Unit = {
 
-    listPlayer1 = player1.setPieces(board, "w")
-    listPlayer2 = player2.setPieces(board, "b")
+    listPlayer1.appendAll(player1.setPieces(board, "w"))
+    listPlayer2.appendAll(player2.setPieces(board, "b"))
+    println("listPlayer1" + listPlayer1)
 
     tui.outputPlayerFigures(listPlayer1)
     tui.outputPlayerFigures(listPlayer2)
@@ -97,13 +98,13 @@ class Controller(name1: String, name2: String) {
   }
 
   def ifEnemy(source: Point, destination: Point): Unit = {
-    if (board.getPiece(source).getSide() != "") {
+    if (board.getPiece(destination).getSide() != "") {
       if (board.getPiece(source).getSide() == "w") {
-        //listPlayer1 -= board.getPiece(destination)
+        player1.deletePiece(listPlayer1, board.getPiece(destination))
         movePiece(source, destination)
       }
       else {
-        //listPlayer2 -= board.getPiece(destination)
+        player2.deletePiece(listPlayer2, board.getPiece(destination))
         movePiece(source, destination)
       }
     }
@@ -124,7 +125,9 @@ class Controller(name1: String, name2: String) {
     board.gameBoard(destination._1)(destination._2) = board.getPiece(source)
   }*/
 
-  def gameWon() : Unit = {}
+  def gameWon() : Unit = {
+
+  }
 
   def reset(): Unit = {}
 
