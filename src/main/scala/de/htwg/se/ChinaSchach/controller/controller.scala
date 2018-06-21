@@ -52,7 +52,9 @@ class Controller(name1: String, name2: String) {
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
       case None =>
-        message = "Empty field selected"
+        message = "Nothing selected"
+      case Some(e: EmptyField) =>
+        message = e + "selected"
       case Some(x) =>
         if (!moveDone) {
           savePiecePoint(x, point)
