@@ -7,6 +7,9 @@ import scala.collection.mutable.ListBuffer
 
 class Player(name: String) {
 
+  var turn = false
+  var round = 0
+
   // Assigns figures to the player(s)
   def setPieces(board: Board, side: String) : ListBuffer[Piece] = {
     val listPlayer: ListBuffer[Piece]= ListBuffer.empty
@@ -32,5 +35,21 @@ class Player(name: String) {
 
     }
     //TODO: Exception
+  }
+
+  def setTurn(turn: Boolean) : Unit = {
+    this.turn = turn
+  }
+
+  def getTurn() : Boolean = {
+    turn
+  }
+
+  def setRound(turn: Boolean) : Unit = {
+    round += 1
+  }
+
+  def getRound() : Int = {
+    round
   }
 }
