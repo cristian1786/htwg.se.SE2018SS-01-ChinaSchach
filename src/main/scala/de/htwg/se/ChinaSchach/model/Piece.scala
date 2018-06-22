@@ -4,6 +4,8 @@ import scala.collection.mutable.ListBuffer
 import de.htwg.se.ChinaSchach.util.Point
 import javax.print.attribute.standard.Destination
 
+import scala.sys.process.ProcessBuilder.Source
+
 trait Piece {
 
   //TODO: something
@@ -30,17 +32,99 @@ trait Piece {
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
         for (y <- x) {
-          val tmpTuple: (Int, Int) = (source.x + y._1, source.y + y._2)
-          if (board.getPiece(source).getSide() == "w" && Point(tmpTuple._1, tmpTuple._2) == destination) {
+          if (board.getPiece(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination) {
+            val tmpTuple: (Int, Int) = (source.x + y._1, source.y + y._2)
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
-          else if (board.getPiece(source).getSide() == "b" && Point(tmpTuple._1, tmpTuple._2) == destination) {
+          else if (board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
+            val tmpTuple: (Int, Int) = (source.x - y._1, source.y - y._2)
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
         }
       }
     }
     trueOrFalse
+  }
+
+  def movesAllowedP(board: Board, source: Point, destination: Point, possibleMoves: List[ListBuffer[(Int, Int)]]): Boolean = {
+    var trueOrFalse = false
+    if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
+      if(board.getPiece(destination).getSide() != " ") {
+        for (x <- possibleMoves(2)) {
+          if (board.getPiece(source).getSide() == "w" && Point(source.x + x._1, source.y + x._2) == destination) {
+            trueOrFalse = true
+          }
+          else if (board.getPiece(source).getSide() == "b" && Point(source.x - x._1, source.y - x._2) == destination) {
+            trueOrFalse = true
+          }
+        }
+      }
+      else {
+        trueOrFalse = elsePawn(board, source, destination)
+      }
+    }
+    trueOrFalse
+  }
+
+  def elsePawn(board: Board, source: Point, destination: Point): Boolean = {
+    var bool = false
+    val rowTwo = List.range((0, 1), (0, 7))
+    val rowSix = List((0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6))
+    if(board.getPiece(source).getSide() == "w" && rowTwo.contains((source.x, source.y))) {
+      bool = repeatedIfDb(board, source, destination, "w" )
+    }
+    else if(board.getPiece(source).getSide() == "b" && rowSix.contains((source.x, source.y))) {
+      bool = repeatedIfDb(board, source, destination, "b" )
+    }
+    else if(board.getPiece(source).getSide() == "w" && !rowTwo.contains((source.x, source.y))) {
+      bool = repeatedIfSg(board, source, destination, "w")
+    }
+    else if(board.getPiece(source).getSide() == "b" && !rowSix.contains((source.x, source.y))) {
+      bool = repeatedIfSg(board, source, destination, "w")
+    }
+    bool
+  }
+
+  def repeatedIfDb(board: Board, source: Point, destination: Point, side: String): Boolean = {
+    var bool = false
+    if(side == "w") {
+      if (Point(source.x, source.y + 1) == destination || Point(source.x, source.y + 2) == destination) {
+        bool = true
+      }
+      else {
+        bool = false
+      }
+    }
+    else if(side == "b") {
+      if (Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination) {
+        bool = true
+      }
+      else {
+        bool = false
+      }
+    }
+    bool
+  }
+
+  def repeatedIfSg(board: Board, source: Point, destination: Point, side: String): Boolean = {
+    var bool = false
+    if(side == "w") {
+      if (Point(source.x, source.y + 1) == destination) {
+        bool = true
+      }
+      else {
+        bool = false
+      }
+    }
+    else if(side == "b") {
+      if (Point(source.x, source.y - 1) == destination) {
+        bool = true
+      }
+      else {
+        bool = false
+      }
+    }
+    bool
   }
 
   def caseQRB(board: Board, source: Point, destination: (Int, Int), possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
