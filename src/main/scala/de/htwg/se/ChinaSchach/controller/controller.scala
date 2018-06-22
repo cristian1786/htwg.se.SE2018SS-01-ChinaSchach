@@ -30,8 +30,8 @@ class Controller(name1: String, name2: String, board: Board) {
   //initializes playing board
   def boardInit() : Unit = {
     board.go()
-    getSelectedPoint(testPoint)
-    getSelectedPoint(testDest)
+//    getSelectedPoint(testPoint)
+//    getSelectedPoint(testDest)
     tui.outputField()
     playerInit("Peter", "Hannes")
 
