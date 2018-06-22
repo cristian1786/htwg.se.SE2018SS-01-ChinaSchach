@@ -3,6 +3,7 @@ package de.htwg.se.ChinaSchach.controller
 import de.htwg.se.ChinaSchach.aview.Tui
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
+import javax.print.attribute.standard.Destination
 
 import scala.collection.mutable.ListBuffer
 
@@ -53,18 +54,19 @@ class Controller(name1: String, name2: String) {
     board.gameBoard.get(point) match {
       case None =>
         message = "Nothing selected"
-      case Some(e: EmptyField) =>
-        message = e + "selected"
       case Some(x) =>
-        if (!moveDone) {
+        if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)
         }
-        else {
+        else if(moveDone){
           val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-          println(justIf)
+          println("*********************" + justIf)
           if (justIf) {
             ifEnemy(sourcePoint, point)
           }
+        }
+        else {
+          message = "Empty Field selected"
         }
     }
    /* val testPoint = board.gameBoard.get(point)
@@ -127,8 +129,13 @@ class Controller(name1: String, name2: String) {
     board.gameBoard(destination._1)(destination._2) = board.getPiece(source)
   }*/
 
-  def gameWon() : Unit = {
-
+  def gameWon(destination: Point) : Unit = {
+    if(board.getPiece(destination).toString == "King(w)") {
+      bottomKingDead = true
+    }
+    else if(board.getPiece(destination).toString == "King(b)"){
+      topKingDead = true
+    }
   }
 
   def reset(): Unit = {}

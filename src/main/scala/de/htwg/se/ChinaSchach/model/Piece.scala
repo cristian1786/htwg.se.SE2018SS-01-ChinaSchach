@@ -30,11 +30,11 @@ trait Piece {
     if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
       for (x <- possibleMoves) {
         for (y <- x) {
-          val tmpTuple: (Int, Int) = (y._1, y._2)
-          if (board.getPiece(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination) {
+          val tmpTuple: (Int, Int) = (source.x + y._1, source.y + y._2)
+          if (board.getPiece(source).getSide() == "w" && Point(tmpTuple._1, tmpTuple._2) == destination) {
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
-          else if (board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
+          else if (board.getPiece(source).getSide() == "b" && Point(tmpTuple._1, tmpTuple._2) == destination) {
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
         }
@@ -54,7 +54,6 @@ trait Piece {
           false
         }
       }
-
     }
     true
   }
