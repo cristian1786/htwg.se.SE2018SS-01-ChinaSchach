@@ -65,7 +65,7 @@ trait Piece {
 
   def elsePawn(board: Board, source: Point, destination: Point): Boolean = {
     var bool = false
-    val rowTwo = List.range((0, 1), (0, 7))
+    val rowTwo = List((0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7))
     val rowSix = List((0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6))
     if(board.getPiece(source).getSide() == "w" && rowTwo.contains((source.x, source.y))) {
       bool = repeatedIfDb(board, source, destination, "w" )

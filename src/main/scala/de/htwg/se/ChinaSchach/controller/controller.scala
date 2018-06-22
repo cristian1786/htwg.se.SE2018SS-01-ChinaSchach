@@ -58,7 +58,12 @@ class Controller(name1: String, name2: String, board: Board) {
           savePiecePoint(x, point)
         }
         else if (moveDone) {
-          val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+          val justIf = {
+            if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+              sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+            }
+            sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+          }
           println("*********************" + justIf)
           if (justIf) {
             ifEnemy(sourcePoint, point)
