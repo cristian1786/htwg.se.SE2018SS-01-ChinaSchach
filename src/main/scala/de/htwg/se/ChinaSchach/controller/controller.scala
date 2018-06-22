@@ -138,7 +138,9 @@ class Controller(name1: String, name2: String, board: Board) {
     }
   }
 
-  def reset(): Unit = {}
+  def reset(): Unit = {
+    boardInit()
+  }
 
   def exit(): Unit = {}
 

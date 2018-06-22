@@ -2,9 +2,6 @@ package de.htwg.se.ChinaSchach.model
 
 import scala.collection.mutable.ListBuffer
 import de.htwg.se.ChinaSchach.util.Point
-import javax.print.attribute.standard.Destination
-
-import scala.sys.process.ProcessBuilder.Source
 
 trait Piece {
 
