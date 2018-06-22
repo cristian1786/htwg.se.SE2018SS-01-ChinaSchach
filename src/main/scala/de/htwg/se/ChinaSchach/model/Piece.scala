@@ -77,7 +77,7 @@ trait Piece {
       bool = repeatedIfSg(board, source, destination, "w")
     }
     else if(board.getPiece(source).getSide() == "b" && !rowSix.contains((source.x, source.y))) {
-      bool = repeatedIfSg(board, source, destination, "w")
+      bool = repeatedIfSg(board, source, destination, "b")
     }
     bool
   }
