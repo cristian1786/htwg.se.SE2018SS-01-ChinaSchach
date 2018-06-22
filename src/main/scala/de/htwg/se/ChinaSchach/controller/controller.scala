@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
-import de.htwg.se.ChinaSchach.aview.Tui
+import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
 import javax.print.attribute.standard.Destination
@@ -9,9 +9,8 @@ import scala.collection.mutable.ListBuffer
 
 
 //TODO: implement Controller
-class Controller(name1: String, name2: String) {
+class Controller(name1: String, name2: String, board: Board) {
 
-  var board = new Board
   val tui = new Tui(board)
   val player1 = new Player(name1)
   val player2 = new Player(name2)
@@ -58,7 +57,7 @@ class Controller(name1: String, name2: String) {
         if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)
         }
-        else if(moveDone){
+        else if (moveDone) {
           val justIf = sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
           println("*********************" + justIf)
           if (justIf) {
@@ -69,7 +68,7 @@ class Controller(name1: String, name2: String) {
           message = "Empty Field selected"
         }
     }
-   /* val testPoint = board.gameBoard.get(point)
+    /* val testPoint = board.gameBoard.get(point)
     testPoint match {
       case None =>
         selectedWhat = "Empty Field selected"
@@ -78,6 +77,7 @@ class Controller(name1: String, name2: String) {
         movePiece()
     }*/
   }
+
 
   def savePiecePoint(piece: Piece, point: Point): Unit = {
     sourcePiece = piece
