@@ -44,13 +44,14 @@ trait Piece {
   }
 
   def caseQRB(board: Board, source: Point, destination: (Int, Int), possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
-    if (board.getPiece(source).toString == "Queen" || board.getPiece(source).toString == "Rook" || board.getPiece(source).toString == "Bishop") {
+    if (board.getPiece(source).toString == "Queen(w)" || board.getPiece(source).toString == "Rook(w)" || board.getPiece(source).toString == "Bishop(w)"
+     || board.getPiece(source).toString == "Queen(b)" || board.getPiece(source).toString == "Rook(b)" || board.getPiece(source).toString == "Bishop(b)") {
       val listToCheck: ListBuffer[(Int, Int)] = {
         val idx = possibleMoves.indexOf(destination)
         possibleMoves.take(idx - 1)
       }
       for(z <- listToCheck) {
-        if (board.getPiece(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField") {
+        if (board.getPiece(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
           false
         }
       }
