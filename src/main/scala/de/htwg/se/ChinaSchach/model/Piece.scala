@@ -56,7 +56,7 @@ trait Piece {
           }
         }
       }
-      else {
+      else if(board.getPiece(destination).getSide() == " ") {
         trueOrFalse = elsePawn(board, source, destination)
       }
     }
@@ -88,16 +88,10 @@ trait Piece {
       if (Point(source.x, source.y + 1) == destination || Point(source.x, source.y + 2) == destination) {
         bool = true
       }
-      else {
-        bool = false
-      }
     }
     else if(side == "b") {
       if (Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination) {
         bool = true
-      }
-      else {
-        bool = false
       }
     }
     bool

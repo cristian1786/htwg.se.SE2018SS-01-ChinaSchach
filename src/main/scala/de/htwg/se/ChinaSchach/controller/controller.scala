@@ -62,7 +62,9 @@ class Controller(name1: String, name2: String, board: Board) {
             if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
               sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
-            sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+            else {
+              sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+            }
           }
           println("*********************" + justIf)
           if (justIf) {
