@@ -26,7 +26,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
 
   initializeButtons()
-
   buttonActionListener()
   drawBoard()
 
@@ -55,27 +54,19 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   // TODO: implement piece graphics
   def setGameBoardImages(): Unit = {
-
-//    fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png"))
-
     for {
       x <- 0 until row
       y <- 0 until col
     }
-      //println("Here you go: " + board.gameBoard.get(Point(x, y)))
     board.gameBoard.get(Point(x, y)) match {
       case Some(_: EmptyField) =>
         fieldButtons(x)(y).icon = null
       case Some(piece) =>
         fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
-//        println("test = " + piece.toString)
       case None =>
-//        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
         println("test2")
     }
-
   }
-
 
 //  def setGameBoardImagesUpdate() = {
 //    for {
@@ -98,7 +89,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     round = counter / 2
   }
 
-  // TODO: define buttonclick reaction
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
   def buttonActionListener() : Unit = {
@@ -111,31 +101,16 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
-
         counter += 1
-
-
         if (counter%2 == 0) {
           setGameBoardImages()
           setRound()
           labelRound.text = "Round: " + round
         }
-
-//        controller.getSelectedPoint(fieldButtons(x)(y).getPoint())
-//        println(fieldButtons(x)(y).getPoint())
-//        println(board.gameBoard.get(Point(x, y)))
-//        if (counter%2 == 0) {
-//          round += 1
-//          fieldButtons(x_old)(y_old).icon = new ImageIcon(this.getClass.getResource("resources/" + board.gameBoard.get(Point(x_old, y_old)).toString + ".png"))
-//          fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + board.gameBoard.get(Point(x, y)).toString + ".png"))
-//        }
-
     }
   }
 
-  // TODO: draw board
   def drawBoard(): Unit = {
-
     contents = new FlowPanel {
       contents += new GridPanel(row, col) {
         preferredSize = new Dimension(626,626)
@@ -145,16 +120,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         }
         contents += fieldButtons(x)(y)
         setGameBoardImages()
-
       }
       contents += labelRound
       contents += Button("Restart Game") { restartGame() }
       contents += Button("Quit") { sys.exit(0) }
-
     }
   }
 
-  // TODO: establish function to make a restart possible
   def restartGame(): Unit = {
     controller.reset()
     setGameBoardImages()
@@ -162,6 +134,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     round = 0
   }
 
+  // momentarily redudant
   def updateGameBoard() = {
 
   }
