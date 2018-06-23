@@ -53,8 +53,8 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard.get(point) match {
       case None =>
         message = "Nothing selected"
-      case _: EmptyField =>
-        message = "Empty Field selected"
+//      case _: EmptyField =>
+//        message = "Empty Field selected"
       case Some(x) =>
         if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)
@@ -67,6 +67,9 @@ class Controller(name1: String, name2: String, board: Board) {
             else {
               sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
+          }
+          if (justIf == false) {
+            moveDone = false
           }
           println("*********************" + justIf)
           if (justIf) {

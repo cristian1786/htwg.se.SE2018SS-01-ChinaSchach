@@ -13,9 +13,9 @@ import scala.swing.event.ButtonClicked
 // TODO: implement GUI
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
+  val labelRound = new Label("Round: 0")
   title = "Schach"
   preferredSize = new Dimension(800, 800)
-  val rounds = new Label("Round: 0")
 
   val row = 8
   val col = 8
@@ -77,21 +77,25 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
 
-  def setGameBoardImagesUpdate() = {
-    for {
-      x <- 0 until row
-      y <- 0 until col
-    }
-    board.gameBoard.get(Point(x, y)) match {
-      case Some(_: EmptyField) =>
-        fieldButtons(x)(y).icon = null
-      case Some(piece) =>
-        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
-        println("test = " + piece.toString)
-      case None =>
-          //        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
-          println("test2")
-      }
+//  def setGameBoardImagesUpdate() = {
+//    for {
+//      x <- 0 until row
+//      y <- 0 until col
+//    }
+//    board.gameBoard.get(Point(x, y)) match {
+//      case Some(_: EmptyField) =>
+//        fieldButtons(x)(y).icon = null
+//      case Some(piece) =>
+//        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
+//        println("test = " + piece.toString)
+//      case None =>
+//          //        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
+//          println("test2")
+//      }
+//  }
+
+  def setRound() = {
+    round = counter / 2
   }
 
   // TODO: define buttonclick reaction
@@ -107,9 +111,14 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
+
         counter += 1
+
+
         if (counter%2 == 0) {
           setGameBoardImages()
+          setRound()
+          labelRound.text = "Round: " + round
         }
 
 //        controller.getSelectedPoint(fieldButtons(x)(y).getPoint())
@@ -138,8 +147,10 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         setGameBoardImages()
 
       }
-      contents += new Label("test")
+      contents += labelRound
       contents += Button("Restart Game") { restartGame() }
+      contents += Button("Quit") { sys.exit(0) }
+
     }
   }
 
