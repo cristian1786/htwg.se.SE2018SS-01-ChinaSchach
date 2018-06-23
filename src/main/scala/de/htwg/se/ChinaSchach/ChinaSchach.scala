@@ -9,9 +9,9 @@ object ChinaSchach {
   def main(args: Array[String]): Unit = {
     val board = new Board
     val controller = new Controller("Peter", "Hans", board)
-    val gui = new Gui(controller, board)
 //    val tui = new Tui(board)
     controller.boardInit()
+    val gui = new Gui(controller, board)
     gui.visible = true
   }
 }

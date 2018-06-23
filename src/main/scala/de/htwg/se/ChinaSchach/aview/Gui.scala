@@ -57,9 +57,10 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png"))
 
     for {
-      x <- 0 to row-1
-      y <- 0 to col-1
+      x <- 0 until row
+      y <- 0 until col
     }
+      //println("Here you go: " + board.gameBoard.get(Point(x, y)))
     board.gameBoard.get(Point(x, y)) match {
       case Some(piece) =>
         fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
