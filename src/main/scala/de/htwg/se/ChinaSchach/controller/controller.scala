@@ -53,6 +53,8 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard.get(point) match {
       case None =>
         message = "Nothing selected"
+      case _: EmptyField =>
+        message = "Empty Field selected"
       case Some(x) =>
         if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)

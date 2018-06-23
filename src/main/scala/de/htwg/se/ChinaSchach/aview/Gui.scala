@@ -68,7 +68,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         fieldButtons(x)(y).icon = null
       case Some(piece) =>
         fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
-        println("test = " + piece.toString)
+//        println("test = " + piece.toString)
       case None =>
 //        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
         println("test2")
