@@ -16,11 +16,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   title = "Schach"
   preferredSize = new Dimension(800, 800)
   val rounds = new Label("Round: 0")
-  var counter = 0
 
   val row = 8
   val col = 8
   var fieldButtons = Array.ofDim[FieldButton](row, col)
+
+  var round = 0
+  var counter = 0
 
 
   initializeButtons()
@@ -54,7 +56,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   // TODO: implement piece graphics
   def setGameBoardImages(): Unit = {
 
-    fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png"))
+//    fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png"))
 
     for {
       x <- 0 until row
@@ -62,21 +64,42 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
       //println("Here you go: " + board.gameBoard.get(Point(x, y)))
     board.gameBoard.get(Point(x, y)) match {
+      case Some(_: EmptyField) =>
+        fieldButtons(x)(y).icon = null
       case Some(piece) =>
-        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
-        println("test1")
+        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
+        println("test = " + piece.toString)
       case None =>
-        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
+//        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
         println("test2")
     }
 
   }
 
 
+  def setGameBoardImagesUpdate() = {
+    for {
+      x <- 0 until row
+      y <- 0 until col
+    }
+    board.gameBoard.get(Point(x, y)) match {
+      case Some(_: EmptyField) =>
+        fieldButtons(x)(y).icon = null
+      case Some(piece) =>
+        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
+        println("test = " + piece.toString)
+      case None =>
+          //        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
+          println("test2")
+      }
+  }
+
   // TODO: define buttonclick reaction
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
   def buttonActionListener() : Unit = {
+    var x_old = 0
+    var y_old = 0
     for {
       x <- 0 to row-1
       y <- 0 to col-1
@@ -84,9 +107,19 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
+        counter += 1
+        if (counter%2 == 0) {
+          setGameBoardImages()
+        }
+
 //        controller.getSelectedPoint(fieldButtons(x)(y).getPoint())
-        println(fieldButtons(x)(y).getPoint())
-        println(board.gameBoard.get(Point(x, y)))
+//        println(fieldButtons(x)(y).getPoint())
+//        println(board.gameBoard.get(Point(x, y)))
+//        if (counter%2 == 0) {
+//          round += 1
+//          fieldButtons(x_old)(y_old).icon = new ImageIcon(this.getClass.getResource("resources/" + board.gameBoard.get(Point(x_old, y_old)).toString + ".png"))
+//          fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + board.gameBoard.get(Point(x, y)).toString + ".png"))
+//        }
 
     }
   }
@@ -113,7 +146,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   // TODO: establish function to make a restart possible
   def restartGame(): Unit = {
     controller.reset()
+    setGameBoardImages()
+    counter = 0
+    round = 0
   }
 
+  def updateGameBoard() = {
+
+  }
 
 }
