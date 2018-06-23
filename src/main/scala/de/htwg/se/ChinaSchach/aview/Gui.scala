@@ -44,42 +44,32 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       for (x <- 0 to row-1) {
         if ((x + y) % 2 != 0) {
           fieldButtons(x)(y).background = java.awt.Color.BLACK
+        } else {
+          fieldButtons(x)(y).background = java.awt.Color.WHITE
         }
       }
     }
   }
 
   // TODO: implement piece graphics
-//  def setGameBoardImages(): Unit = {
-//    for {
-//      x <- 0 to row-1
-//      y <- 0 to col-1
-//    }
-//    board.gameBoard.get(Point(x, y)) match {
-//      case None =>
-//
-//      case Some(piece) =>
-//        if(piece.getSide() == " ") {
-//
-//        } else if (piece.getSide() == "b") {
-//          println("****************************************")
-//          println(piece.toString)
-//          println("****************************************")
-//        }
-//        val iconName = new ImageIcon(this.getClass.getResource("resources/" + piece.toString() + ".png")).getImage
-//        fieldButtons(x)(y).icon = new ImageIcon(iconName)
-//        println("****************************************")
-//        println(piece.toString)
-//        println("****************************************")
-        //    if (board.getPiece(Point(x, y)) == Pawn && board.getPiece(Point(x, y)).getSide() == 'b') {
-        //      val iconName = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png")).getImage
-        //      fieldButtons(x)(y).icon = new ImageIcon(iconName)
-        //    } else {
-        //      val iconName = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png")).getImage
-        //      fieldButtons(x)(y).icon = new ImageIcon(iconName)
-        //    }
-//    }
-//  }
+  def setGameBoardImages(): Unit = {
+
+    fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(b).png"))
+
+    for {
+      x <- 0 to row-1
+      y <- 0 to col-1
+    }
+    board.gameBoard.get(Point(x, y)) match {
+      case Some(piece) =>
+        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
+        println("test1")
+      case None =>
+        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
+        println("test2")
+    }
+
+  }
 
 
   // TODO: define buttonclick reaction
@@ -111,7 +101,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
           y <- 0 to col-1
         }
         contents += fieldButtons(x)(y)
-//        setGameBoardImages()
+        setGameBoardImages()
 
       }
       contents += new Label("test")
