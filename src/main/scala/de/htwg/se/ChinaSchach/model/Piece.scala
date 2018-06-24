@@ -30,17 +30,36 @@ trait Piece {
       for (x <- possibleMoves) {
         for (y <- x) {
           if (board.getPiece(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination) {
-            val tmpTuple: (Int, Int) = (source.x + y._1, source.y + y._2)
+            val tmpTuple: (Int, Int) = (y._1, y._2)
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
           else if (board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
-            val tmpTuple: (Int, Int) = (source.x - y._1, source.y - y._2)
+            val tmpTuple: (Int, Int) = (y._1, y._2)
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
         }
       }
     }
     trueOrFalse
+  }
+
+  def caseQRB(board: Board, source: Point, move: (Int, Int), possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
+    var bool = true
+    if (board.getPiece(source).toString == "Queen(w)" || board.getPiece(source).toString == "Rook(w)" || board.getPiece(source).toString == "Bishop(w)"
+      || board.getPiece(source).toString == "Queen(b)" || board.getPiece(source).toString == "Rook(b)" || board.getPiece(source).toString == "Bishop(b)") {
+      val listToCheck: ListBuffer[(Int, Int)] = {
+        val idx = possibleMoves.indexOf(move)
+        possibleMoves.take(idx)
+      }
+      println("Here List" + listToCheck)
+      for(z <- listToCheck) {
+        if (board.getPiece(source).getSide() == "w" && board.getPiece(Point(source.x + z._1, source.y + z._2)).toString != "EmptyField( )"
+        || board.getPiece(source).getSide() == "b" && board.getPiece(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
+          bool = false
+        }
+      }
+    }
+    bool
   }
 
   def movesAllowedP(board: Board, source: Point, destination: Point, possibleMoves: List[ListBuffer[(Int, Int)]]): Boolean = {
@@ -116,22 +135,6 @@ trait Piece {
       }
     }
     bool
-  }
-
-  def caseQRB(board: Board, source: Point, destination: (Int, Int), possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
-    if (board.getPiece(source).toString == "Queen(w)" || board.getPiece(source).toString == "Rook(w)" || board.getPiece(source).toString == "Bishop(w)"
-     || board.getPiece(source).toString == "Queen(b)" || board.getPiece(source).toString == "Rook(b)" || board.getPiece(source).toString == "Bishop(b)") {
-      val listToCheck: ListBuffer[(Int, Int)] = {
-        val idx = possibleMoves.indexOf(destination)
-        possibleMoves.take(idx - 1)
-      }
-      for(z <- listToCheck) {
-        if (board.getPiece(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
-          false
-        }
-      }
-    }
-    true
   }
 
   /*  def movesAllowed(player: Player, board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
