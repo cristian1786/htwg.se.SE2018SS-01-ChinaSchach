@@ -141,12 +141,12 @@ trait Piece {
   def testRochade(board: Board, piecePoint: Point, point: Point): Boolean = {
     var bool = false
     val rowOne = ((1, 0), (2,0), (3, 0), (4,0), (5, 0), (6,0), (7, 0))
-    if((board.getPiece(piecePoint).getSide() == board.getPiece(point).getSide() && board.getPiece(piecePoint).toString.contains("King") &&
+    if((board.getPiece(piecePoint).toString.contains("King") &&
       board.getPiece(point).toString.contains("Rook") && piecePoint == Point(3, 0) || piecePoint == Point(3, 7) && point == Point(0, 0)
-      || point == Point(7, 0) || point == Point(0, 7) || point == Point(7, 7)) || (board.getPiece(piecePoint).getSide() == board.getPiece(point).getSide()
-      && board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King") &&
+      || point == Point(7, 0) || point == Point(0, 7) || point == Point(7, 7)) || (board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King") &&
       piecePoint == Point(0, 0) || piecePoint == Point(7, 0) || piecePoint == Point(0, 7) || piecePoint == Point(7, 7) && point == Point(3, 0) || point == Point(3, 7))) {
       println("BooooooooYAAAAAAA MOFO!!!!!!")
+      
     }
     bool
   }
