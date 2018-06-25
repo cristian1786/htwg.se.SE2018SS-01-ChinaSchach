@@ -10,12 +10,10 @@ import scala.swing._
 import scala.swing.event.ButtonClicked
 
 
-// TODO: implement GUI
+// TODO: highlight playerlabel of the currently active player.
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
-  val labelRound = new Label("Round: 0") {
-    background = java.awt.Color.YELLOW
-  }
+  val labelRound = new Label("Round: 0")
   val player1Label = new Label("  player 1  ")
   val player2Label = new Label("  player 2  ")
 
@@ -47,7 +45,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       fieldButtons(5)(y) = new FieldButton(Point(5, y))
       fieldButtons(6)(y) = new FieldButton(Point(6, y))
       fieldButtons(7)(y) = new FieldButton(Point(7, y))
-      // blacken Fields/Buttons to mimic chess board
+      // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
         if ((x + y) % 2 != 0) {
           fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
@@ -58,7 +56,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
   }
 
-  // TODO: implement piece graphics
+  // sets Piece icons on each tile containing a piece
   def setGameBoardImages(): Unit = {
     for {
       x <- 0 until row
@@ -80,12 +78,11 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         } catch {
           case e: NullPointerException => println("Could not find resource!", e)
         }
-
       case None =>
-        println("test2")
     }
   }
 
+  // game won dialog to choose if the players want to restart or quit the game
   def gameWonDialog(str: String) : Unit = {
     val res = Dialog.showConfirmation(contents.last, str + " Do you want to quit? (No restarts the game)", optionType = Dialog.Options.YesNo, title = "Game over!")
     if (res == Dialog.Result.Yes) {
@@ -93,14 +90,11 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     } else if (res == Dialog.Result.No) {
       restartGame()
     }
-
   }
 
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
   def buttonActionListener() : Unit = {
-//    var x_old = 0
-//    var y_old = 0
     for {
       x <- 0 until row
       y <- 0 until col
@@ -123,16 +117,16 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
           labelRound.text = "Round: " + controller.round
           counter = 0
           if (controller.bottomKingDead) {
-            println("Player 2 won")
             gameWonDialog("Player 2 won!")
           } else if (controller.topKingDead) {
-            println("Player 1 won")
             gameWonDialog("Player 1 won!")
           }
         }
     }
   }
 
+  // function draws the chessboard GUI
+  // establishes all the contents of the GUI
   def drawBoard(): Unit = {
     contents = new BorderPanel {
       add(player1Label, BorderPanel.Position.West)
@@ -149,19 +143,20 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") { restartGame() }
-
-        def exitGame(): Unit = {
-          val res = Dialog.showConfirmation(contents.last, " Do you want to quit?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) {
-            controller.exit()
-          }
-        }
-
         contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
     }
   }
 
+  // exit game dialog helper function
+  def exitGame(): Unit = {
+    val res = Dialog.showConfirmation(contents.last, " Do you want to quit?", optionType = Dialog.Options.YesNo)
+    if (res == Dialog.Result.Yes) {
+      controller.exit()
+    }
+  }
+
+  // restart game dialog helper function
   def restartGame(): Unit = {
     val res = Dialog.showConfirmation(contents.last, " Do you want to Restart?", optionType = Dialog.Options.YesNo)
     if (res == Dialog.Result.Yes) {
@@ -171,9 +166,5 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       controller.setRound()
       labelRound.text = "Round: " + controller.round
     }
-  }
-
-  // momentarily redudant
-  def updateGameBoard() = {
   }
 }
