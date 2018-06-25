@@ -149,17 +149,28 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") { restartGame() }
-        contents += Button("Quit") { controller.exit() }
+
+        def exitGame(): Unit = {
+          val res = Dialog.showConfirmation(contents.last, " Do you want to quit?", optionType = Dialog.Options.YesNo)
+          if (res == Dialog.Result.Yes) {
+            controller.exit()
+          }
+        }
+
+        contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
     }
   }
 
   def restartGame(): Unit = {
-    controller.reset()
-    setGameBoardImages()
-    counter = 0
-    controller.setRound()
-    labelRound.text = "Round: " + controller.round
+    val res = Dialog.showConfirmation(contents.last, " Do you want to Restart?", optionType = Dialog.Options.YesNo)
+    if (res == Dialog.Result.Yes) {
+      controller.reset()
+      setGameBoardImages()
+      counter = 0
+      controller.setRound()
+      labelRound.text = "Round: " + controller.round
+    }
   }
 
   // momentarily redudant
