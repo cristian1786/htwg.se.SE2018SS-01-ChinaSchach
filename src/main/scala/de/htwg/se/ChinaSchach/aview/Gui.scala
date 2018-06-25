@@ -87,7 +87,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
   def gameWonDialog(str: String) : Unit = {
-    Dialog.showMessage(contents.last, str, title="Game over!")
+    val res = Dialog.showConfirmation(contents.last, str + " Do you want to quit? (No restarts the game)", optionType = Dialog.Options.YesNo, title = "Game over!")
+    if (res == Dialog.Result.Yes) {
+      sys.exit(0)
+    } else if (res == Dialog.Result.No) {
+      restartGame()
+    }
+
   }
 
   // implements buttonclick action for each of the fields on the board
