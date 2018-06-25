@@ -24,6 +24,7 @@ class Controller(name1: String, name2: String, board: Board) {
   var gameOver = false
   var sourcePiece: Piece = _
   var sourcePoint: Point = _
+  var round = 0
   var testPoint = Point(0, 1)
   var testDest = Point(0, 2)
 
@@ -136,6 +137,7 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
     gameWon(destination)
+    round += 1
   }
 
 /*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {
@@ -157,6 +159,10 @@ class Controller(name1: String, name2: String, board: Board) {
 
   def exit(): Unit = {
     sys.exit(0)
+  }
+
+  def setRound() : Unit = {
+    round = 0
   }
 
   def notifyView(): Unit = {}

@@ -16,6 +16,9 @@ import scala.swing.event.ButtonClicked
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
   val labelRound = new Label("Round: 0")
+  val player1Label = new Label("Player 1")
+  val player2Label = new Label("Player 2")
+
   title = "Schach"
   preferredSize = new Dimension(800, 800)
 
@@ -23,7 +26,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   val col = 8
   var fieldButtons = Array.ofDim[FieldButton](row, col)
 
-  var round = 0
+//  var round = 0
   var counter = 0
 
 
@@ -75,9 +78,9 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
   }
 
-  def setRound() = {
-    round = counter / 2
-  }
+//  def setRound() = {
+//    round = counter / 2
+//  }
 
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
@@ -91,30 +94,39 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
-        counter += 1
+//        counter += 1
 
         if (counter%2 == 0) {
           setGameBoardImages()
-          setRound()
-          labelRound.text = "Round: " + round
+//          setRound()
+          labelRound.text = "Round: " + controller.round
         }
     }
   }
 
   def drawBoard(): Unit = {
-    contents = new FlowPanel {
-      contents += new GridPanel(row, col) {
+    contents = new BorderPanel {
+      add(player1Label, BorderPanel.Position.West)
+      add(player2Label, BorderPanel.Position.East)
+
+      add(new GridPanel(row, col) {
         preferredSize = new Dimension(626,626)
         for {
           x <- 0 until row
           y <- 0 until col
         }
-        contents += fieldButtons(x)(y)
+          contents += fieldButtons(x)(y)
         setGameBoardImages()
-      }
-      contents += labelRound
-      contents += Button("Restart Game") { restartGame() }
-      contents += Button("Quit") { controller.exit() }
+      }, BorderPanel.Position.Center)
+
+      add(labelRound, BorderPanel.Position.North)
+
+      add(new GridPanel(1, 2) {
+        contents += Button("Restart Game") { restartGame() }
+        contents += Button("Quit") { controller.exit() }
+      }, BorderPanel.Position.South)
+
+
     }
   }
 
@@ -122,8 +134,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     controller.reset()
     setGameBoardImages()
     counter = 0
-    round = 0
-    labelRound.text = "Round: " + round
+    controller.setRound()
+    labelRound.text = "Round: " + controller.round
   }
 
   // momentarily redudant
