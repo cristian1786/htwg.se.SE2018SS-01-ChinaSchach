@@ -68,7 +68,7 @@ class Controller(name1: String, name2: String, board: Board) {
               sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
           }
-          if (justIf == false) {
+          if (!justIf) {
             moveDone = false
           }
           println("*********************" + justIf)
@@ -135,6 +135,7 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard += destination -> board.getPiece(source)
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
+    gameWon(destination)
   }
 
 /*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {

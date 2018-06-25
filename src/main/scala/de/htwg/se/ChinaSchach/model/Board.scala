@@ -61,12 +61,12 @@ class Board() {
 
   //place King
   def placeKing(y: Int, side: String): Unit = {
-    gameBoard += Point(MAX_NUMBER - 4, y) -> King(side)
+    gameBoard += Point(MAX_NUMBER - 5, y) -> King(side)
   }
 
   //place Queen
   def placeQueen(y: Int, side: String): Unit = {
-    gameBoard += Point(MAX_NUMBER - 5, y) -> Queen(side)
+    gameBoard += Point(MAX_NUMBER - 4, y) -> Queen(side)
   }
 
   //place Knight

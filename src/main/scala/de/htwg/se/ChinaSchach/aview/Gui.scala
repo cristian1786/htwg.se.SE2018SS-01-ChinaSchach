@@ -102,6 +102,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
         counter += 1
+
         if (counter%2 == 0) {
           setGameBoardImages()
           setRound()
@@ -115,8 +116,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       contents += new GridPanel(row, col) {
         preferredSize = new Dimension(626,626)
         for {
-          x <- 0 to row-1
-          y <- 0 to col-1
+          x <- 0 until row
+          y <- 0 until col
         }
         contents += fieldButtons(x)(y)
         setGameBoardImages()
@@ -132,6 +133,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     setGameBoardImages()
     counter = 0
     round = 0
+    labelRound.text = "Round: " + round
   }
 
   // momentarily redudant
