@@ -101,12 +101,21 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-        controller.getSelectedPoint(Point(x, y))
-//        counter += 1
-        if (counter%2 == 0) {
+        if (controller.round%2 != 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "b") {
+          controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
-//          setRound()
           labelRound.text = "Round: " + controller.round
+          counter += 1
+        } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
+          controller.getSelectedPoint(Point(x, y))
+          setGameBoardImages()
+          labelRound.text = "Round: " + controller.round
+          counter += 1
+        } else if(counter%2 != 0) {
+          controller.getSelectedPoint(Point(x, y))
+          setGameBoardImages()
+          labelRound.text = "Round: " + controller.round
+          counter = 0
         }
     }
   }
@@ -129,8 +138,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         contents += Button("Restart Game") { restartGame() }
         contents += Button("Quit") { controller.exit() }
       }, BorderPanel.Position.South)
-
-
     }
   }
 
@@ -145,5 +152,4 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   // momentarily redudant
   def updateGameBoard() = {
   }
-
 }
