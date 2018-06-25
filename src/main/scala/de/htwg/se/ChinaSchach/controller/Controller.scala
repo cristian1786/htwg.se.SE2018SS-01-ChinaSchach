@@ -63,6 +63,9 @@ class Controller(name1: String, name2: String, board: Board) {
             if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
               sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
+            else if(sourcePiece.getSide() == board.getPiece(point).getSide()) {
+              sourcePiece.testRochade(board, sourcePoint, point)
+            }
             else {
               sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
