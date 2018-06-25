@@ -1,5 +1,7 @@
 package de.htwg.se.ChinaSchach.aview
 
+import java.io.IOException
+
 import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
@@ -44,9 +46,9 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       // blacken Fields/Buttons to mimick chess board
       for (x <- 0 to row-1) {
         if ((x + y) % 2 != 0) {
-          fieldButtons(x)(y).background = java.awt.Color.BLACK
+          fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         } else {
-          fieldButtons(x)(y).background = java.awt.Color.WHITE
+          fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
         }
       }
     }
@@ -60,30 +62,18 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
     board.gameBoard.get(Point(x, y)) match {
       case Some(_: EmptyField) =>
-        fieldButtons(x)(y).icon = null
+        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
       case Some(piece) =>
-        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
+        try {
+          fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
+        } catch {
+          case e: IOException => println("Could not find resource!")
+        }
+
       case None =>
         println("test2")
     }
   }
-
-//  def setGameBoardImagesUpdate() = {
-//    for {
-//      x <- 0 until row
-//      y <- 0 until col
-//    }
-//    board.gameBoard.get(Point(x, y)) match {
-//      case Some(_: EmptyField) =>
-//        fieldButtons(x)(y).icon = null
-//      case Some(piece) =>
-//        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
-//        println("test = " + piece.toString)
-//      case None =>
-//          //        fieldButtons(0)(1).icon = new ImageIcon(this.getClass.getResource("resources/Pawn(w).png"))
-//          println("test2")
-//      }
-//  }
 
   def setRound() = {
     round = counter / 2
@@ -124,7 +114,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       }
       contents += labelRound
       contents += Button("Restart Game") { restartGame() }
-      contents += Button("Quit") { sys.exit(0) }
+      contents += Button("Quit") { controller.exit() }
     }
   }
 

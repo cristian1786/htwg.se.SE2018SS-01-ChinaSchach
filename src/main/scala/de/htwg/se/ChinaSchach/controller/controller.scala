@@ -12,8 +12,8 @@ import scala.collection.mutable.ListBuffer
 class Controller(name1: String, name2: String, board: Board) {
 
   val tui = new Tui(board)
-  val player1 = new Player(name1)
-  val player2 = new Player(name2)
+  val player1 = new Player()
+  val player2 = new Player()
   var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
   var listPlayer2: ListBuffer[Piece] = ListBuffer.empty
   var topKingDead = false
@@ -33,12 +33,12 @@ class Controller(name1: String, name2: String, board: Board) {
 //    getSelectedPoint(testPoint)
 //    getSelectedPoint(testDest)
     tui.outputField()
-    playerInit("Peter", "Hannes")
+    playerInit()
 
   }
 
   //initialize player
-  def playerInit(name1: String, name2: String) : Unit = {
+  def playerInit() : Unit = {
 
     listPlayer1.appendAll(player1.setPieces(board, "w"))
     listPlayer2.appendAll(player2.setPieces(board, "b"))
@@ -155,11 +155,10 @@ class Controller(name1: String, name2: String, board: Board) {
     boardInit()
   }
 
-  def exit(): Unit = {}
+  def exit(): Unit = {
+    sys.exit(0)
+  }
 
   def notifyView(): Unit = {}
-
-  def selectPiece(): Unit = {}
-
 
 }
