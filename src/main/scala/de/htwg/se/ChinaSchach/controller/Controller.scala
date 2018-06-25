@@ -54,8 +54,6 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard.get(point) match {
       case None =>
         message = "Nothing selected"
-//      case _: EmptyField =>
-//        message = "Empty Field selected"
       case Some(x) =>
         if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)
@@ -81,14 +79,6 @@ class Controller(name1: String, name2: String, board: Board) {
           message = "Empty Field selected"
         }
     }
-    /* val testPoint = board.gameBoard.get(point)
-    testPoint match {
-      case None =>
-        selectedWhat = "Empty Field selected"
-      case Some(f) =>
-        f.movesAllowed(board, point, )
-        movePiece()
-    }*/
   }
 
 
@@ -97,21 +87,6 @@ class Controller(name1: String, name2: String, board: Board) {
     sourcePoint = point
     moveDone = true
     message = "Please select destination"
-  }
-
-
-
-  //TODO: remove beat Piece from playerList and board
-  def beatEnemyPieces(): Unit = {
-    //if beat piece from player1 => deletePiece(listPlayer1, ...)
-    //if beat piece from player2 => deletePiece(listPlayer2, ...)
-
-    //delete piece from board
-  }
-
-  //TODO: check for valid/invalid moves
-  def checkMove(): Unit = {
-
   }
 
   def ifEnemy(source: Point, destination: Point): Unit = {
@@ -128,8 +103,6 @@ class Controller(name1: String, name2: String, board: Board) {
     else {
       movePiece(source, destination)
     }
-    //println("Moved!!!!")
-    //movePiece(source, destination)
   }
 
   def movePiece(source: Point, destination: Point) : Unit = {
@@ -139,10 +112,6 @@ class Controller(name1: String, name2: String, board: Board) {
     gameWon(destination)
     round += 1
   }
-
-/*  def takePiece(board: Board, source: Point, destination: Point) : Unit = {
-    board.gameBoard(destination._1)(destination._2) = board.getPiece(source)
-  }*/
 
   def gameWon(destination: Point) : Unit = {
     if(board.getPiece(destination).toString == "King(w)") {

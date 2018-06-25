@@ -1,7 +1,5 @@
 package de.htwg.se.ChinaSchach.aview
 
-import java.io.IOException
-
 import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
@@ -15,20 +13,23 @@ import scala.swing.event.ButtonClicked
 // TODO: implement GUI
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
-  val labelRound = new Label("Round: 0")
-  val player1Label = new Label("Player 1")
-  val player2Label = new Label("Player 2")
+  val labelRound = new Label("Round: 0") {
+    background = java.awt.Color.YELLOW
+  }
+  val player1Label = new Label("  player 1  ")
+  val player2Label = new Label("  player 2  ")
+
+  val chessWidth = 900
+  val chessHeight = 900
 
   title = "Schach"
-  preferredSize = new Dimension(800, 800)
+  preferredSize = new Dimension(chessWidth, chessHeight)
 
   val row = 8
   val col = 8
   var fieldButtons = Array.ofDim[FieldButton](row, col)
 
-//  var round = 0
   var counter = 0
-
 
   initializeButtons()
   buttonActionListener()
@@ -37,7 +38,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   //initialize Button for each field
   def initializeButtons() : Unit = {
-    for (y <- 0 to col-1) {
+    for (y <- 0 until col) {
       fieldButtons(0)(y) = new FieldButton(Point(0, y))
       fieldButtons(1)(y) = new FieldButton(Point(1, y))
       fieldButtons(2)(y) = new FieldButton(Point(2, y))
@@ -46,8 +47,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       fieldButtons(5)(y) = new FieldButton(Point(5, y))
       fieldButtons(6)(y) = new FieldButton(Point(6, y))
       fieldButtons(7)(y) = new FieldButton(Point(7, y))
-      // blacken Fields/Buttons to mimick chess board
-      for (x <- 0 to row-1) {
+      // blacken Fields/Buttons to mimic chess board
+      for (x <- 0 until row) {
         if ((x + y) % 2 != 0) {
           fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         } else {
@@ -65,12 +66,19 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
     board.gameBoard.get(Point(x, y)) match {
       case Some(_: EmptyField) =>
-        fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
+        try {
+          fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
+        } catch {
+          case e: NullPointerException => {
+            println("Could not find resource!", e)
+            fieldButtons(x)(y).icon = null
+          }
+        }
       case Some(piece) =>
         try {
           fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/" + piece.toString + ".png"))
         } catch {
-          case e: IOException => println("Could not find resource!")
+          case e: NullPointerException => println("Could not find resource!", e)
         }
 
       case None =>
@@ -88,14 +96,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     var x_old = 0
     var y_old = 0
     for {
-      x <- 0 to row-1
-      y <- 0 to col-1
+      x <- 0 until row
+      y <- 0 until col
     }
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         controller.getSelectedPoint(Point(x, y))
 //        counter += 1
-
         if (counter%2 == 0) {
           setGameBoardImages()
 //          setRound()
@@ -108,7 +115,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     contents = new BorderPanel {
       add(player1Label, BorderPanel.Position.West)
       add(player2Label, BorderPanel.Position.East)
-
       add(new GridPanel(row, col) {
         preferredSize = new Dimension(626,626)
         for {
@@ -118,9 +124,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
           contents += fieldButtons(x)(y)
         setGameBoardImages()
       }, BorderPanel.Position.Center)
-
       add(labelRound, BorderPanel.Position.North)
-
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") { restartGame() }
         contents += Button("Quit") { controller.exit() }
@@ -140,7 +144,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   // momentarily redudant
   def updateGameBoard() = {
-
   }
 
 }
