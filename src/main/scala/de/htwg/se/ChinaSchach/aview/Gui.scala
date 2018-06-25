@@ -86,15 +86,15 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
   }
 
-//  def setRound() = {
-//    round = counter / 2
-//  }
+  def gameWonDialog(str: String) : Unit = {
+    Dialog.showMessage(contents.last, str, title="Game over!")
+  }
 
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
   def buttonActionListener() : Unit = {
-    var x_old = 0
-    var y_old = 0
+//    var x_old = 0
+//    var y_old = 0
     for {
       x <- 0 until row
       y <- 0 until col
@@ -116,6 +116,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
           setGameBoardImages()
           labelRound.text = "Round: " + controller.round
           counter = 0
+          if (controller.bottomKingDead) {
+            println("Player 2 won")
+            gameWonDialog("Player 2 won!")
+          } else if (controller.topKingDead) {
+            println("Player 1 won")
+            gameWonDialog("Player 1 won!")
+          }
         }
     }
   }
