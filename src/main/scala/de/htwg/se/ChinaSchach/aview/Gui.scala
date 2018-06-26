@@ -103,30 +103,61 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 //        println(fieldButtons(x)(y).getPoint())
         if (controller.round%2 != 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "b") {
           controller.getSelectedPoint(Point(x, y))
+          val xx = controller.sourcePoint.getX()
+          val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-          fieldButtons(x)(y).background = java.awt.Color.GREEN
-          counter += 1
+          if (counter != 0) {
+            setTileBackground(xx, yy)
+            counter = 0
+          } else {
+            fieldButtons(x)(y).background = java.awt.Color.GREEN
+            counter += 1
+          }
+
         } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
+          val xx = controller.sourcePoint.getX()
+          val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-          fieldButtons(x)(y).background = java.awt.Color.GREEN
-          counter += 1
+          if (counter != 0) {
+//            val xx = controller.sourcePoint.getX()
+//            val yy = controller.sourcePoint.getY()
+            setTileBackground(xx, yy)
+            counter = 0
+          } else {
+            fieldButtons(x)(y).background = java.awt.Color.GREEN
+            counter += 1
+          }
+
+
         } else if(counter%2 != 0) {
           controller.getSelectedPoint(Point(x, y))
           setBackGround()
           setGameBoardImages()
-          if (controller.round%2 == 0) {
-            labelRound.text = "Round: " + controller.round + " Turn: player 1"
-          } else {
-            labelRound.text = "Round: " + controller.round + " Turn: player 2"
-          }
-          counter = 0
-          if (controller.bottomKingDead) {
-            gameWonDialog("Player 2 won!")
-          } else if (controller.topKingDead) {
-            gameWonDialog("Player 1 won!")
-          }
+          setTopLabel()
+          setCounter()
+          checkForWin()
         }
+    }
+  }
+
+  def setCounter() : Unit = {
+    counter = 0
+  }
+
+  def checkForWin() : Unit = {
+    if (controller.bottomKingDead) {
+      gameWonDialog("Player 2 won!")
+    } else if (controller.topKingDead) {
+      gameWonDialog("Player 1 won!")
+    }
+  }
+
+  def setTopLabel() : Unit = {
+    if (controller.round%2 == 0) {
+      labelRound.text = "Round: " + controller.round + " Turn: player 1"
+    } else {
+      labelRound.text = "Round: " + controller.round + " Turn: player 2"
     }
   }
 
@@ -135,6 +166,14 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       x <- 0 until row
       y <- 0 until col
     }
+    if ((x + y) % 2 == 0) {
+      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
+    } else {
+      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+    }
+  }
+
+  def setTileBackground(x: Int, y: Int) : Unit = {
     if ((x + y) % 2 == 0) {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     } else {
@@ -178,8 +217,9 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   def restartGame(): Unit = {
     controller.reset()
     setGameBoardImages()
-    counter = 0
+    setCounter()
     controller.setRound()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
+    counter = 0
   }
 }
