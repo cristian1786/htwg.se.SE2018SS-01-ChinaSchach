@@ -141,6 +141,8 @@ class Controller(name1: String, name2: String, board: Board) {
 
   def reset(): Unit = {
     boardInit()
+    bottomKingDead = false
+    topKingDead = false
   }
 
   def exit(): Unit = {
