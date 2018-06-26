@@ -104,13 +104,16 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         if (controller.round%2 != 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "b") {
           controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
+          fieldButtons(x)(y).background = java.awt.Color.GREEN
           counter += 1
         } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
+          fieldButtons(x)(y).background = java.awt.Color.GREEN
           counter += 1
         } else if(counter%2 != 0) {
           controller.getSelectedPoint(Point(x, y))
+          setBackGround()
           setGameBoardImages()
           if (controller.round%2 == 0) {
             labelRound.text = "Round: " + controller.round + " Turn: player 1"
@@ -124,6 +127,18 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
             gameWonDialog("Player 1 won!")
           }
         }
+    }
+  }
+
+  def setBackGround(): Unit = {
+    for {
+      x <- 0 until row
+      y <- 0 until col
+    }
+    if ((x + y) % 2 == 0) {
+      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
+    } else {
+      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
     }
   }
 

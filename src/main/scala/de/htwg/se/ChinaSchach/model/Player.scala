@@ -33,7 +33,7 @@ class Player() {
     if(list.contains(piece)) {
       list.-=(piece)
     } else {
-      throw NoSuchElementException
+//      throw NoSuchElementException
     }
   }
 }

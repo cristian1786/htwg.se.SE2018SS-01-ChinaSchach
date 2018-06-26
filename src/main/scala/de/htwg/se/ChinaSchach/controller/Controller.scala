@@ -31,6 +31,7 @@ class Controller(name1: String, name2: String, board: Board) {
 
   //initializes playing board
   def boardInit() : Unit = {
+//    val board = new Board
     board.go()
     moveDone = false
     topKingDead = false
