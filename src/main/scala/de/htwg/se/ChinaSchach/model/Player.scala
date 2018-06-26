@@ -1,15 +1,13 @@
 package de.htwg.se.ChinaSchach.model
 
+import java.util.NoSuchElementException
+
 import de.htwg.se.ChinaSchach.util.Point
 
 import scala.collection.mutable.ListBuffer
 
 
 class Player() {
-
-  var turn = false
-  var round = 0
-
   val rows = 7
   val cols = 7
 
@@ -35,24 +33,7 @@ class Player() {
     if(list.contains(piece)) {
       list.-=(piece)
     } else {
-
+      throw NoSuchElementException
     }
-    //TODO: Exception
-  }
-
-  def setTurn(turn: Boolean) : Unit = {
-    this.turn = turn
-  }
-
-  def getTurn() : Boolean = {
-    turn
-  }
-
-  def setRound(turn: Boolean) : Unit = {
-    round += 1
-  }
-
-  def getRound() : Int = {
-    round
   }
 }
