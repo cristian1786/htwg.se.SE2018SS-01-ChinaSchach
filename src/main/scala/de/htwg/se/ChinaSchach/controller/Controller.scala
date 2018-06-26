@@ -8,7 +8,6 @@ import javax.print.attribute.standard.Destination
 import scala.collection.mutable.ListBuffer
 
 
-//TODO: implement Controller
 class Controller(name1: String, name2: String, board: Board) {
 
   val tui = new Tui(board)

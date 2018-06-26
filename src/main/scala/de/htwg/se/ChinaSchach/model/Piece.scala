@@ -4,8 +4,6 @@ import scala.collection.mutable.ListBuffer
 import de.htwg.se.ChinaSchach.util.Point
 
 trait Piece {
-
-  //TODO: something
   def side: String
   def possibleMoves: List[ListBuffer[(Int, Int)]] = List.empty
 //  def setSide(side: String) : Unit = this.side = side
@@ -139,7 +137,7 @@ trait Piece {
   }
 
   def testRochade(board: Board, piecePoint: Point, point: Point): Boolean = {
-    var bool = true
+    var bool = false
     if(board.getPiece(piecePoint).toString.contains("King") && board.getPiece(point).toString.contains("Rook")
       && (piecePoint == Point(4, 0) || piecePoint == Point(4, 7))) {
       bool = rochadeIf(board, point)

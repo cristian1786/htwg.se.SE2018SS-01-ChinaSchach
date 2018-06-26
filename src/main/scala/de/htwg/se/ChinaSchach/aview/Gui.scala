@@ -10,7 +10,6 @@ import scala.swing._
 import scala.swing.event.ButtonClicked
 
 
-// TODO: highlight playerlabel of the currently active player.
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
   val labelRound = new Label("Round: 0 Turn: player 1")

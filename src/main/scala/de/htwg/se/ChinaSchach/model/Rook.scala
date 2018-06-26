@@ -3,7 +3,6 @@ package de.htwg.se.ChinaSchach.model
 import scala.collection.mutable.ListBuffer
 
 case class Rook(side: String) extends Piece {
-  //TODO: implement Rook Shogi
   override def getPossibleMoves(): List[ListBuffer[(Int, Int)]] = {
     val possibleMoves1: ListBuffer[(Int, Int)] = ListBuffer.empty
     for (x <- 1 to 8)
