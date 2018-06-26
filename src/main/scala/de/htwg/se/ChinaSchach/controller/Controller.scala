@@ -68,9 +68,7 @@ class Controller(name1: String, name2: String, board: Board) {
             }
           }
           val ifRochade = {
-            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)
-              && (sourcePiece.toString.contains("King") && board.getPiece(point).toString.contains("Rook") ||
-              sourcePiece.toString.contains("Rook") && board.getPiece(point).toString.contains("King"))) {
+            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)) {
               sourcePiece.testRochade(board, sourcePoint, point)
             }
             else {
@@ -179,21 +177,23 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def bigRochadeMove(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(source.x + 3, source.y) -> sourcePiece
+    board.gameBoard += Point(source.x + 3, source.y) -> board.getPiece(source)
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
+    println("BIGGGGGGGGGGGGGGGGG")
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(source.x + 2, source.y) -> sourcePiece
-    board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
+    board.gameBoard += Point(source.x - 2, source.y) -> board.getPiece(source)
+    board.gameBoard += Point(point.x + 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
+    println("SMAAAAAALLLLLLLLLL")
   }
 
   def notifyView(): Unit = {}
