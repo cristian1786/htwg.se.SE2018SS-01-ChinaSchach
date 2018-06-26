@@ -13,9 +13,9 @@ import scala.swing.event.ButtonClicked
 // TODO: highlight playerlabel of the currently active player.
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
-  val labelRound = new Label("Round: 0")
-  val player1Label = new Label("  player 1  ")
-  val player2Label = new Label("  player 2  ")
+  val labelRound = new Label("Round: 0 Turn: player 1")
+  val player1Label = new Label("  player 1   ")
+  val player2Label = new Label("  player 2   ")
 
   val chessWidth = 900
   val chessHeight = 900
@@ -47,7 +47,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       fieldButtons(7)(y) = new FieldButton(Point(7, y))
       // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
-        if ((x + y) % 2 != 0) {
+        if ((x + y) % 2 == 0) {
           fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         } else {
           fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
@@ -101,20 +101,23 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
     fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
+//        println(fieldButtons(x)(y).getPoint())
         if (controller.round%2 != 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "b") {
           controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
-          labelRound.text = "Round: " + controller.round
           counter += 1
         } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
-          labelRound.text = "Round: " + controller.round
           counter += 1
         } else if(counter%2 != 0) {
           controller.getSelectedPoint(Point(x, y))
           setGameBoardImages()
-          labelRound.text = "Round: " + controller.round
+          if (controller.round%2 == 0) {
+            labelRound.text = "Round: " + controller.round + " Turn: player 1"
+          } else {
+            labelRound.text = "Round: " + controller.round + " Turn: player 2"
+          }
           counter = 0
           if (controller.bottomKingDead) {
             gameWonDialog("Player 2 won!")
@@ -142,7 +145,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       }, BorderPanel.Position.Center)
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
-        contents += Button("Restart Game") { val res = Dialog.showConfirmation(contents.head, " Do you want to Restart?", optionType = Dialog.Options.YesNo)
+        contents += Button("Restart Game") { val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
           if (res == Dialog.Result.Yes) { restartGame() } }
         contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
@@ -163,6 +166,6 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     setGameBoardImages()
     counter = 0
     controller.setRound()
-    labelRound.text = "Round: " + controller.round
+    labelRound.text = "Round: " + controller.round + " Turn: player 1"
   }
 }
