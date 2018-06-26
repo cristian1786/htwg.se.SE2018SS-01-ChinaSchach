@@ -15,9 +15,9 @@ class Controller(name1: String, name2: String, board: Board) {
   val player2 = new Player()
   var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
   var listPlayer2: ListBuffer[Piece] = ListBuffer.empty
-  var topKingDead = false
-  var bottomKingDead = false
-  var moveDone = false
+  var topKingDead: Boolean = _
+  var bottomKingDead: Boolean = _
+  var moveDone: Boolean = _
   var winner = ""
   var message = ""
   var gameOver = false
@@ -26,10 +26,17 @@ class Controller(name1: String, name2: String, board: Board) {
   var round = 0
   var testPoint = Point(0, 1)
   var testDest = Point(0, 2)
+  var rochadeDoneW: Boolean = _
+  var rochadeDoneB: Boolean = _
 
   //initializes playing board
   def boardInit() : Unit = {
     board.go()
+    moveDone = false
+    topKingDead = false
+    bottomKingDead = false
+    rochadeDoneW = false
+    rochadeDoneB = false
 //    getSelectedPoint(testPoint)
 //    getSelectedPoint(testDest)
     tui.outputField()
@@ -67,7 +74,8 @@ class Controller(name1: String, name2: String, board: Board) {
             }
           }
           val ifRochade = {
-            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)) {
+            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)
+              && (rochadeDoneW == false || rochadeDoneB == false)) {
               sourcePiece.testRochade(board, sourcePoint, point)
             }
             else {
@@ -134,8 +142,6 @@ class Controller(name1: String, name2: String, board: Board) {
 
   def reset(): Unit = {
     boardInit()
-    bottomKingDead = false
-    topKingDead = false
   }
 
   def exit(): Unit = {
@@ -176,16 +182,29 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def bigRochadeMove(source: Point, point: Point): Unit = {
+    if(board.getPiece(source).getSide() == "w" && rochadeDoneW != true) {
+      rochadeDoneW = true
+    }
+    else if(board.getPiece(source).getSide() == "b" && rochadeDoneB != true) {
+      rochadeDoneB = true
+    }
     board.gameBoard += Point(source.x + 3, source.y) -> board.getPiece(source)
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
+
     println("BIGGGGGGGGGGGGGGGGG")
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
+    if(board.getPiece(source).getSide() == "w" && rochadeDoneW != true) {
+      rochadeDoneW = true
+    }
+    else if(board.getPiece(source).getSide() == "b" && rochadeDoneB != true) {
+      rochadeDoneB = true
+    }
     board.gameBoard += Point(source.x - 2, source.y) -> board.getPiece(source)
     board.gameBoard += Point(point.x + 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
