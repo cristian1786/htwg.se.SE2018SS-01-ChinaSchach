@@ -141,12 +141,12 @@ trait Piece {
   def testRochade(board: Board, piecePoint: Point, point: Point): Boolean = {
     var bool = true
     if(board.getPiece(piecePoint).toString.contains("King") && board.getPiece(point).toString.contains("Rook")
-      && piecePoint == Point(4, 0) || piecePoint == Point(4, 7)) {
+      && (piecePoint == Point(4, 0) || piecePoint == Point(4, 7))) {
       bool = rochadeIf(board, point)
       println("ROCHADE DONE " + bool)
     }
     else if(board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King")
-      && point == Point(4, 0) || point == Point(4, 7)) {
+      && (point == Point(4, 0) || point == Point(4, 7))) {
       bool = rochadeIf(board, piecePoint)
       println("ROCHADE DONE " + bool)
     }

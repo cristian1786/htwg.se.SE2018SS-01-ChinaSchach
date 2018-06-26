@@ -68,7 +68,9 @@ class Controller(name1: String, name2: String, board: Board) {
             }
           }
           val ifRochade = {
-            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)) {
+            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)
+              && (sourcePiece.toString.contains("King") && board.getPiece(point).toString.contains("Rook") ||
+              sourcePiece.toString.contains("Rook") && board.getPiece(point).toString.contains("King"))) {
               sourcePiece.testRochade(board, sourcePoint, point)
             }
             else {
