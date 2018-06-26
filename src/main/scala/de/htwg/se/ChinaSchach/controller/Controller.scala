@@ -68,7 +68,7 @@ class Controller(name1: String, name2: String, board: Board) {
             }
           }
           val ifRochade = {
-            if(sourcePiece.getSide() == board.getPiece(point).getSide()) {
+            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)) {
               sourcePiece.testRochade(board, sourcePoint, point)
             }
             else {
@@ -77,12 +77,7 @@ class Controller(name1: String, name2: String, board: Board) {
           }
           println("HAHAHAHAHAHAHAH " + ifRochade)
           if(ifRochade) {
-            val tmpSource = board.getPiece(sourcePoint)
-            gameWon(point)
-            board.gameBoard += sourcePoint -> board.getPiece(point)
-            board.gameBoard += point -> tmpSource
-            moveDone = false
-            round += 1
+            doRochade(sourcePoint, point)
           }
           else if (!justIf) {
             moveDone = false
@@ -94,7 +89,6 @@ class Controller(name1: String, name2: String, board: Board) {
         else {
           message = "Empty Field selected"
         }
-
     }
   }
 
@@ -151,6 +145,44 @@ class Controller(name1: String, name2: String, board: Board) {
 
   def setRound() : Unit = {
     round = 0
+  }
+
+  def doRochade(sourcePoint: Point, point: Point): Unit = {
+    if(sourcePoint == Point(0, 0) || sourcePoint == Point(0, 7) || point == Point(0, 0)
+      || point == Point(0, 7)) {
+      bigRochade(sourcePoint, point)
+    }
+    else if(sourcePoint == Point(7, 0) || sourcePoint == Point(7, 7) || point == Point(7, 0)
+      || point == Point(7, 7)) {
+      smallRochade(sourcePoint, point)
+    }
+  }
+
+  def bigRochade(source: Point, point: Point): Unit = {
+    if(sourcePiece.toString.contains("King")) {
+      bigRochadeMove(point, source)
+    }
+    else {
+      bigRochadeMove(source, point)
+    }
+  }
+
+  def smallRochade(source: Point, point: Point): Unit = {
+    board.gameBoard += Point(sourcePoint.x + 2, sourcePoint.y) -> sourcePiece
+    board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
+    board.gameBoard += sourcePoint -> EmptyField(" ")
+    board.gameBoard += point -> EmptyField(" ")
+    moveDone = false
+    round += 1
+  }
+
+  def bigRochadeMove(source: Point, point: Point): Unit = {
+    board.gameBoard += Point(sourcePoint.x + 3, sourcePoint.y) -> sourcePiece
+    board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
+    board.gameBoard += sourcePoint -> EmptyField(" ")
+    board.gameBoard += point -> EmptyField(" ")
+    moveDone = false
+    round += 1
   }
 
   def notifyView(): Unit = {}
