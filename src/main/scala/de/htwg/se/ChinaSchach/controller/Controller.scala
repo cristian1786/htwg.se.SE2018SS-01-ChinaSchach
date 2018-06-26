@@ -168,18 +168,18 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def smallRochade(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(sourcePoint.x + 2, sourcePoint.y) -> sourcePiece
+    board.gameBoard += Point(source.x + 2, source.y) -> sourcePiece
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
-    board.gameBoard += sourcePoint -> EmptyField(" ")
+    board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
   }
 
   def bigRochadeMove(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(sourcePoint.x + 3, sourcePoint.y) -> sourcePiece
+    board.gameBoard += Point(source.x + 3, source.y) -> sourcePiece
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
-    board.gameBoard += sourcePoint -> EmptyField(" ")
+    board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
