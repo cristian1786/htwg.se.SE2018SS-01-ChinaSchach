@@ -142,7 +142,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       }, BorderPanel.Position.Center)
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
-        contents += Button("Restart Game") { restartGame() }
+        contents += Button("Restart Game") { val res = Dialog.showConfirmation(contents.head, " Do you want to Restart?", optionType = Dialog.Options.YesNo)
+          if (res == Dialog.Result.Yes) { restartGame() } }
         contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
     }
@@ -158,13 +159,10 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   // restart game dialog helper function
   def restartGame(): Unit = {
-    val res = Dialog.showConfirmation(contents.last, " Do you want to Restart?", optionType = Dialog.Options.YesNo)
-    if (res == Dialog.Result.Yes) {
-      controller.reset()
-      setGameBoardImages()
-      counter = 0
-      controller.setRound()
-      labelRound.text = "Round: " + controller.round
-    }
+    controller.reset()
+    setGameBoardImages()
+    counter = 0
+    controller.setRound()
+    labelRound.text = "Round: " + controller.round
   }
 }
