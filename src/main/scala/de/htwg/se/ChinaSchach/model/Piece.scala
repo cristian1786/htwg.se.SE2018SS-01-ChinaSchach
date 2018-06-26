@@ -139,14 +139,40 @@ trait Piece {
   }
 
   def testRochade(board: Board, piecePoint: Point, point: Point): Boolean = {
-    var bool = false
-    val rowOne = ((1, 0), (2,0), (3, 0), (4,0), (5, 0), (6,0), (7, 0))
-    if((board.getPiece(piecePoint).toString.contains("King") &&
-      board.getPiece(point).toString.contains("Rook") && piecePoint == Point(3, 0) || piecePoint == Point(3, 7) && point == Point(0, 0)
-      || point == Point(7, 0) || point == Point(0, 7) || point == Point(7, 7)) || (board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King") &&
-      piecePoint == Point(0, 0) || piecePoint == Point(7, 0) || piecePoint == Point(0, 7) || piecePoint == Point(7, 7) && point == Point(3, 0) || point == Point(3, 7))) {
-      println("BooooooooYAAAAAAA MOFO!!!!!!")
-      
+    var bool = true
+    if(board.getPiece(piecePoint).toString.contains("King") && board.getPiece(point).toString.contains("Rook")
+      && piecePoint == Point(3, 0) || piecePoint == Point(3, 7)) {
+      bool = rochadeIf(board, point)
+      println("ROCHADE DONE " + bool)
+    }
+    else if(board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King")
+      && point == Point(3, 0) || point == Point(3, 7)) {
+      bool = rochadeIf(board, piecePoint)
+      println("ROCHADE DONE " + bool)
+    }
+    bool
+  }
+
+  def rochadeIf(board: Board, toTest: Point): Boolean = {
+    var bool = true
+    val ifList = List(Point(0, 0), Point(7, 0), Point(0, 7), Point(7, 7))
+    if(toTest == ifList(0) && !board.getPiece(Point(1, 0)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(2, 0)).toString.contains("EmptyField"))  {
+      bool = false
+    }
+    else if(toTest == ifList(1) && !board.getPiece(Point(4, 0)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(5, 0)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(6, 0)).toString.contains("EmptyField")) {
+      bool = false
+    }
+    else if(toTest == ifList(2) && !board.getPiece(Point(1, 7)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(2, 7)).toString.contains("EmptyField")) {
+      bool = false
+    }
+    else if(toTest == ifList(3) && !board.getPiece(Point(4, 7)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(5, 7)).toString.contains("EmptyField") &&
+      !board.getPiece(Point(6, 7)).toString.contains("EmptyField")) {
+      bool = false
     }
     bool
   }

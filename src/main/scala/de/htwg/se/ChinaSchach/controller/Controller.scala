@@ -63,24 +63,38 @@ class Controller(name1: String, name2: String, board: Board) {
             if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
               sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
-            else if(sourcePiece.getSide() == board.getPiece(point).getSide()) {
-              sourcePiece.testRochade(board, sourcePoint, point)
-            }
             else {
               sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
           }
-          if (!justIf) {
+          val ifRochade = {
+            if(sourcePiece.getSide() == board.getPiece(point).getSide()) {
+              sourcePiece.testRochade(board, sourcePoint, point)
+            }
+            else {
+              false
+            }
+          }
+          println("HAHAHAHAHAHAHAH " + ifRochade)
+          if(ifRochade) {
+            val tmpSource = board.getPiece(sourcePoint)
+            gameWon(point)
+            board.gameBoard += sourcePoint -> board.getPiece(point)
+            board.gameBoard += point -> tmpSource
+            moveDone = false
+            round += 1
+          }
+          else if (!justIf) {
             moveDone = false
           }
-          println("*********************" + justIf)
-          if (justIf) {
+          else if (justIf) {
             ifEnemy(sourcePoint, point)
           }
         }
         else {
           message = "Empty Field selected"
         }
+
     }
   }
 
@@ -109,10 +123,10 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def movePiece(source: Point, destination: Point) : Unit = {
+    gameWon(destination)
     board.gameBoard += destination -> board.getPiece(source)
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
-    gameWon(destination)
     round += 1
   }
 
