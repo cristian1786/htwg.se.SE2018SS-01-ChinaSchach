@@ -168,7 +168,16 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def smallRochade(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(source.x + 2, source.y) -> sourcePiece
+    if(sourcePiece.toString.contains("King")) {
+      smallRochadeMove(point, source)
+    }
+    else {
+      smallRochadeMove(source, point)
+    }
+  }
+
+  def bigRochadeMove(source: Point, point: Point): Unit = {
+    board.gameBoard += Point(source.x + 3, source.y) -> sourcePiece
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
@@ -176,8 +185,8 @@ class Controller(name1: String, name2: String, board: Board) {
     round += 1
   }
 
-  def bigRochadeMove(source: Point, point: Point): Unit = {
-    board.gameBoard += Point(source.x + 3, source.y) -> sourcePiece
+  def smallRochadeMove(source: Point, point: Point): Unit = {
+    board.gameBoard += Point(source.x + 2, source.y) -> sourcePiece
     board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
