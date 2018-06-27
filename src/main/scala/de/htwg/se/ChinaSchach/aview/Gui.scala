@@ -242,7 +242,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         Bishop(side)
       case Some(_: Knight) =>
         Knight(side)
-      case _ => throw new NoSuchElementException
+      case _ => promotePawnDialog(list, side)
     }
     ret
   }
