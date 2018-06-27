@@ -137,13 +137,19 @@ class Controller(name1: String, name2: String) {
   }
 
   def ifEnemy(source: Point, destination: Point): Unit = {
-    if (board.getPiece(destination).getSide() != "") {
+    if (board.getPiece(destination).getSide() != " ") {
       if (board.getPiece(source).getSide() == "w") {
-        player1.deletePiece(listPlayer1, listKillPlayer1, board.getPiece(destination))
+        listPlayer2.-=(board.getPiece(destination))
+        listKillPlayer2.+=(board.getPiece(destination))
+        println(listPlayer1)
+        println(listKillPlayer2)
         movePiece(source, destination)
       }
       else {
-        player2.deletePiece(listPlayer2, listKillPlayer2, board.getPiece(destination))
+        listPlayer1.-=(board.getPiece(destination))
+        listKillPlayer1.+=(board.getPiece(destination))
+        println(listPlayer2)
+        println(listKillPlayer2)
         movePiece(source, destination)
       }
     }
@@ -176,9 +182,11 @@ class Controller(name1: String, name2: String) {
 
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
     if(list.contains((destination.x, destination.y)) && list.head == (0, 0)){
+      println(listKillPlayer1)
       gui.promotePawnDialog(listKillPlayer1)
     }
     else if(list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
+      println(listKillPlayer2)
       gui.promotePawnDialog(listKillPlayer2)
     }
   }

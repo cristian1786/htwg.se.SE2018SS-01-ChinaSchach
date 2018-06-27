@@ -223,8 +223,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
   def promotePawnDialog(list: ListBuffer[Piece]) : Unit = {
-//    var listsq = list.toSeq
-//    var input = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", String, null, listsq, list.head)
+    var listsq: Seq[Piece] = list.toList
+    var input = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Question, null, listsq, list.head)
 
     println("PROMOTE HEREEEEEEEEE")
   }

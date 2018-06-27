@@ -31,12 +31,11 @@ class Player() {
   / @params takes a playerList and the beat piece
   / @returns list with remaining pieces
    */
-  def deletePiece(list: ListBuffer[Piece], list2: ListBuffer[Piece], piece: Piece): Unit = {
+  def deletePiece(list: ListBuffer[Piece], piece: Piece): Boolean = {
     if(list.contains(piece)) {
-      list.-=(piece)
-      list2.+=(piece)
+      true
     } else {
-//      throw NoSuchElementException
+      false
     }
   }
 }
