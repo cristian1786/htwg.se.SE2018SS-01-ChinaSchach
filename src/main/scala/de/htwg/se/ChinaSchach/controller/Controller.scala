@@ -3,7 +3,6 @@ package de.htwg.se.ChinaSchach.controller
 import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
-import javax.print.attribute.standard.Destination
 
 import scala.collection.mutable.ListBuffer
 
@@ -30,11 +29,14 @@ class Controller(name1: String, name2: String, board: Board) {
   var testDest = Point(0, 2)
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
+  var gui: Gui = _
 
   //initializes playing board
   def boardInit() : Unit = {
 //    val board = new Board
     board.go()
+    gui =  new Gui(this, board)
+    gui.go()
     moveDone = false
     topKingDead = false
     bottomKingDead = false
@@ -78,7 +80,7 @@ class Controller(name1: String, name2: String, board: Board) {
           }
           val ifRochade = {
             if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)
-              && (rochadeDoneW == false || rochadeDoneB == false)) {
+                          && !rochadeDoneW || !rochadeDoneB) {
               sourcePiece.testRochade(board, sourcePoint, point)
             }
             else {
@@ -132,6 +134,28 @@ class Controller(name1: String, name2: String, board: Board) {
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
     round += 1
+    if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+      rowOneEight(destination)
+    }
+  }
+
+  def rowOneEight(destination: Point): Unit = {
+    val rowOne: List[(Int, Int)] = List((0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0))
+    val rowEight: List[(Int, Int)] = List((0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7))
+    if(sourcePiece.toString == "Pawn(w)") {
+      pawnReplace(destination, rowEight)
+    }
+    else {
+      pawnReplace(destination, rowOne)
+    }
+  }
+
+  def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
+    for (x <- list) {
+      if(list.contains(x)){
+
+      }
+    }
   }
 
   def gameWon(destination: Point) : Unit = {
