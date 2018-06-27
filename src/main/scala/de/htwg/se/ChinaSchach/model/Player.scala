@@ -11,6 +11,8 @@ class Player() {
   val rows = 7
   val cols = 7
 
+
+
   // Assigns figures to the player(s)
   def setPieces(board: Board, side: String) : ListBuffer[Piece] = {
     val listPlayer: ListBuffer[Piece]= ListBuffer.empty
@@ -29,9 +31,10 @@ class Player() {
   / @params takes a playerList and the beat piece
   / @returns list with remaining pieces
    */
-  def deletePiece(list: ListBuffer[Piece], piece: Piece): Unit = {
+  def deletePiece(list: ListBuffer[Piece], list2: ListBuffer[Piece], piece: Piece): Unit = {
     if(list.contains(piece)) {
       list.-=(piece)
+      list2.+=(piece)
     } else {
 //      throw NoSuchElementException
     }

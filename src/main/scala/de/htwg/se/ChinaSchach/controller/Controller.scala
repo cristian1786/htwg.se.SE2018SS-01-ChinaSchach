@@ -15,6 +15,8 @@ class Controller(name1: String, name2: String, board: Board) {
   val player2 = new Player()
   var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
   var listPlayer2: ListBuffer[Piece] = ListBuffer.empty
+  var listKillPlayer1: ListBuffer[Piece] = ListBuffer.empty
+  var listKillPlayer2: ListBuffer[Piece] = ListBuffer.empty
   var topKingDead: Boolean = _
   var bottomKingDead: Boolean = _
   var moveDone: Boolean = _
@@ -111,11 +113,11 @@ class Controller(name1: String, name2: String, board: Board) {
   def ifEnemy(source: Point, destination: Point): Unit = {
     if (board.getPiece(destination).getSide() != "") {
       if (board.getPiece(source).getSide() == "w") {
-        player1.deletePiece(listPlayer1, board.getPiece(destination))
+        player1.deletePiece(listPlayer1, listKillPlayer1, board.getPiece(destination))
         movePiece(source, destination)
       }
       else {
-        player2.deletePiece(listPlayer2, board.getPiece(destination))
+        player2.deletePiece(listPlayer2, listKillPlayer2, board.getPiece(destination))
         movePiece(source, destination)
       }
     }

@@ -8,6 +8,8 @@ bin/
 
 # Intellij
 /.idea/
+/classes/
+src/main/scala/META-INF/
 
 # Maven
 log/
@@ -35,6 +37,7 @@ lib/*.tmp
 dist/*
 target/
 lib_managed/
+.MF
 
 # Scala-IDE specific
 .scala_dependencies

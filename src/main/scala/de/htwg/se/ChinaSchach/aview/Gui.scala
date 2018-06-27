@@ -113,23 +113,18 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-
         } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
           if (counter != 0) {
-//            val xx = controller.sourcePoint.getX()
-//            val yy = controller.sourcePoint.getY()
             setTileBackground(xx, yy)
             counter = 0
           } else {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-
-
         } else if(counter%2 != 0) {
           controller.getSelectedPoint(Point(x, y))
           setBackGround()
@@ -220,6 +215,5 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     setCounter()
     controller.setRound()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
-    counter = 0
   }
 }
