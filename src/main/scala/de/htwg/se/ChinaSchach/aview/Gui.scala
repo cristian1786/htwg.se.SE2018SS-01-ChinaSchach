@@ -222,10 +222,21 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     go()
   }
 
-  def promotePawnDialog(list: ListBuffer[Piece]) : Unit = {
+  def promotePawnDialog(list: ListBuffer[Piece]) : Piece = {
     var listsq: Seq[Piece] = list.toList
-    var input = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Question, null, listsq, list.head)
+    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Question, null, listsq, list.head)
 
+    input match {
+      case Some(_: Rook) =>
+        return Rook(board.getPiece(controller.sourcePoint).getSide())
+      case Some(_: Queen) =>
+        return Queen(board.getPiece(controller.sourcePoint).getSide())
+      case Some(_: Bishop) =>
+        return Bishop(board.getPiece(controller.sourcePoint).getSide())
+      case None =>
+        return EmptyField(" ")
+    }
     println("PROMOTE HEREEEEEEEEE")
+    return EmptyField(" ")
   }
 }

@@ -183,11 +183,11 @@ class Controller(name1: String, name2: String) {
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
     if(list.contains((destination.x, destination.y)) && list.head == (0, 0)){
       println(listKillPlayer1)
-      gui.promotePawnDialog(listKillPlayer1)
+      gui.promotePawnDialog(listKillPlayer2)
     }
     else if(list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       println(listKillPlayer2)
-      gui.promotePawnDialog(listKillPlayer2)
+      gui.promotePawnDialog(listKillPlayer1)
     }
   }
 
