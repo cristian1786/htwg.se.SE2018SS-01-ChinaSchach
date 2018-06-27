@@ -223,19 +223,27 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
   def promotePawnDialog(list: ListBuffer[Piece], side: String) : Piece = {
-    var listsq: Seq[Piece] = list.toList
-    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Question, null, listsq, list.head)
-    input match {
-      case Some(_: Rook) =>
-        return Rook(side)
-      case Some(_: Queen) =>
-        return Queen(side)
-      case Some(_: Bishop) =>
-        return Bishop(side)
-      case None =>
-        return EmptyField(" ")
+    for (piece <- list) {
+      if (piece.equals(Pawn("w"))) {
+        list.-=(piece)
+      }
+      if (piece.equals(Pawn("b"))) {
+        list.-=(piece)
+      }
     }
-    println("PROMOTE HEREEEEEEEEE")
-    return EmptyField(" ")
+    var listsq: Seq[Piece] = list.toList
+    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, null, listsq, listsq.head)
+    val ret = input match {
+      case Some(_: Rook) =>
+        Rook(side)
+      case Some(_: Queen) =>
+        Queen(side)
+      case Some(_: Bishop) =>
+        Bishop(side)
+      case Some(_: Knight) =>
+        Knight(side)
+      case _ => throw new NoSuchElementException
+    }
+    ret
   }
 }
