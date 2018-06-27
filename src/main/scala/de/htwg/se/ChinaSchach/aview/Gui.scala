@@ -231,8 +231,9 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         list.-=(piece)
       }
     }
-    var listsq: Seq[Piece] = list.toList
-    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, null, listsq, listsq.head)
+    var listSq: Seq[Piece] = list.toList
+    val icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
+    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, icon, listSq, listSq.head)
     val ret = input match {
       case Some(_: Rook) =>
         Rook(side)
