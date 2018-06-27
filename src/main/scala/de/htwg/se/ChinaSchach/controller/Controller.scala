@@ -151,13 +151,11 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
-    for (x <- list) {
-      if(list.contains(x) && list(0) == (0, 0) ){
-        gui.promotePawnDialog(listKillPlayer1)
-      }
-      else {
-        gui.promotePawnDialog(listKillPlayer2)
-      }
+    if(list.contains(destination) && list(0) == (0, 0)){
+      gui.promotePawnDialog(listKillPlayer1)
+    }
+    else if(list.contains(destination) && list(0) == (0, 7)) {
+      gui.promotePawnDialog(listKillPlayer2)
     }
   }
 
