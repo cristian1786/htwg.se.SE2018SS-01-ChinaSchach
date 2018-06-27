@@ -149,7 +149,7 @@ class Controller(name1: String, name2: String) {
         listPlayer1.-=(board.getPiece(destination))
         listKillPlayer1.+=(board.getPiece(destination))
         println(listPlayer2)
-        println(listKillPlayer2)
+        println(listKillPlayer1)
         movePiece(source, destination)
       }
     }
@@ -183,11 +183,15 @@ class Controller(name1: String, name2: String) {
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
     if(list.contains((destination.x, destination.y)) && list.head == (0, 0)){
       println(listKillPlayer1)
-      gui.promotePawnDialog(listKillPlayer2)
+      val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
+      board.gameBoard += destination -> piece
+      listKillPlayer2.-=(piece)
     }
     else if(list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       println(listKillPlayer2)
-      gui.promotePawnDialog(listKillPlayer1)
+      val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
+      board.gameBoard += destination -> piece
+      listKillPlayer1.-=(piece)
     }
   }
 
