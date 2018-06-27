@@ -87,7 +87,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   // game won dialog to choose if the players want to restart or quit the game
   def gameWonDialog(str: String) : Unit = {
-    val res = Dialog.showConfirmation(contents.last, str + " Do you want to quit? (No restarts the game)", optionType = Dialog.Options.YesNo, title = "Game over!")
+    val message = " Do you want to quit? (No restarts the game)"
+    val res = Dialog.showConfirmation(contents.last, str + message, optionType = Dialog.Options.YesNo, title = "Game over!")
     if (res == Dialog.Result.Yes) {
       sys.exit(0)
     } else if (res == Dialog.Result.No) {
@@ -231,9 +232,9 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
         list.-=(piece)
       }
     }
-    var listSq: Seq[Piece] = list.toList
+    val listSq: Seq[Piece] = list.toList
     val icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
-    var input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, icon, listSq, listSq.head)
+    val input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, icon, listSq, listSq.head)
     val ret = input match {
       case Some(_: Rook) =>
         Rook(side)
