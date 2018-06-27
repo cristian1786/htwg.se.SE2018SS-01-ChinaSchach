@@ -3,20 +3,21 @@ package de.htwg.se.ChinaSchach.controller
 import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
+import scala.collection.mutable.Map
 
 import scala.collection.mutable.ListBuffer
 
 
 class Controller(name1: String, name2: String) {
 
-  var board: Board = _
+  var board: Board = new Board
   var tui: Tui = _
-  val player1 = new Player()
-  val player2 = new Player()
-  var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
-  var listPlayer2: ListBuffer[Piece] = ListBuffer.empty
-  var listKillPlayer1: ListBuffer[Piece] = ListBuffer.empty
-  var listKillPlayer2: ListBuffer[Piece] = ListBuffer.empty
+  var player1: Player = _
+  var player2: Player = _
+  var listPlayer1: ListBuffer[Piece] = _
+  var listPlayer2: ListBuffer[Piece] = _
+  var listKillPlayer1: ListBuffer[Piece] = _
+  var listKillPlayer2: ListBuffer[Piece] = _
   var topKingDead: Boolean = _
   var bottomKingDead: Boolean = _
   var moveDone: Boolean = _
@@ -33,15 +34,25 @@ class Controller(name1: String, name2: String) {
   var gui: Gui = _
 
 
-  boardInit()
+  def controllorInit() : Unit = {
+    boardInit()
+    guiInit()
+  }
 
-  //initializes playing board
-  def boardInit() : Unit = {
-    board = new Board
-    board.go()
+  def guiInit() : Unit = {
     gui =  new Gui(this, board)
     gui.go()
     gui.visible = true
+  }
+
+  def guiReset() : Unit = {
+    gui.go()
+    gui.visible = true
+  }
+
+  //initializes playing board
+  def boardInit() : Unit = {
+    board.go()
 //    tui = new Tui(board)
     moveDone = false
     topKingDead = false
@@ -57,13 +68,20 @@ class Controller(name1: String, name2: String) {
 
   //initialize player
   def playerInit() : Unit = {
+    player1 = new Player
+    player2 = new Player
+
+    listPlayer1 = ListBuffer.empty
+    listPlayer2 = ListBuffer.empty
+    listKillPlayer1 = ListBuffer.empty
+    listKillPlayer2 = ListBuffer.empty
 
     listPlayer1.appendAll(player1.setPieces(board, "w"))
     listPlayer2.appendAll(player2.setPieces(board, "b"))
     println("listPlayer1" + listPlayer1)
 
-    tui.outputPlayerFigures(listPlayer1)
-    tui.outputPlayerFigures(listPlayer2)
+//    tui.outputPlayerFigures(listPlayer1)
+//    tui.outputPlayerFigures(listPlayer2)
 
   }
 
@@ -175,7 +193,9 @@ class Controller(name1: String, name2: String) {
   }
 
   def reset(): Unit = {
+    board.gameBoard = Map.empty[Point, Piece]
     boardInit()
+    guiReset()
   }
 
   def exit(): Unit = {

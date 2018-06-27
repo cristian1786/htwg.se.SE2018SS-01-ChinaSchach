@@ -219,6 +219,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     setCounter()
     controller.setRound()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
+    go()
   }
 
   def promotePawnDialog(list: ListBuffer[Piece]) : Unit = {

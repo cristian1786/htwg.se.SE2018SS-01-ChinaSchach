@@ -6,7 +6,7 @@ import scala.collection.mutable.Map
 class Board() {
 
   val MAX_NUMBER = 8
-  val gameBoard = Map.empty[Point, Piece]
+  var gameBoard = Map.empty[Point, Piece]
  // val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
   def go() : Unit = {
