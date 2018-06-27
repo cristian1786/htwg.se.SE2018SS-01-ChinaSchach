@@ -37,6 +37,7 @@ class Controller(name1: String, name2: String, board: Board) {
     board.go()
     gui =  new Gui(this, board)
     gui.go()
+    gui.visible = true
     moveDone = false
     topKingDead = false
     bottomKingDead = false
@@ -151,10 +152,10 @@ class Controller(name1: String, name2: String, board: Board) {
   }
 
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
-    if(list.contains(destination) && list(0) == (0, 0)){
+    if(list.contains((destination.x, destination.y)) && list.head == (0, 0)){
       gui.promotePawnDialog(listKillPlayer1)
     }
-    else if(list.contains(destination) && list(0) == (0, 7)) {
+    else if(list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       gui.promotePawnDialog(listKillPlayer2)
     }
   }
