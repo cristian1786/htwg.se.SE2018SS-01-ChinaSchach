@@ -10,7 +10,5 @@ object ChinaSchach {
     val board = new Board
     val controller = new Controller("Peter", "Hans", board)
     controller.boardInit()
-    val gui = new Gui(controller, board)
-    gui.visible = true
   }
 }

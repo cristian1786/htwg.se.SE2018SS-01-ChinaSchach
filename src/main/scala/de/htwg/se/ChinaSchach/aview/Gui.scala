@@ -6,6 +6,7 @@ import de.htwg.se.ChinaSchach.controller._
 import de.htwg.se.ChinaSchach.util.Point
 import javax.swing.ImageIcon
 
+import scala.collection.mutable.ListBuffer
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
@@ -28,10 +29,11 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   var counter = 0
 
-  initializeButtons()
-  buttonActionListener()
-  drawBoard()
-
+  def go() : Unit = {
+    initializeButtons()
+    buttonActionListener()
+    drawBoard()
+  }
 
   //initialize Button for each field
   def initializeButtons() : Unit = {
@@ -215,5 +217,12 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     setCounter()
     controller.setRound()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
+  }
+
+  def promotePawnDialog(list: ListBuffer[Piece]) : String = {
+
+
+
+    "titten"
   }
 }
