@@ -7,8 +7,6 @@ import de.htwg.se.ChinaSchach.aview._
 
 object ChinaSchach {
   def main(args: Array[String]): Unit = {
-    val board = new Board
-    val controller = new Controller("Peter", "Hans", board)
-    controller.boardInit()
+    val controller = new Controller("Peter", "Hans")
   }
 }

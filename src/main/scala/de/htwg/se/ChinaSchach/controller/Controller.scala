@@ -7,9 +7,10 @@ import de.htwg.se.ChinaSchach.util.Point
 import scala.collection.mutable.ListBuffer
 
 
-class Controller(name1: String, name2: String, board: Board) {
+class Controller(name1: String, name2: String) {
 
-  val tui = new Tui(board)
+  var board: Board = _
+  var tui: Tui = _
   val player1 = new Player()
   val player2 = new Player()
   var listPlayer1: ListBuffer[Piece] = ListBuffer.empty
@@ -31,13 +32,17 @@ class Controller(name1: String, name2: String, board: Board) {
   var rochadeDoneB: Boolean = _
   var gui: Gui = _
 
+
+  boardInit()
+
   //initializes playing board
   def boardInit() : Unit = {
-//    val board = new Board
+    board = new Board
     board.go()
     gui =  new Gui(this, board)
     gui.go()
     gui.visible = true
+//    tui = new Tui(board)
     moveDone = false
     topKingDead = false
     bottomKingDead = false
@@ -45,7 +50,7 @@ class Controller(name1: String, name2: String, board: Board) {
     rochadeDoneB = false
 //    getSelectedPoint(testPoint)
 //    getSelectedPoint(testDest)
-    tui.outputField()
+//    tui.outputField()
     playerInit()
 
   }

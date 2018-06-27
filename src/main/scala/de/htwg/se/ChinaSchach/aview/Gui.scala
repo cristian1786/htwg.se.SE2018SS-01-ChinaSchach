@@ -4,9 +4,11 @@ import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
 import de.htwg.se.ChinaSchach.util.Point
-import javax.swing.ImageIcon
+import javax.swing
+import javax.swing.{ImageIcon, JOptionPane}
 
 import scala.collection.mutable.ListBuffer
+import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
@@ -220,8 +222,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
   def promotePawnDialog(list: ListBuffer[Piece]) : Unit = {
-
-
+//    var listsq = list.toSeq
+//    var input = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", String, null, listsq, list.head)
 
     println("PROMOTE HEREEEEEEEEE")
   }
