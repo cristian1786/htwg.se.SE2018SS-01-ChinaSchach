@@ -104,7 +104,7 @@ trait Piece {
       }
     }
     else if(side == "b") {
-      if (Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination && board.gameBoard(Point(source.x, source.y + 1)).toString == "EmptyField( )") {
+      if (Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination && board.gameBoard(Point(source.x, source.y - 1)).toString == "EmptyField( )") {
         bool = true
       }
     }
