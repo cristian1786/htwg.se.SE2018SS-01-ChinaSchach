@@ -3,6 +3,7 @@ package de.htwg.se.ChinaSchach.aview
 import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
+import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
 import javax.swing.ImageIcon
 
@@ -11,7 +12,7 @@ import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-class Gui(controller: Controller) extends MainFrame {
+class Gui(controller: Controller) extends Observer {
 
   val labelRound = new Label("Round: 0 Turn: player 1")
   val player1Label = new Label("  player 1   ")
@@ -20,8 +21,10 @@ class Gui(controller: Controller) extends MainFrame {
   val chessWidth = 900
   val chessHeight = 900
 
-  title = "Schach"
-  preferredSize = new Dimension(chessWidth, chessHeight)
+  val frame = new MainFrame()
+
+  frame.title = "Schach"
+  frame.preferredSize = new Dimension(chessWidth, chessHeight)
 
   val row = 8
   val col = 8
@@ -86,7 +89,7 @@ class Gui(controller: Controller) extends MainFrame {
   // game won dialog to choose if the players want to restart or quit the game
   def gameWonDialog(str: String): Unit = {
     val message = " Do you want to quit? (No restarts the game)"
-    val res = Dialog.showConfirmation(contents.last, str + message, optionType = Dialog.Options.YesNo, title = "Game over!")
+    val res = Dialog.showConfirmation(frame.contents.last, str + message, optionType = Dialog.Options.YesNo, title = "Game over!")
     if (res == Dialog.Result.Yes) {
       sys.exit(0)
     } else if (res == Dialog.Result.No) {
@@ -128,6 +131,7 @@ class Gui(controller: Controller) extends MainFrame {
           }
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
+          update()
         }
     }
   }
@@ -187,7 +191,7 @@ class Gui(controller: Controller) extends MainFrame {
   // function draws the chessboard GUI
   // establishes all the contents of the GUI
   def drawBoard(): Unit = {
-    contents = new BorderPanel {
+    frame.contents = new BorderPanel {
       add(player1Label, BorderPanel.Position.West)
       add(player2Label, BorderPanel.Position.East)
       add(new GridPanel(row, col) {
@@ -211,7 +215,7 @@ class Gui(controller: Controller) extends MainFrame {
 
   // exit game dialog helper function
   def exitGame(): Unit = {
-    val res = Dialog.showConfirmation(contents.last, " Do you want to quit?", optionType = Dialog.Options.YesNo)
+    val res = Dialog.showConfirmation(frame.contents.last, " Do you want to quit?", optionType = Dialog.Options.YesNo)
     if (res == Dialog.Result.Yes) {
       controller.exit()
     }
@@ -239,7 +243,7 @@ class Gui(controller: Controller) extends MainFrame {
     }
     val listSq: Seq[Piece] = list.toList
     val icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
-    val input: Option[Piece] = Dialog.showInput(contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, icon, listSq, listSq.head)
+    val input: Option[Piece] = Dialog.showInput(frame.contents.last, "Choose now...", "Promote Pawn", Dialog.Message.Info, icon, listSq, listSq.head)
     val ret = input match {
       case Some(_: Rook) =>
         Rook(side)

@@ -42,13 +42,13 @@ class Controller(name1: String, name2: String) {
   def guiInit(): Unit = {
     gui = new Gui(this)
     gui.go()
-    gui.visible = true
+    gui.frame.visible = true
   }
 
   // resets gui
   def guiReset(): Unit = {
     gui.go()
-    gui.visible = true
+    gui.frame.visible = true
   }
 
   //initializes playing board
