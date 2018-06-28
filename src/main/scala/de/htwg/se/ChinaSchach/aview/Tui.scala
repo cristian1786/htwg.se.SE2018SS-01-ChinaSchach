@@ -11,6 +11,8 @@ class Tui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
 
+  var counter = 0
+
   // prints an overview over the fields with the respective pieces
   //  def outputField(): Unit = {
   //    for (x <- 0 to 7) {
@@ -37,7 +39,7 @@ class Tui(controller: Controller) extends Observer {
     drawGameboard()
     println("x = Integer, y Integer")
     println("The board uses Point-Coordinates (x, y) to initialize each chessfield.")
-    println("Please input action to perform in the following format (src XY) (dest XY) (quit) (restart):")
+    println("Please input action to perform in the following format (p XY) (quit) (restart):")
     println("Choose source:")
     readInput()
   }
@@ -53,18 +55,29 @@ class Tui(controller: Controller) extends Observer {
       case "restart" =>
         restart()
 //        controller.setRound()
-      case src if input.startsWith("src") =>
-        controller.getSelectedPoint(Point(input.charAt(4).toString.toInt, input.charAt(5).toString.toInt))
-//        println(input.charAt(4).toString.toInt + "    #################################")
-        println("Choose destination:")
-        readInput()
-      case dest if input.startsWith("dest") =>
-        controller.getSelectedPoint(Point(input.charAt(5).toString.toInt, input.charAt(6).toString.toInt))
-//        for ((k,v) <- controller.board.gameBoard) {
-//          printf("keys:%s, value:%s\n", k ,v)
-//        }
-        println("Choose source:")
-        readInput()
+      case p if input.startsWith("p") =>
+        if (controller.playerTurn1(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))) {
+          counter += 1
+          println("Choose destination:")
+          readInput()
+        } else if (controller.playerTurn2(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))) {
+          counter += 1
+          println("Choose destination:")
+          readInput()
+        } else if (counter % 2 != 0) {
+          controller.getSelectedPoint(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))
+          println("Choose source:")
+          readInput()
+        } else {
+          readInput()
+        }
+
+
+
+//      case dest if input.startsWith("dest") =>
+//        controller.getSelectedPoint(Point(input.charAt(5).toString.toInt, input.charAt(6).toString.toInt))
+//        println("Choose source:")
+//        readInput()
 
       case _ =>
         println("wrong input mate")
@@ -84,11 +97,13 @@ class Tui(controller: Controller) extends Observer {
 
   def restart(): Unit = {
     controller.reset()
+    readInput()
   }
 
   override def update() : Unit = {
     drawGameboard()
     checkForWin()
+    counter = 0
   }
 
   def drawGameboard() : Unit = {

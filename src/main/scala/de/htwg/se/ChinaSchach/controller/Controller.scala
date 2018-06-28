@@ -10,7 +10,9 @@ import scala.collection.mutable.ListBuffer
 
 class Controller() extends Observable{
 
+
   var board: Board = new Board
+  var gui: Gui = _
   var tui: Tui = _
   var player1: Player = _
   var player2: Player = _
@@ -27,14 +29,14 @@ class Controller() extends Observable{
   var round = 0
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
-  var gui: Gui = _
+
 
 
   // initialize controller
   def controllerInit(): Unit = {
     boardInit()
     guiInit()
-    tuiInit()
+//    tuiInit()
   }
 
   def tuiInit() : Unit = {
@@ -84,6 +86,26 @@ class Controller() extends Observable{
     listPlayer2.appendAll(player2.setPieces(board, "b"))
   }
 
+  def playerTurn1(point: Point): Boolean = {
+    if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
+      getSelectedPoint(point)
+      true
+    } else {
+      false
+    }
+
+  }
+
+  def playerTurn2(point: Point): Boolean = {
+    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
+      getSelectedPoint(point)
+      true
+    } else  {
+      false
+    }
+
+  }
+
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
       case None =>
@@ -111,6 +133,7 @@ class Controller() extends Observable{
             doRochade(sourcePoint, point)
           } else if (!justIf) {
             moveDone = false
+            notifyObservers()
           } else if (justIf) {
             ifEnemy(sourcePoint, point)
           }
@@ -147,12 +170,14 @@ class Controller() extends Observable{
     gameWon(destination)
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
-    moveDone = false
+
     round += 1
-    notifyObservers()
+
     if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
     }
+    moveDone = false
+    notifyObservers()
   }
 
   def rowOneEight(destination: Point): Unit = {
@@ -170,12 +195,12 @@ class Controller() extends Observable{
       val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
       board.gameBoard += destination -> piece
       listKillPlayer2.-=(piece)
-      notifyObservers()
+//      notifyObservers()
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
       board.gameBoard += destination -> piece
       listKillPlayer1.-=(piece)
-      notifyObservers()
+//      notifyObservers()
     }
   }
 
@@ -187,23 +212,14 @@ class Controller() extends Observable{
     }
   }
 
-//  def resetGUI(): Unit = {
-//    board.gameBoard = Map.empty[Point, Piece]
-//    boardInit()
-//    guiReset()
-//  }
-
   def reset(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
     boardInit()
     setRound()
     if (gui != null  && tui != null) {
-
       gui.restartGame()
       gui.go()
-
       tui.go()
-      gui.frame.visible = true
 
     } else if (tui != null) {
       tui.go()
@@ -211,8 +227,8 @@ class Controller() extends Observable{
       gui.restartGame()
       gui.go()
       gui.frame.visible = true
-//      gui.setCounter()
     }
+    notifyObservers()
   }
 
   def exit(): Unit = {
@@ -278,5 +294,4 @@ class Controller() extends Observable{
     round += 1
     notifyObservers()
   }
-
 }
