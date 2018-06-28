@@ -69,6 +69,7 @@ class Tui(controller: Controller) extends Observer {
           println("Choose source:")
           readInput()
         } else {
+          println("Wrong selection!")
           readInput()
         }
 

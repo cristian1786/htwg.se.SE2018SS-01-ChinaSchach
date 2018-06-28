@@ -7,3 +7,6 @@ script:
     sbt clean coverage test coverageReport
 after_success:
   - sbt coveralls
+notification:
+  email:
+    on_success: never

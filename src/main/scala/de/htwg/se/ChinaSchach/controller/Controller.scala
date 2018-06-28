@@ -4,12 +4,11 @@ import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
-
 import scala.collection.mutable.Map
 import scala.collection.mutable.ListBuffer
 
-class Controller() extends Observable{
 
+class Controller() extends Observable{
 
   var board: Board = new Board
   var gui: Gui = _
@@ -31,7 +30,6 @@ class Controller() extends Observable{
   var rochadeDoneB: Boolean = _
 
 
-
   // initialize controller
   def controllerInit(): Unit = {
     boardInit()
@@ -50,16 +48,6 @@ class Controller() extends Observable{
     gui.go()
     gui.frame.visible = true
   }
-
-  // resets gui
-//  def guiReset(): Unit = {
-//    if(gui != null) {
-//      gui.go()
-//      gui.frame.visible = true
-//    } else if (tui != null) {
-//
-//    }
-//  }
 
   //initializes playing board
   def boardInit(): Unit = {
@@ -86,6 +74,7 @@ class Controller() extends Observable{
     listPlayer2.appendAll(player2.setPieces(board, "b"))
   }
 
+  // check playerturn for black
   def playerTurn1(point: Point): Boolean = {
     if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
       getSelectedPoint(point)
@@ -96,6 +85,7 @@ class Controller() extends Observable{
 
   }
 
+  // check playerturn for white
   def playerTurn2(point: Point): Boolean = {
     if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
       getSelectedPoint(point)
