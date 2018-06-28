@@ -24,18 +24,14 @@ trait Piece {
 
   def movesAllowed(board: Board, source: Point, destination: Point, possibleMoves: List[ListBuffer[(Int, Int)]]): Boolean = {
     var trueOrFalse = false
-    if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
+    if (checkValidPoss(destination) && board.gameBoard(source).getSide() != board.gameBoard(destination).getSide()) {
       for (x <- possibleMoves) {
         for (y <- x) {
-          if (board.getPiece(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination
-          || board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
+          if (board.gameBoard(source).getSide() == "w" && Point(source.x + y._1, source.y + y._2) == destination
+          || board.gameBoard(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
             val tmpTuple: (Int, Int) = (y._1, y._2)
             trueOrFalse = caseQRB(board, source, tmpTuple, x)
           }
-          /*else if (board.getPiece(source).getSide() == "b" && Point(source.x - y._1, source.y - y._2) == destination) {
-            val tmpTuple: (Int, Int) = (y._1, y._2)
-            trueOrFalse = caseQRB(board, source, tmpTuple, x)
-          }*/
         }
       }
     }
@@ -44,16 +40,16 @@ trait Piece {
 
   def caseQRB(board: Board, source: Point, move: (Int, Int), possibleMoves: ListBuffer[(Int, Int)]): Boolean = {
     var bool = true
-    if (board.getPiece(source).toString == "Queen(w)" || board.getPiece(source).toString == "Rook(w)" || board.getPiece(source).toString == "Bishop(w)"
-      || board.getPiece(source).toString == "Queen(b)" || board.getPiece(source).toString == "Rook(b)" || board.getPiece(source).toString == "Bishop(b)") {
+    if (board.gameBoard(source).toString == "Queen(w)" || board.gameBoard(source).toString == "Rook(w)" || board.gameBoard(source).toString == "Bishop(w)"
+      || board.gameBoard(source).toString == "Queen(b)" || board.gameBoard(source).toString == "Rook(b)" || board.gameBoard(source).toString == "Bishop(b)") {
       val listToCheck: ListBuffer[(Int, Int)] = {
         val idx = possibleMoves.indexOf(move)
         possibleMoves.take(idx)
       }
       println("Here List" + listToCheck)
       for(z <- listToCheck) {
-        if (board.getPiece(source).getSide() == "w" && board.getPiece(Point(source.x + z._1, source.y + z._2)).toString != "EmptyField( )"
-        || board.getPiece(source).getSide() == "b" && board.getPiece(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
+        if (board.gameBoard(source).getSide() == "w" && board.gameBoard(Point(source.x + z._1, source.y + z._2)).toString != "EmptyField( )"
+        || board.gameBoard(source).getSide() == "b" && board.gameBoard(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
           bool = false
         }
       }
@@ -63,18 +59,18 @@ trait Piece {
 
   def movesAllowedP(board: Board, source: Point, destination: Point, possibleMoves: List[ListBuffer[(Int, Int)]]): Boolean = {
     var trueOrFalse = false
-    if (checkValidPoss(destination) && board.getPiece(source).getSide() != board.getPiece(destination).getSide()) {
-      if(board.getPiece(destination).getSide() != " ") {
+    if (checkValidPoss(destination) && board.gameBoard(source).getSide() != board.gameBoard(destination).getSide()) {
+      if(board.gameBoard(destination).getSide() != " ") {
         for (x <- possibleMoves(2)) {
-          if (board.getPiece(source).getSide() == "w" && Point(source.x + x._1, source.y + x._2) == destination) {
+          if (board.gameBoard(source).getSide() == "w" && Point(source.x + x._1, source.y + x._2) == destination) {
             trueOrFalse = true
           }
-          else if (board.getPiece(source).getSide() == "b" && Point(source.x - x._1, source.y - x._2) == destination) {
+          else if (board.gameBoard(source).getSide() == "b" && Point(source.x - x._1, source.y - x._2) == destination) {
             trueOrFalse = true
           }
         }
       }
-      else if(board.getPiece(destination).getSide() == " ") {
+      else if(board.gameBoard(destination).getSide() == " ") {
         trueOrFalse = elsePawn(board, source, destination)
       }
     }
@@ -85,16 +81,16 @@ trait Piece {
     var bool = false
     val rowTwo = List((0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1))
     val rowSix = List((0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6))
-    if(board.getPiece(source).getSide() == "w" && rowTwo.contains((source.x, source.y))) {
+    if(board.gameBoard(source).getSide() == "w" && rowTwo.contains((source.x, source.y))) {
       bool = repeatedIfDb(board, source, destination, "w" )
     }
-    else if(board.getPiece(source).getSide() == "b" && rowSix.contains((source.x, source.y))) {
+    else if(board.gameBoard(source).getSide() == "b" && rowSix.contains((source.x, source.y))) {
       bool = repeatedIfDb(board, source, destination, "b" )
     }
-    else if(board.getPiece(source).getSide() == "w" && !rowTwo.contains((source.x, source.y))) {
+    else if(board.gameBoard(source).getSide() == "w" && !rowTwo.contains((source.x, source.y))) {
       bool = repeatedIfSg(board, source, destination, "w")
     }
-    else if(board.getPiece(source).getSide() == "b" && !rowSix.contains((source.x, source.y))) {
+    else if(board.gameBoard(source).getSide() == "b" && !rowSix.contains((source.x, source.y))) {
       bool = repeatedIfSg(board, source, destination, "b")
     }
     bool
@@ -138,12 +134,12 @@ trait Piece {
 
   def testRochade(board: Board, piecePoint: Point, point: Point): Boolean = {
     var bool = false
-    if(board.getPiece(piecePoint).toString.contains("King") && board.getPiece(point).toString.contains("Rook")
+    if(board.gameBoard(piecePoint).toString.contains("King") && board.gameBoard(point).toString.contains("Rook")
       && (piecePoint == Point(4, 0) || piecePoint == Point(4, 7))) {
       bool = rochadeIf(board, point)
       println("ROCHADE OK " + bool)
     }
-    else if(board.getPiece(piecePoint).toString.contains("Rook") && board.getPiece(point).toString.contains("King")
+    else if(board.gameBoard(piecePoint).toString.contains("Rook") && board.gameBoard(point).toString.contains("King")
       && (point == Point(4, 0) || point == Point(4, 7))) {
       bool = rochadeIf(board, piecePoint)
       println("ROCHADE OK " + bool)
@@ -154,60 +150,24 @@ trait Piece {
   def rochadeIf(board: Board, toTest: Point): Boolean = {
     var bool = false
     val ifList = List(Point(0, 0), Point(7, 0), Point(0, 7), Point(7, 7))
-    if(toTest == ifList(0) && board.getPiece(Point(1, 0)).toString.contains("EmptyField") &&
-      board.getPiece(Point(2, 0)).toString.contains("EmptyField") &&
-      board.getPiece(Point(3, 0)).toString.contains("EmptyField"))  {
+    if(toTest == ifList(0) && board.gameBoard(Point(1, 0)).toString.contains("EmptyField") &&
+      board.gameBoard(Point(2, 0)).toString.contains("EmptyField") &&
+      board.gameBoard(Point(3, 0)).toString.contains("EmptyField"))  {
       bool = true
     }
-    else if(toTest == ifList(1) && board.getPiece(Point(5, 0)).toString.contains("EmptyField") &&
-      board.getPiece(Point(6, 0)).toString.contains("EmptyField")) {
+    else if(toTest == ifList(1) && board.gameBoard(Point(5, 0)).toString.contains("EmptyField") &&
+      board.gameBoard(Point(6, 0)).toString.contains("EmptyField")) {
       bool = true
     }
-    else if(toTest == ifList(2) && board.getPiece(Point(1, 7)).toString.contains("EmptyField") &&
-      board.getPiece(Point(2, 7)).toString.contains("EmptyField")
-      && board.getPiece(Point(3, 7)).toString.contains("EmptyField")) {
+    else if(toTest == ifList(2) && board.gameBoard(Point(1, 7)).toString.contains("EmptyField") &&
+      board.gameBoard(Point(2, 7)).toString.contains("EmptyField")
+      && board.gameBoard(Point(3, 7)).toString.contains("EmptyField")) {
       bool = true
     }
-    else if(toTest == ifList(3) && board.getPiece(Point(5, 7)).toString.contains("EmptyField") &&
-      board.getPiece(Point(6, 7)).toString.contains("EmptyField")) {
+    else if(toTest == ifList(3) && board.gameBoard(Point(5, 7)).toString.contains("EmptyField") &&
+      board.gameBoard(Point(6, 7)).toString.contains("EmptyField")) {
       bool = true
     }
     bool
   }
-
-  /*  def movesAllowed(player: Player, board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]): Boolean = {
-      if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
-        for (x <- possibleMoves) {
-          val checkMove = (source._1 + x._1, source._2 + x._2)
-          if (destination == checkMove) {
-            true
-          }
-        }
-      }
-      false
-    }*/
-
-/*  def ifTop(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]) : Boolean = {
-    if (checkValidPoss(destination) && board.get(source).getSide() == "top" && board.get(source).getSide() != board.get(destination).getSide()) {
-      for (x <- possibleMoves) {
-        val checkMove = (source._1 - x._1, source._2 - x._2)
-        if (destination == checkMove) {
-          true
-        }
-      }
-    }
-    false
-  }
-
-  def ifBottom(board: Board, source: Point, destination: Point, possibleMoves: List[(Int, Int)]) : Boolean = {
-    if (checkValidPoss(destination) && board.get(source).getSide() == "bottom" && board.get(source).getSide() != board.get(destination).getSide()) {
-      for (x <- possibleMoves) {
-        val checkMove = (source._1 + x._1, source._2 + x._2)
-        if (destination == checkMove) {
-          true
-        }
-      }
-    }
-    false
-  }*/
 }
