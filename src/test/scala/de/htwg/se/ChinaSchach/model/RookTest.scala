@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach.model
 
 import de.htwg.se.ChinaSchach.util.Point
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class RookTest extends WordSpec with Matchers {
   "A Rook Movement" should {
@@ -18,15 +18,15 @@ class RookTest extends WordSpec with Matchers {
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, Point(3, 5), board.gameBoard(sourcePoint).getPossibleMoves())
         assert(movePossible)
 
-        //top
+        //bottom
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, Point(3, 2), board.gameBoard(sourcePoint).getPossibleMoves())
         assert(movePossible)
 
-        //bottom
+        //left
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, Point(0, 3), board.gameBoard(sourcePoint).getPossibleMoves())
         assert(movePossible)
 
-        //bottom
+        //right
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, Point(7, 3), board.gameBoard(sourcePoint).getPossibleMoves())
         assert(movePossible)
 
@@ -69,15 +69,15 @@ class RookTest extends WordSpec with Matchers {
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination1, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //top
+        //bottom
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination2, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //right
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination3, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //left
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination4, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
@@ -107,15 +107,15 @@ class RookTest extends WordSpec with Matchers {
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination1, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //top
+        //bottom
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination2, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //left
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination3, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //right
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination4, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
@@ -145,15 +145,15 @@ class RookTest extends WordSpec with Matchers {
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination1, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //top
+        //bottom
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination2, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //left
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination3, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
-        //bottom
+        //right
         movePossible = board.gameBoard(sourcePoint).movesAllowed(board, sourcePoint, destination4, board.gameBoard(sourcePoint).getPossibleMoves())
         assert(!movePossible)
 
