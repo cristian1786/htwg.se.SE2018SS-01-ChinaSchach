@@ -11,7 +11,7 @@ import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-class Gui(controller: Controller, board: Board) extends MainFrame {
+class Gui(controller: Controller) extends MainFrame {
 
   val labelRound = new Label("Round: 0 Turn: player 1")
   val player1Label = new Label("  player 1   ")
@@ -63,7 +63,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     for {
       x <- 0 until row
       y <- 0 until col
-    } board.gameBoard.get(Point(x, y)) match {
+    } controller.board.gameBoard.get(Point(x, y)) match {
       case Some(_: EmptyField) =>
         try {
           fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
@@ -102,7 +102,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       y <- 0 until col
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-        if (controller.round % 2 != 0 && board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "b") {
+        if (controller.round % 2 != 0 && controller.board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "b") {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
@@ -114,7 +114,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-        } else if (controller.round % 2 == 0 && board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "w") {
+        } else if (controller.round % 2 == 0 && controller.board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
@@ -128,13 +128,17 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
           }
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
-          setBackGround()
-          setGameBoardImages()
-          setTopLabel()
-          setCounter()
-          checkForWin()
         }
     }
+  }
+
+  // Observer update
+  override def update() : Unit = {
+    setBackGround()
+    setGameBoardImages()
+    setTopLabel()
+    setCounter()
+    checkForWin()
   }
 
   // reset counter to 0

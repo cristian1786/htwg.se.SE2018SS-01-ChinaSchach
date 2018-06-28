@@ -40,7 +40,7 @@ class Controller(name1: String, name2: String) {
 
   // initialize gui
   def guiInit(): Unit = {
-    gui = new Gui(this, board)
+    gui = new Gui(this)
     gui.go()
     gui.visible = true
   }
