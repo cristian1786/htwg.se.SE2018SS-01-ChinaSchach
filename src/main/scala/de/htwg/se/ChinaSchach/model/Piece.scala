@@ -6,9 +6,6 @@ import de.htwg.se.ChinaSchach.util.Point
 trait Piece {
   def side: String
   def possibleMoves: List[ListBuffer[(Int, Int)]] = List.empty
-//  def setSide(side: String) : Unit = this.side = side
-//
-//  def setPromotable(promotable: String) : Unit = this.promotable = promotable
 
   def getSide() : String = side
 
