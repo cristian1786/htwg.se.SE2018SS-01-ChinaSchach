@@ -223,7 +223,7 @@ class Gui(controller: Controller) extends Observer {
 
   // restart game dialog helper function
   def restartGame(): Unit = {
-    controller.reset()
+    controller.resetGUI()
     setGameBoardImages()
     setCounter()
     controller.setRound()

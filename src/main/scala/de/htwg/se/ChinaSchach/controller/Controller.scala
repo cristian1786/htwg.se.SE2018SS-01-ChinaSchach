@@ -33,7 +33,13 @@ class Controller() extends Observable{
   // initialize controller
   def controllerInit(): Unit = {
     boardInit()
-    guiInit()
+//    guiInit()
+    tuiInit()
+  }
+
+  def tuiInit() : Unit = {
+    tui = new Tui(this)
+    tui.go()
   }
 
   // initialize gui
@@ -54,17 +60,12 @@ class Controller() extends Observable{
   //initializes playing board
   def boardInit(): Unit = {
     board.go()
-    //    tui = new Tui(board)
     moveDone = false
     topKingDead = false
     bottomKingDead = false
     rochadeDoneW = false
     rochadeDoneB = false
-    //    getSelectedPoint(testPoint)
-    //    getSelectedPoint(testDest)
-    //    tui.outputField()
     playerInit()
-
   }
 
   //initialize player
@@ -79,10 +80,6 @@ class Controller() extends Observable{
 
     listPlayer1.appendAll(player1.setPieces(board, "w"))
     listPlayer2.appendAll(player2.setPieces(board, "b"))
-
-    //    tui.outputPlayerFigures(listPlayer1)
-    //    tui.outputPlayerFigures(listPlayer2)
-
   }
 
   def getSelectedPoint(point: Point): Unit = {
@@ -188,10 +185,16 @@ class Controller() extends Observable{
     }
   }
 
-  def reset(): Unit = {
+  def resetGUI(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
     boardInit()
     guiReset()
+  }
+
+  def resetTUI(): Unit = {
+    board.gameBoard = Map.empty[Point, Piece]
+    boardInit()
+    tui.go()
   }
 
   def exit(): Unit = {
