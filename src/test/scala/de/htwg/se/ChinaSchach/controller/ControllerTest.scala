@@ -141,7 +141,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.getSelectedPoint(Point(6, 3))
         assert(c.board.gameBoard(Point(6, 3)).toString == "Queen(w)")
         assert(c.board.gameBoard(Point(3, 0)).toString == "EmptyField( )")
-        c.resetGUI()
+        c.reset()
         assert(c.board.gameBoard(Point(6, 3)).toString == "EmptyField( )")
       }
     }

@@ -206,7 +206,7 @@ class Gui(controller: Controller) extends Observer {
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") {
           val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) { restartGame() }
+          if (res == Dialog.Result.Yes) { controller.reset() }
         }
         contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
@@ -223,12 +223,10 @@ class Gui(controller: Controller) extends Observer {
 
   // restart game dialog helper function
   def restartGame(): Unit = {
-    controller.resetGUI()
     setGameBoardImages()
     setCounter()
-    controller.setRound()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
-    go()
+//    go()
   }
 
   // Dialog to promote Pawn

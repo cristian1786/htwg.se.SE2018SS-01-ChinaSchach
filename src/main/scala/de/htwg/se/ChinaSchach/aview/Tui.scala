@@ -51,11 +51,11 @@ class Tui(controller: Controller) extends Observer {
       case "quit" =>
         controller.exit()
       case "restart" =>
-        controller.resetTUI()
-        controller.setRound()
+        restart()
+//        controller.setRound()
       case src if input.startsWith("src") =>
         controller.getSelectedPoint(Point(input.charAt(4).toString.toInt, input.charAt(5).toString.toInt))
-        println(input.charAt(4).toString.toInt + "    #################################")
+//        println(input.charAt(4).toString.toInt + "    #################################")
         println("Choose destination:")
         readInput()
       case dest if input.startsWith("dest") =>
@@ -75,11 +75,15 @@ class Tui(controller: Controller) extends Observer {
   def checkForWin() : Unit = {
     if (controller.bottomKingDead) {
       println("PLAYER 2 WON!")
-      controller.resetTUI()
+      controller.reset()
     } else if (controller.topKingDead) {
       println("PLAYER 1 WON!")
-      controller.resetTUI()
+      controller.reset()
     }
+  }
+
+  def restart(): Unit = {
+    controller.reset()
   }
 
   override def update() : Unit = {

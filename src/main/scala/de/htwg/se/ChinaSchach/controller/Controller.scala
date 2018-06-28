@@ -33,7 +33,7 @@ class Controller() extends Observable{
   // initialize controller
   def controllerInit(): Unit = {
     boardInit()
-//    guiInit()
+    guiInit()
     tuiInit()
   }
 
@@ -50,12 +50,14 @@ class Controller() extends Observable{
   }
 
   // resets gui
-  def guiReset(): Unit = {
-    if(gui != null) {
-      gui.go()
-      gui.frame.visible = true
-    }
-  }
+//  def guiReset(): Unit = {
+//    if(gui != null) {
+//      gui.go()
+//      gui.frame.visible = true
+//    } else if (tui != null) {
+//
+//    }
+//  }
 
   //initializes playing board
   def boardInit(): Unit = {
@@ -185,16 +187,32 @@ class Controller() extends Observable{
     }
   }
 
-  def resetGUI(): Unit = {
-    board.gameBoard = Map.empty[Point, Piece]
-    boardInit()
-    guiReset()
-  }
+//  def resetGUI(): Unit = {
+//    board.gameBoard = Map.empty[Point, Piece]
+//    boardInit()
+//    guiReset()
+//  }
 
-  def resetTUI(): Unit = {
+  def reset(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
     boardInit()
-    tui.go()
+    setRound()
+    if (gui != null  && tui != null) {
+
+      gui.restartGame()
+      gui.go()
+
+      tui.go()
+      gui.frame.visible = true
+
+    } else if (tui != null) {
+      tui.go()
+    } else if (gui != null) {
+      gui.restartGame()
+      gui.go()
+      gui.frame.visible = true
+//      gui.setCounter()
+    }
   }
 
   def exit(): Unit = {
@@ -260,7 +278,5 @@ class Controller() extends Observable{
     round += 1
     notifyObservers()
   }
-
-  def notifyView(): Unit = {}
 
 }
