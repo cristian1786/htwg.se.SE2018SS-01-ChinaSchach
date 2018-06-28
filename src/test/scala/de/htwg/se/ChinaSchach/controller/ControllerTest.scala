@@ -131,8 +131,7 @@ class ControllerTest extends WordSpec with Matchers {
 
       "Game reset works" in {
         val c = new Controller()
-        c.controllerInit()
-        c.gui.frame.visible = false
+        c.boardInit()
 
         c.getSelectedPoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 3))

@@ -45,8 +45,10 @@ class Controller() extends Observable{
 
   // resets gui
   def guiReset(): Unit = {
-    gui.go()
-    gui.frame.visible = true
+    if(gui != null) {
+      gui.go()
+      gui.frame.visible = true
+    }
   }
 
   //initializes playing board
