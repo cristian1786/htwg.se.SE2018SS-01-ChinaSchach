@@ -5,7 +5,7 @@ import scala.swing.Button
 
 class FieldButton(point: Point) extends Button {
 
-  def getPoint() : Point = {
+  def getPoint(): Point = {
     point
   }
 }

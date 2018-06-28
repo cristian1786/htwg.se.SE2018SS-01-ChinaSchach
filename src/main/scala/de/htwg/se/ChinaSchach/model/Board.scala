@@ -7,9 +7,9 @@ class Board() {
 
   val MAX_NUMBER = 8
   var gameBoard = Map.empty[Point, Piece]
- // val gameBoard = Array.ofDim[Piece](MAX_NUMBER,MAX_NUMBER)
 
-  def go() : Unit = {
+  // initialize map with pieces and empty fields
+  def go(): Unit = {
     placeBlackPieces()
     placeWhitePieces()
     placeEmptyFields()
@@ -47,14 +47,14 @@ class Board() {
   }
 
   //place Pawns
-  def placePawn(y: Int, side: String) : Unit = {
+  def placePawn(y: Int, side: String): Unit = {
     for (x <- 0 to 7) {
       gameBoard += Point(x, y) -> Pawn(side)
     }
   }
 
   //place Bishop
-  def placeBishop(y: Int, side: String) : Unit = {
+  def placeBishop(y: Int, side: String): Unit = {
     gameBoard += Point(MAX_NUMBER - 6, y) -> Bishop(side)
     gameBoard += Point(MAX_NUMBER - 3, y) -> Bishop(side)
   }
@@ -79,11 +79,6 @@ class Board() {
   def placeRook(y: Int, side: String): Unit = {
     gameBoard += Point(MAX_NUMBER - 1, y) -> Rook(side)
     gameBoard += Point(MAX_NUMBER - 8, y) -> Rook(side)
-  }
-
-  //returns the value at the respective field-point
-  def getPiece(point: Point): Piece = {
-    gameBoard(point)
   }
 
   def deletePiece(field: (Int, Int)): Unit = {

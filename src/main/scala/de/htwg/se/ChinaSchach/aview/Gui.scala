@@ -4,14 +4,12 @@ import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
 import de.htwg.se.ChinaSchach.util.Point
-import javax.swing
-import javax.swing.{ImageIcon, JOptionPane}
+import javax.swing.ImageIcon
 
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
-
 
 class Gui(controller: Controller, board: Board) extends MainFrame {
 
@@ -31,14 +29,15 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   var counter = 0
 
-  def go() : Unit = {
+  // initialize Gui
+  def go(): Unit = {
     initializeButtons()
     buttonActionListener()
     drawBoard()
   }
 
   //initialize Button for each field
-  def initializeButtons() : Unit = {
+  def initializeButtons(): Unit = {
     for (y <- 0 until col) {
       fieldButtons(0)(y) = new FieldButton(Point(0, y))
       fieldButtons(1)(y) = new FieldButton(Point(1, y))
@@ -64,8 +63,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     for {
       x <- 0 until row
       y <- 0 until col
-    }
-    board.gameBoard.get(Point(x, y)) match {
+    } board.gameBoard.get(Point(x, y)) match {
       case Some(_: EmptyField) =>
         try {
           fieldButtons(x)(y).icon = new ImageIcon(this.getClass.getResource("resources/empty.png"))
@@ -86,7 +84,7 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
   }
 
   // game won dialog to choose if the players want to restart or quit the game
-  def gameWonDialog(str: String) : Unit = {
+  def gameWonDialog(str: String): Unit = {
     val message = " Do you want to quit? (No restarts the game)"
     val res = Dialog.showConfirmation(contents.last, str + message, optionType = Dialog.Options.YesNo, title = "Game over!")
     if (res == Dialog.Result.Yes) {
@@ -98,39 +96,37 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
 
   // implements buttonclick action for each of the fields on the board
   // calls getSelectedPoint
-  def buttonActionListener() : Unit = {
+  def buttonActionListener(): Unit = {
     for {
       x <- 0 until row
       y <- 0 until col
-    }
-    fieldButtons(x)(y).reactions += {
+    } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-//        println(fieldButtons(x)(y).getPoint())
-        if (controller.round%2 != 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "b") {
+        if (controller.round % 2 != 0 && board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "b") {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
           if (counter != 0) {
             setTileBackground(xx, yy)
-            counter = 0
+            setCounter()
           } else {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-        } else if (controller.round%2 == 0 && board.getPiece(fieldButtons(x)(y).getPoint()).getSide() == "w") {
+        } else if (controller.round % 2 == 0 && board.gameBoard(fieldButtons(x)(y).getPoint()).getSide() == "w") {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
           if (counter != 0) {
             setTileBackground(xx, yy)
-            counter = 0
+            setCounter()
           } else {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-        } else if(counter%2 != 0) {
+        } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
           setBackGround()
           setGameBoardImages()
@@ -141,11 +137,13 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
   }
 
-  def setCounter() : Unit = {
+  // reset counter to 0
+  def setCounter(): Unit = {
     counter = 0
   }
 
-  def checkForWin() : Unit = {
+  // helper function which checks for win by calling controller variable
+  def checkForWin(): Unit = {
     if (controller.bottomKingDead) {
       gameWonDialog("Player 2 won!")
     } else if (controller.topKingDead) {
@@ -153,27 +151,28 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     }
   }
 
-  def setTopLabel() : Unit = {
-    if (controller.round%2 == 0) {
+  // display and update top-Label
+  def setTopLabel(): Unit = {
+    if (controller.round % 2 == 0) {
       labelRound.text = "Round: " + controller.round + " Turn: player 1"
     } else {
       labelRound.text = "Round: " + controller.round + " Turn: player 2"
     }
   }
 
+  // set the background of the chess gameboard tiles
   def setBackGround(): Unit = {
     for {
       x <- 0 until row
       y <- 0 until col
-    }
-    if ((x + y) % 2 == 0) {
+    } if ((x + y) % 2 == 0) {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     } else {
       fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
     }
   }
 
-  def setTileBackground(x: Int, y: Int) : Unit = {
+  def setTileBackground(x: Int, y: Int): Unit = {
     if ((x + y) % 2 == 0) {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     } else {
@@ -188,18 +187,19 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
       add(player1Label, BorderPanel.Position.West)
       add(player2Label, BorderPanel.Position.East)
       add(new GridPanel(row, col) {
-        preferredSize = new Dimension(626,626)
+        preferredSize = new Dimension(626, 626)
         for {
           x <- 0 until row
           y <- 0 until col
-        }
-          contents += fieldButtons(x)(y)
+        } contents += fieldButtons(x)(y)
         setGameBoardImages()
       }, BorderPanel.Position.Center)
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
-        contents += Button("Restart Game") { val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) { restartGame() } }
+        contents += Button("Restart Game") {
+          val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
+          if (res == Dialog.Result.Yes) { restartGame() }
+        }
         contents += Button("Quit") { exitGame() }
       }, BorderPanel.Position.South)
     }
@@ -223,7 +223,8 @@ class Gui(controller: Controller, board: Board) extends MainFrame {
     go()
   }
 
-  def promotePawnDialog(list: ListBuffer[Piece], side: String) : Piece = {
+  // Dialog to promote Pawn
+  def promotePawnDialog(list: ListBuffer[Piece], side: String): Piece = {
     for (piece <- list) {
       if (piece.equals(Pawn("w"))) {
         list.-=(piece)

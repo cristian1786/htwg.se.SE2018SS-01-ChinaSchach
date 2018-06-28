@@ -7,7 +7,6 @@ import scala.collection.mutable.Map
 
 import scala.collection.mutable.ListBuffer
 
-
 class Controller(name1: String, name2: String) {
 
   var board: Board = new Board
@@ -33,41 +32,43 @@ class Controller(name1: String, name2: String) {
   var rochadeDoneB: Boolean = _
   var gui: Gui = _
 
-
-  def controllorInit() : Unit = {
+  // initialize controller
+  def controllorInit(): Unit = {
     boardInit()
     guiInit()
   }
 
-  def guiInit() : Unit = {
-    gui =  new Gui(this, board)
+  // initialize gui
+  def guiInit(): Unit = {
+    gui = new Gui(this, board)
     gui.go()
     gui.visible = true
   }
 
-  def guiReset() : Unit = {
+  // resets gui
+  def guiReset(): Unit = {
     gui.go()
     gui.visible = true
   }
 
   //initializes playing board
-  def boardInit() : Unit = {
+  def boardInit(): Unit = {
     board.go()
-//    tui = new Tui(board)
+    //    tui = new Tui(board)
     moveDone = false
     topKingDead = false
     bottomKingDead = false
     rochadeDoneW = false
     rochadeDoneB = false
-//    getSelectedPoint(testPoint)
-//    getSelectedPoint(testDest)
-//    tui.outputField()
+    //    getSelectedPoint(testPoint)
+    //    getSelectedPoint(testDest)
+    //    tui.outputField()
     playerInit()
 
   }
 
   //initialize player
-  def playerInit() : Unit = {
+  def playerInit(): Unit = {
     player1 = new Player
     player2 = new Player
 
@@ -78,10 +79,9 @@ class Controller(name1: String, name2: String) {
 
     listPlayer1.appendAll(player1.setPieces(board, "w"))
     listPlayer2.appendAll(player2.setPieces(board, "b"))
-    println("listPlayer1" + listPlayer1)
 
-//    tui.outputPlayerFigures(listPlayer1)
-//    tui.outputPlayerFigures(listPlayer2)
+    //    tui.outputPlayerFigures(listPlayer1)
+    //    tui.outputPlayerFigures(listPlayer2)
 
   }
 
@@ -92,42 +92,34 @@ class Controller(name1: String, name2: String) {
       case Some(x) =>
         if (!moveDone && x.getSide() != " ") {
           savePiecePoint(x, point)
-        }
-        else if (moveDone) {
+        } else if (moveDone) {
           val justIf = {
-            if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+            if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
               sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-            }
-            else {
+            } else {
               sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
             }
           }
           val ifRochade = {
-            if(sourcePiece.getSide() == board.getPiece(point).getSide() && sourcePiece != board.getPiece(point)
-                          && !rochadeDoneW || !rochadeDoneB) {
+            if (sourcePiece.getSide() == board.gameBoard(point).getSide() && sourcePiece != board.gameBoard(point)
+              && !rochadeDoneW || !rochadeDoneB) {
               sourcePiece.testRochade(board, sourcePoint, point)
-            }
-            else {
+            } else {
               false
             }
           }
-          println("HAHAHAHAHAHAHAH " + ifRochade)
-          if(ifRochade) {
+          if (ifRochade) {
             doRochade(sourcePoint, point)
-          }
-          else if (!justIf) {
+          } else if (!justIf) {
             moveDone = false
-          }
-          else if (justIf) {
+          } else if (justIf) {
             ifEnemy(sourcePoint, point)
           }
-        }
-        else {
+        } else {
           message = "Empty Field selected"
         }
     }
   }
-
 
   def savePiecePoint(piece: Piece, point: Point): Unit = {
     sourcePiece = piece
@@ -137,34 +129,28 @@ class Controller(name1: String, name2: String) {
   }
 
   def ifEnemy(source: Point, destination: Point): Unit = {
-    if (board.getPiece(destination).getSide() != " ") {
-      if (board.getPiece(source).getSide() == "w") {
-        listPlayer2.-=(board.getPiece(destination))
-        listKillPlayer2.+=(board.getPiece(destination))
-        println(listPlayer1)
-        println(listKillPlayer2)
+    if (board.gameBoard(destination).getSide() != " ") {
+      if (board.gameBoard(source).getSide() == "w") {
+        listPlayer2.-=(board.gameBoard(destination))
+        listKillPlayer2.+=(board.gameBoard(destination))
+        movePiece(source, destination)
+      } else {
+        listPlayer1.-=(board.gameBoard(destination))
+        listKillPlayer1.+=(board.gameBoard(destination))
         movePiece(source, destination)
       }
-      else {
-        listPlayer1.-=(board.getPiece(destination))
-        listKillPlayer1.+=(board.getPiece(destination))
-        println(listPlayer2)
-        println(listKillPlayer1)
-        movePiece(source, destination)
-      }
-    }
-    else {
+    } else {
       movePiece(source, destination)
     }
   }
 
-  def movePiece(source: Point, destination: Point) : Unit = {
+  def movePiece(source: Point, destination: Point): Unit = {
     gameWon(destination)
-    board.gameBoard += destination -> board.getPiece(source)
+    board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
     round += 1
-    if(sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+    if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
     }
   }
@@ -172,34 +158,29 @@ class Controller(name1: String, name2: String) {
   def rowOneEight(destination: Point): Unit = {
     val rowOne: List[(Int, Int)] = List((0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0))
     val rowEight: List[(Int, Int)] = List((0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7))
-    if(sourcePiece.toString == "Pawn(w)") {
+    if (sourcePiece.toString == "Pawn(w)") {
       pawnReplace(destination, rowEight)
-    }
-    else {
+    } else {
       pawnReplace(destination, rowOne)
     }
   }
 
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
-    if(list.contains((destination.x, destination.y)) && list.head == (0, 0)){
-      println(listKillPlayer1)
+    if (list.contains((destination.x, destination.y)) && list.head == (0, 0)) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
       board.gameBoard += destination -> piece
       listKillPlayer2.-=(piece)
-    }
-    else if(list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
-      println(listKillPlayer2)
+    } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
       board.gameBoard += destination -> piece
       listKillPlayer1.-=(piece)
     }
   }
 
-  def gameWon(destination: Point) : Unit = {
-    if(board.getPiece(destination).toString == "King(w)") {
+  def gameWon(destination: Point): Unit = {
+    if (board.gameBoard(destination).toString == "King(w)") {
       bottomKingDead = true
-    }
-    else if(board.getPiece(destination).toString == "King(b)"){
+    } else if (board.gameBoard(destination).toString == "King(b)") {
       topKingDead = true
     }
   }
@@ -214,70 +195,62 @@ class Controller(name1: String, name2: String) {
     sys.exit(0)
   }
 
-  def setRound() : Unit = {
+  def setRound(): Unit = {
     round = 0
   }
 
   def doRochade(sourcePoint: Point, point: Point): Unit = {
-    if(sourcePoint == Point(0, 0) || sourcePoint == Point(0, 7) || point == Point(0, 0)
+    if (sourcePoint == Point(0, 0) || sourcePoint == Point(0, 7) || point == Point(0, 0)
       || point == Point(0, 7)) {
       bigRochade(sourcePoint, point)
-    }
-    else if(sourcePoint == Point(7, 0) || sourcePoint == Point(7, 7) || point == Point(7, 0)
+    } else if (sourcePoint == Point(7, 0) || sourcePoint == Point(7, 7) || point == Point(7, 0)
       || point == Point(7, 7)) {
       smallRochade(sourcePoint, point)
     }
   }
 
   def bigRochade(source: Point, point: Point): Unit = {
-    if(sourcePiece.toString.contains("King")) {
+    if (sourcePiece.toString.contains("King")) {
       bigRochadeMove(point, source)
-    }
-    else {
+    } else {
       bigRochadeMove(source, point)
     }
   }
 
   def smallRochade(source: Point, point: Point): Unit = {
-    if(sourcePiece.toString.contains("King")) {
+    if (sourcePiece.toString.contains("King")) {
       smallRochadeMove(point, source)
-    }
-    else {
+    } else {
       smallRochadeMove(source, point)
     }
   }
 
   def bigRochadeMove(source: Point, point: Point): Unit = {
-    if(board.getPiece(source).getSide() == "w" && rochadeDoneW != true) {
+    if (board.gameBoard(source).getSide() == "w" && rochadeDoneW != true) {
       rochadeDoneW = true
-    }
-    else if(board.getPiece(source).getSide() == "b" && rochadeDoneB != true) {
+    } else if (board.gameBoard(source).getSide() == "b" && rochadeDoneB != true) {
       rochadeDoneB = true
     }
-    board.gameBoard += Point(source.x + 3, source.y) -> board.getPiece(source)
-    board.gameBoard += Point(point.x - 2, point.y) -> board.getPiece(point)
+    board.gameBoard += Point(source.x + 3, source.y) -> board.gameBoard(source)
+    board.gameBoard += Point(point.x - 2, point.y) -> board.gameBoard(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
-
-    println("BIGGGGGGGGGGGGGGGGG")
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
-    if(board.getPiece(source).getSide() == "w" && rochadeDoneW != true) {
+    if (board.gameBoard(source).getSide() == "w" && rochadeDoneW != true) {
       rochadeDoneW = true
-    }
-    else if(board.getPiece(source).getSide() == "b" && rochadeDoneB != true) {
+    } else if (board.gameBoard(source).getSide() == "b" && rochadeDoneB != true) {
       rochadeDoneB = true
     }
-    board.gameBoard += Point(source.x - 2, source.y) -> board.getPiece(source)
-    board.gameBoard += Point(point.x + 2, point.y) -> board.getPiece(point)
+    board.gameBoard += Point(source.x - 2, source.y) -> board.gameBoard(source)
+    board.gameBoard += Point(point.x + 2, point.y) -> board.gameBoard(point)
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
-    println("SMAAAAAALLLLLLLLLL")
   }
 
   def notifyView(): Unit = {}
