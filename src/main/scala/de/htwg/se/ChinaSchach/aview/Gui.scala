@@ -14,6 +14,7 @@ import scala.swing.event.ButtonClicked
 
 class Gui(controller: Controller) extends Observer {
 
+  controller.addObserver(this)
   val labelRound = new Label("Round: 0 Turn: player 1")
   val player1Label = new Label("  player 1   ")
   val player2Label = new Label("  player 2   ")
@@ -131,7 +132,7 @@ class Gui(controller: Controller) extends Observer {
           }
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
-          update()
+          //update()
         }
     }
   }

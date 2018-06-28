@@ -2,12 +2,13 @@ package de.htwg.se.ChinaSchach.controller
 
 import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
+import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
-import scala.collection.mutable.Map
 
+import scala.collection.mutable.Map
 import scala.collection.mutable.ListBuffer
 
-class Controller(name1: String, name2: String) {
+class Controller(name1: String, name2: String) extends Observable{
 
   var board: Board = new Board
   var tui: Tui = _
@@ -32,8 +33,9 @@ class Controller(name1: String, name2: String) {
   var rochadeDoneB: Boolean = _
   var gui: Gui = _
 
+
   // initialize controller
-  def controllorInit(): Unit = {
+  def controllerInit(): Unit = {
     boardInit()
     guiInit()
   }
@@ -150,6 +152,7 @@ class Controller(name1: String, name2: String) {
     board.gameBoard += source -> EmptyField(" ")
     moveDone = false
     round += 1
+    notifyObservers()
     if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
     }
@@ -170,10 +173,12 @@ class Controller(name1: String, name2: String) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
       board.gameBoard += destination -> piece
       listKillPlayer2.-=(piece)
+      notifyObservers()
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
       board.gameBoard += destination -> piece
       listKillPlayer1.-=(piece)
+      notifyObservers()
     }
   }
 
@@ -237,6 +242,7 @@ class Controller(name1: String, name2: String) {
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
+    notifyObservers()
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
@@ -251,6 +257,7 @@ class Controller(name1: String, name2: String) {
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     round += 1
+    notifyObservers()
   }
 
   def notifyView(): Unit = {}

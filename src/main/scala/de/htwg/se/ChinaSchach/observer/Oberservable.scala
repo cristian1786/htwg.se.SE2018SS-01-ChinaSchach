@@ -7,7 +7,7 @@ trait Observer {
 }
 
 class Observable {
-  var observers = ListBuffer.empty[Observer]
+  var observers: ListBuffer[Observer] = ListBuffer.empty
 
   def addObserver(o: Observer): Unit = {
     observers.+=(o)

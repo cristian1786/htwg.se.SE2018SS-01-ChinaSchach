@@ -5,6 +5,6 @@ import de.htwg.se.ChinaSchach.controller.Controller
 object ChinaSchach {
   def main(args: Array[String]): Unit = {
     val controller = new Controller("Peter", "Hans")
-    controller.controllorInit()
+    controller.controllerInit()
   }
 }
