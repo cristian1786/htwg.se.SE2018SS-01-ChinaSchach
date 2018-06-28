@@ -8,7 +8,7 @@ import de.htwg.se.ChinaSchach.util.Point
 import scala.collection.mutable.Map
 import scala.collection.mutable.ListBuffer
 
-class Controller(name1: String, name2: String) extends Observable{
+class Controller() extends Observable{
 
   var board: Board = new Board
   var tui: Tui = _
@@ -21,14 +21,10 @@ class Controller(name1: String, name2: String) extends Observable{
   var topKingDead: Boolean = _
   var bottomKingDead: Boolean = _
   var moveDone: Boolean = _
-  var winner = ""
   var message = ""
-  var gameOver = false
   var sourcePiece: Piece = _
   var sourcePoint: Point = _
   var round = 0
-  var testPoint = Point(0, 1)
-  var testDest = Point(0, 2)
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
   var gui: Gui = _

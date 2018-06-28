@@ -4,7 +4,7 @@ import de.htwg.se.ChinaSchach.util.Point
 import org.scalatest.{ Matchers, WordSpec }
 
 class BoardTest extends WordSpec with Matchers {
-  "A Board Movement should contain the figures" in {
+  "A Board should contain figures" in {
     val board = new Board
     board.go()
 
