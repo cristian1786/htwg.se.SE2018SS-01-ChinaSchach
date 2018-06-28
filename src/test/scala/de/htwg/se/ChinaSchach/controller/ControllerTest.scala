@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
-import de.htwg.se.ChinaSchach.model.{EmptyField, Queen}
+import de.htwg.se.ChinaSchach.model.{EmptyField, Pawn, Queen}
 import de.htwg.se.ChinaSchach.util.Point
 import org.scalatest.{Matchers, WordSpec}
 
@@ -104,6 +104,46 @@ class ControllerTest extends WordSpec with Matchers {
         c.getSelectedPoint(Point(3, 0))
         assert(!c.listPlayer1.contains(Queen("w")))
         assert(c.listKillPlayer1.contains(Queen("w")))
+      }
+
+      "Black Queen is not on the board anymore" in {
+        val c = new Controller()
+        c.boardInit()
+        c.board.gameBoard += Point(3, 6) -> Queen("w")
+
+        c.getSelectedPoint(Point(3, 6))
+        c.getSelectedPoint(Point(3, 7))
+        assert(!c.listPlayer2.contains(Queen("b")))
+        assert(c.listKillPlayer2.contains(Queen("b")))
+      }
+
+      "Pawn can remove opponent going top-right" in {
+        val c = new Controller()
+        c.boardInit()
+        c.board.gameBoard += Point(3, 5) -> Pawn("w")
+
+        c.getSelectedPoint(Point(3, 5))
+        c.getSelectedPoint(Point(4, 6))
+        assert(c.listKillPlayer2.contains(Pawn("b")))
+        assert(c.board.gameBoard(Point(4, 6)).toString == "Pawn(w)")
+        assert(c.board.gameBoard(Point(3, 5)).toString == "EmptyField( )")
+      }
+
+      "Game reset works" in {
+        val c = new Controller()
+        c.controllerInit()
+        c.gui.frame.visible = false
+
+        c.getSelectedPoint(Point(0, 1))
+        c.getSelectedPoint(Point(0, 3))
+        c.getSelectedPoint(Point(4, 1))
+        c.getSelectedPoint(Point(4, 3))
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(6, 3))
+        assert(c.board.gameBoard(Point(6, 3)).toString == "Queen(w)")
+        assert(c.board.gameBoard(Point(3, 0)).toString == "EmptyField( )")
+        c.reset()
+        assert(c.board.gameBoard(Point(6, 3)).toString == "EmptyField( )")
       }
     }
   }

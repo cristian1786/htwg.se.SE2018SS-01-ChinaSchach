@@ -227,9 +227,9 @@ class Controller() extends Observable{
   }
 
   def bigRochadeMove(source: Point, point: Point): Unit = {
-    if (board.gameBoard(source).getSide() == "w" && rochadeDoneW != true) {
+    if (board.gameBoard(source).getSide() == "w" && !rochadeDoneW) {
       rochadeDoneW = true
-    } else if (board.gameBoard(source).getSide() == "b" && rochadeDoneB != true) {
+    } else if (board.gameBoard(source).getSide() == "b" && !rochadeDoneB) {
       rochadeDoneB = true
     }
     board.gameBoard += Point(source.x + 3, source.y) -> board.gameBoard(source)
@@ -242,9 +242,9 @@ class Controller() extends Observable{
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
-    if (board.gameBoard(source).getSide() == "w" && rochadeDoneW != true) {
+    if (board.gameBoard(source).getSide() == "w" && !rochadeDoneW) {
       rochadeDoneW = true
-    } else if (board.gameBoard(source).getSide() == "b" && rochadeDoneB != true) {
+    } else if (board.gameBoard(source).getSide() == "b" && !rochadeDoneB) {
       rochadeDoneB = true
     }
     board.gameBoard += Point(source.x - 2, source.y) -> board.gameBoard(source)

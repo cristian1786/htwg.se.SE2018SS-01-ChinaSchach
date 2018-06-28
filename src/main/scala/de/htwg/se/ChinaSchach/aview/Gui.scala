@@ -1,6 +1,5 @@
 package de.htwg.se.ChinaSchach.aview
 
-import de.htwg.se.ChinaSchach.model.Board
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
 import de.htwg.se.ChinaSchach.observer.Observer
@@ -110,7 +109,7 @@ class Gui(controller: Controller) extends Observer {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
+          //setGameBoardImages()
           if (counter != 0) {
             setTileBackground(xx, yy)
             setCounter()
@@ -122,7 +121,7 @@ class Gui(controller: Controller) extends Observer {
           controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
+          //setGameBoardImages()
           if (counter != 0) {
             setTileBackground(xx, yy)
             setCounter()
