@@ -15,12 +15,18 @@ libraryDependencies ++= {
   )
 }
 
-libraryDependencies += "junit" % "junit" % "4.8" % "test"
-libraryDependencies += "org.scala-lang" % "scala-swing" % "2.11+"
 
 libraryDependencies := {
   libraryDependencies.value ++ Seq(
+    "junit" % "junit" % "4.8" % "test",
+    "org.scala-lang" % "scala-swing" % "2.11+",
+    "org.apache.commons" % "commons-lang3" % "3.4",
+    "org.apache.commons" % "commons-io" % "1.3.2",
     "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
     "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
     "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2")
 }
+
+fork in run := true
+
+trapExit := false
