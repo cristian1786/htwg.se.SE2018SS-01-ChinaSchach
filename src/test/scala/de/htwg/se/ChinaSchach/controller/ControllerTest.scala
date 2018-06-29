@@ -271,6 +271,45 @@ class ControllerTest extends WordSpec with Matchers {
         assert(c.board.gameBoard(Point(6, 7)).toString != "King(b)")
         assert(c.board.gameBoard(Point(5, 7)).toString != "Rook(b)")
       }
+
+      "Queen has own piece between her and destination" in {
+        val c = new Controller()
+        c.boardInit()
+
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(3, 4))
+        assert(c.board.gameBoard(Point(3, 4)).toString != "Queen(w)")
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(7, 4))
+        assert(c.board.gameBoard(Point(7, 4)).toString != "Queen(w)")
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(0, 3))
+        assert(c.board.gameBoard(Point(0, 3)).toString != "Queen(w)")
+      }
+
+      "Rook has own piece between it and destination" in {
+        val c = new Controller()
+        c.boardInit()
+
+        c.getSelectedPoint(Point(0, 0))
+        c.getSelectedPoint(Point(0, 4))
+        assert(c.board.gameBoard(Point(0, 4)).toString != "Rook(w)")
+        c.getSelectedPoint(Point(0, 7))
+        c.getSelectedPoint(Point(0, 3))
+        assert(c.board.gameBoard(Point(7, 4)).toString != "Rook(b)")
+      }
+
+      "Bishop has own piece between it and destination" in {
+        val c = new Controller()
+        c.boardInit()
+
+        c.getSelectedPoint(Point(2, 0))
+        c.getSelectedPoint(Point(4, 2))
+        assert(c.board.gameBoard(Point(4, 2)).toString != "Bishop(w)")
+        c.getSelectedPoint(Point(2, 0))
+        c.getSelectedPoint(Point(0, 2))
+        assert(c.board.gameBoard(Point(0, 2)).toString != "Bishop(w)")
+      }
     }
   }
 }
