@@ -1,6 +1,7 @@
 package de.htwg.se.ChinaSchach.aview
 
 import de.htwg.se.ChinaSchach.controller.Controller
+import de.htwg.se.ChinaSchach.model.EmptyField
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
 
@@ -14,10 +15,11 @@ class Tui(controller: Controller) extends Observer {
   // initialize TUI
   def go(): Unit = {
     drawGameboard()
-    println("x = Integer, y Integer")
-    println("The board uses Point-Coordinates (x, y) to initialize each chessfield.")
-    println("Please input action to perform in the following format (p XY) (quit) (restart):")
-    println("Choose source:")
+    println("The board uses Point-Coordinates (X, Y) to initialize each chessfield with a corresponding piece if existant.")
+    println("Please select and move a Chesspiece by using 'p XY'.")
+    println("Format: X = Integer, Y = Integer")
+    println("It is possible to 'quit' and 'restart' anytime.\n")
+    println("Select source point:")
     readInput()
   }
 
@@ -29,21 +31,26 @@ class Tui(controller: Controller) extends Observer {
         controller.exit()
       case "restart" =>
         restart()
-      case p if input.startsWith("p") =>
+      case p if input.startsWith("p") && input.length == 4 =>
         if (controller.playerTurn(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))) {
           counter += 1
           println("Choose destination:")
           readInput()
         } else if (controller.playerTurn(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))) {
           counter += 1
-          println("Choose destination:")
+          println("Select destination point:")
           readInput()
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))
-          println("Choose source:")
+          if (controller.round % 2 == 0) {
+            println("Round: " + controller.round + " Turn: player 1\n")
+          } else {
+            println("Round: " + controller.round + " Turn: player 2\n")
+          }
+          println("Select source point:")
           readInput()
         } else {
-          println("Wrong selection!")
+          println("Wrong selection! Its not your turn!")
           readInput()
         }
       case _ =>
@@ -75,17 +82,27 @@ class Tui(controller: Controller) extends Observer {
 
   def drawGameboard() : Unit = {
     val g = controller.board.gameBoard.values.toList
-    println("")
+    val list = g.map { case EmptyField(" ") => "--"; case x => x}
 
-    println("00:" + g(53) + " 10:" + g(1) + " 20:" + g(14) + " 30:" + g(62) + " 40:" +  g(35) + " 50:" + g(15) + " 60:" + g(57) + " 70:" + g(10))
-    println("01:" + g(38) + " 11:" + g(31) + " 21:" + g(0) + " 31:" + g(36) + " 41:" +  g(48) + " 51:" + g(47) + " 61:" + g(22) + " 71:" + g(52))
-    println("02:" + g(32) + " 12:" + g(55) + " 22:" + g(25) + " 32:" + g(13) + " 42:" +  g(20) + " 52:" + g(23) + " 62:" + g(11) + " 72:" + g(50))
-    println("03:" + g(40) + " 13:" + g(27) + " 23:" + g(3) + " 33:" + g(34) + " 43:" +  g(44) + " 53:" + g(21) + " 63:" + g(19) + " 73:" + g(4))
-    println("04:" + g(59) + " 14:" + g(46) + " 24:" + g(9) + " 34:" + g(58) + " 44:" +  g(51) + " 54:" + g(54) + " 64:" + g(24) + " 74:" + g(12))
-    println("05:" + g(45) + " 15:" + g(17) + " 25:" + g(7) + " 35:" + g(33) + " 45:" +  g(41) + " 55:" + g(8) + " 65:" + g(5) + " 75:" + g(43))
-    println("06:" + g(37) + " 16:" + g(61) + " 26:" + g(18) + " 36:" + g(39) + " 46:" +  g(29) + " 56:" + g(2) + " 66" + g(49) + " 76:" + g(28))
-    println("07:" + g(56) + " 17:" + g(30) + " 27:" + g(60) + " 37:" + g(63) + " 47:" +  g(6) + " 57:" + g(42) + " 67" + g(26) + " 77:" + g(16))
+    println("SCHACH\n")
+    println("=========================================================================================================================================================================")
 
-    println("")
+    printf("| 00: %-15s| 10: %-15s| 20: %-15s| 30: %-15s| 40: %-15s| 50: %-15s| 60: %-15s| 70: %-15s|\n", list(53), list(1), list(14), list(62), list(35), list(15), list(57), list(10))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 01: %-15s| 11: %-15s| 21: %-15s| 31: %-15s| 41: %-15s| 51: %-15s| 61: %-15s| 71: %-15s|\n", list(38), list(31), list(0), list(36), list(48), list(47), list(22), list(52))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 02: %-15s| 12: %-15s| 22: %-15s| 32: %-15s| 42: %-15s| 52: %-15s| 62: %-15s| 72: %-15s|\n", list(32), list(55), list(25), list(13), list(20), list(23), list(11), list(50))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 03: %-15s| 13: %-15s| 23: %-15s| 33: %-15s| 43: %-15s| 53: %-15s| 63: %-15s| 73: %-15s|\n", list(40), list(27), list(3), list(34), list(44), list(21), list(19), list(4))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 04: %-15s| 14: %-15s| 24: %-15s| 34: %-15s| 44: %-15s| 54: %-15s| 64: %-15s| 74: %-15s|\n", list(59), list(46), list(9), list(58), list(51), list(54), list(24), list(12))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 05: %-15s| 15: %-15s| 25: %-15s| 35: %-15s| 45: %-15s| 55: %-15s| 65: %-15s| 75: %-15s|\n", list(45), list(17), list(7), list(33), list(41), list(8), list(5), list(43))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 06: %-15s| 16: %-15s| 26: %-15s| 36: %-15s| 46: %-15s| 56: %-15s| 66: %-15s| 76: %-15s|\n", list(37), list(61), list(18), list(39), list(29), list(2), list(49), list(28))
+    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    printf("| 07: %-15s| 17: %-15s| 27: %-15s| 37: %-15s| 47: %-15s| 57: %-15s| 67: %-15s| 77: %-15s|\n", list(56), list(30), list(60), list(63), list(6), list(42), list(26), list(16))
+
+    println("=========================================================================================================================================================================\n")
   }
 }
