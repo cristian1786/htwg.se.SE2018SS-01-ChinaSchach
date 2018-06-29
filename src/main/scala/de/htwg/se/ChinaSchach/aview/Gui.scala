@@ -14,6 +14,7 @@ import scala.swing.event.ButtonClicked
 class Gui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
+
   val labelRound = new Label("Round: 0 Turn: player 1")
   val player1Label = new Label("  player 1   ")
   val player2Label = new Label("  player 2   ")
@@ -106,40 +107,32 @@ class Gui(controller: Controller) extends Observer {
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         if (controller.playerTurn1(Point(x, y)) && counter == 0) {
+          controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-          if (counter != 0) {
-            setTileBackground(xx, yy)
-            setCounter()
-          } else {
-            fieldButtons(x)(y).background = java.awt.Color.GREEN
-            counter += 1
-          }
+          fieldButtons(x)(y).background = java.awt.Color.GREEN
+          counter += 1
+
         } else if (controller.playerTurn2(Point(x, y)) && counter == 0) {
+          controller.getSelectedPoint(Point(x, y))
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-          if (counter != 0) {
-            setTileBackground(xx, yy)
-            setCounter()
-          } else {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
-          }
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
-          //update()
         }
     }
   }
 
   // Observer update
   override def update() : Unit = {
+    setCounter()
     setBackGround()
     setGameBoardImages()
     setTopLabel()
-    setCounter()
     checkForWin()
   }
 

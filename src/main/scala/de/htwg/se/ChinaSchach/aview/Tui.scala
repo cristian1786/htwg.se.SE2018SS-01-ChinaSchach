@@ -9,7 +9,9 @@ import scala.io.StdIn
 
 //TODO: implement TUI
 class Tui(controller: Controller) extends Observer {
+
   controller.addObserver(this)
+
   var counter = 0
 
   // initialize TUI

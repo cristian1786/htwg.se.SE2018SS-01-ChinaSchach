@@ -77,7 +77,7 @@ class Controller() extends Observable{
   // check playerturn for black
   def playerTurn2(point: Point): Boolean = {
     if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
-      getSelectedPoint(point)
+//      getSelectedPoint(point)
       true
     } else {
       false
@@ -87,7 +87,7 @@ class Controller() extends Observable{
   // check playerturn for white
   def playerTurn1(point: Point): Boolean = {
     if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-      getSelectedPoint(point)
+//      getSelectedPoint(point)
       true
     } else {
       false
