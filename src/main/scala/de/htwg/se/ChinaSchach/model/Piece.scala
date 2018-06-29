@@ -91,11 +91,11 @@ trait Piece {
   def repeatedIfDb(board: Board, source: Point, destination: Point, side: String): Boolean = {
     var bool = false
     if (side == "w") {
-      if (Point(source.x, source.y + 1) == destination || Point(source.x, source.y + 2) == destination && board.gameBoard(Point(source.x, source.y + 1)).toString == "EmptyField( )") {
+      if ((Point(source.x, source.y + 1) == destination || Point(source.x, source.y + 2) == destination) && board.gameBoard(Point(source.x, source.y + 1)).toString == "EmptyField( )") {
         bool = true
       }
     } else if (side == "b") {
-      if (Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination && board.gameBoard(Point(source.x, source.y - 1)).toString == "EmptyField( )") {
+      if ((Point(source.x, source.y - 1) == destination || Point(source.x, source.y - 2) == destination) && board.gameBoard(Point(source.x, source.y - 1)).toString == "EmptyField( )") {
         bool = true
       }
     }
