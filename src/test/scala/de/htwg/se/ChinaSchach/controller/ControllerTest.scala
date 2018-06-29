@@ -208,14 +208,14 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(0, 1))
-        c.playerTurn1(Point(0, 2))
-        assert(c.board.gameBoard(Point(0, 2)).toString != "Pawn(w)")
-        c.playerTurn2(Point(0, 6))
-        c.playerTurn2(Point(0, 5))
-        assert(c.board.gameBoard(Point(0, 5)).toString != "Pawn(b)")
-        c.playerTurn1(Point(0, 2))
-        c.playerTurn1(Point(0, 4))
+        c.getSelectedPoint(Point(0, 1))
+        c.getSelectedPoint(Point(0, 2))
+        assert(c.board.gameBoard(Point(0, 2)).toString == "Pawn(w)")
+        c.getSelectedPoint(Point(0, 6))
+        c.getSelectedPoint(Point(0, 5))
+        assert(c.board.gameBoard(Point(0, 5)).toString == "Pawn(b)")
+        c.getSelectedPoint(Point(0, 2))
+        c.getSelectedPoint(Point(0, 4))
         assert(c.board.gameBoard(Point(0, 4)).toString != "Pawn(w)")
       }
 
@@ -224,8 +224,8 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard(Point(0, 5)) -> Pawn("w")
 
-        c.playerTurn1(Point(0, 5))
-        c.playerTurn1(Point(0, 6))
+        c.getSelectedPoint(Point(0, 5))
+        c.getSelectedPoint(Point(0, 6))
         assert(c.board.gameBoard(Point(0, 6)).toString != "Pawn(w)")
       }
 
@@ -233,8 +233,8 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(3, 0))
-        c.playerTurn1(Point(3, 1))
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(3, 1))
         assert(c.board.gameBoard(Point(3, 1)).toString != "Queen(w)")
       }
 
@@ -242,11 +242,11 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(4, 0))
-        c.playerTurn1(Point(0, 0))
+        c.getSelectedPoint(Point(4, 0))
+        c.getSelectedPoint(Point(0, 0))
 
-        c.playerTurn2(Point(4, 7))
-        c.playerTurn2(Point(0, 7))
+        c.getSelectedPoint(Point(4, 7))
+        c.getSelectedPoint(Point(0, 7))
 
         assert(c.board.gameBoard(Point(2, 0)).toString != "King(w)")
         assert(c.board.gameBoard(Point(3, 0)).toString != "Rook(w)")
@@ -259,11 +259,11 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn2(Point(4, 0))
-        c.playerTurn2(Point(7, 0))
+        c.getSelectedPoint(Point(4, 0))
+        c.getSelectedPoint(Point(7, 0))
 
-        c.playerTurn1(Point(4, 7))
-        c.playerTurn1(Point(7, 7))
+        c.getSelectedPoint(Point(4, 7))
+        c.getSelectedPoint(Point(7, 7))
 
         assert(c.board.gameBoard(Point(6, 0)).toString != "King(w)")
         assert(c.board.gameBoard(Point(5, 0)).toString != "Rook(w)")
@@ -276,14 +276,14 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(3, 0))
-        c.playerTurn1(Point(3, 4))
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(3, 4))
         assert(c.board.gameBoard(Point(3, 4)).toString != "Queen(w)")
-        c.playerTurn1(Point(3, 0))
-        c.playerTurn1(Point(7, 4))
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(7, 4))
         assert(c.board.gameBoard(Point(7, 4)).toString != "Queen(w)")
-        c.playerTurn1(Point(3, 0))
-        c.playerTurn1(Point(0, 3))
+        c.getSelectedPoint(Point(3, 0))
+        c.getSelectedPoint(Point(0, 3))
         assert(c.board.gameBoard(Point(0, 3)).toString != "Queen(w)")
       }
 
@@ -291,11 +291,11 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(0, 0))
-        c.playerTurn1(Point(0, 4))
+        c.getSelectedPoint(Point(0, 0))
+        c.getSelectedPoint(Point(0, 4))
         assert(c.board.gameBoard(Point(0, 4)).toString != "Rook(w)")
-        c.playerTurn2(Point(0, 7))
-        c.playerTurn2(Point(0, 3))
+        c.getSelectedPoint(Point(0, 7))
+        c.getSelectedPoint(Point(0, 3))
         assert(c.board.gameBoard(Point(7, 4)).toString != "Rook(b)")
       }
 
@@ -303,34 +303,12 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.playerTurn1(Point(2, 0))
-        c.playerTurn1(Point(4, 2))
+        c.getSelectedPoint(Point(2, 0))
+        c.getSelectedPoint(Point(4, 2))
         assert(c.board.gameBoard(Point(4, 2)).toString != "Bishop(w)")
-        c.playerTurn1(Point(2, 0))
-        c.playerTurn1(Point(0, 2))
+        c.getSelectedPoint(Point(2, 0))
+        c.getSelectedPoint(Point(0, 2))
         assert(c.board.gameBoard(Point(0, 2)).toString != "Bishop(w)")
-      }
-
-      "Whites move twice" in {
-        val c = new Controller()
-        c.boardInit()
-
-        c.playerTurn1(Point(0, 1))
-        c.playerTurn1(Point(0, 2))
-        c.playerTurn1(Point(0, 2))
-        c.playerTurn1(Point(0, 3))
-        assert(c.board.gameBoard(Point(0, 3)).toString != "Pawn(w)")
-      }
-
-      "Blacks move twice" in {
-        val c = new Controller()
-        c.boardInit()
-
-        c.playerTurn2(Point(0, 7))
-        c.playerTurn2(Point(0, 6))
-        c.playerTurn2(Point(0, 6))
-        c.playerTurn2(Point(0, 5))
-        assert(c.board.gameBoard(Point(0, 5)).toString != "Pawn(b)")
       }
     }
   }
