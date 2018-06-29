@@ -310,6 +310,28 @@ class ControllerTest extends WordSpec with Matchers {
         c.getSelectedPoint(Point(0, 2))
         assert(c.board.gameBoard(Point(0, 2)).toString != "Bishop(w)")
       }
+
+      "Whites move twice" in {
+        val c = new Controller()
+        c.boardInit()
+
+        c.getSelectedPoint(Point(0, 1))
+        c.getSelectedPoint(Point(0, 2))
+        c.getSelectedPoint(Point(0, 2))
+        c.getSelectedPoint(Point(0, 3))
+        assert(c.board.gameBoard(Point(0, 3)).toString != "Pawn(w)")
+      }
+
+      "Blacks move twice" in {
+        val c = new Controller()
+        c.boardInit()
+
+        c.getSelectedPoint(Point(0, 7))
+        c.getSelectedPoint(Point(0, 6))
+        c.getSelectedPoint(Point(0, 6))
+        c.getSelectedPoint(Point(0, 5))
+        assert(c.board.gameBoard(Point(0, 5)).toString != "Pawn(b)")
+      }
     }
   }
 }

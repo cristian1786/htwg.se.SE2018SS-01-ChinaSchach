@@ -75,26 +75,30 @@ class Controller() extends Observable{
   }
 
   // check playerturn for black
-  def playerTurn1(point: Point): Boolean = {
+  def playerTurn(point: Point): Boolean = {
     if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
       getSelectedPoint(point)
       true
-    } else {
+    }
+    else if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
+      getSelectedPoint(point)
+      true
+    }
+    else {
       false
     }
-
   }
 
-  // check playerturn for white
+  /*// check playerturn for white
   def playerTurn2(point: Point): Boolean = {
     if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
       getSelectedPoint(point)
       true
     } else  {
       false
-    }
+    }*/
 
-  }
+  //}
 
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
