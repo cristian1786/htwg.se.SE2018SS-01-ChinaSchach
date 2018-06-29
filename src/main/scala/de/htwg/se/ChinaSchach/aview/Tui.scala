@@ -8,31 +8,8 @@ import scala.io.StdIn
 
 //TODO: implement TUI
 class Tui(controller: Controller) extends Observer {
-
   controller.addObserver(this)
-
   var counter = 0
-
-  // prints an overview over the fields with the respective pieces
-  //  def outputField(): Unit = {
-  //    for (x <- 0 to 7) {
-  //      for (y <- 0 to 7) {
-  //        if (board.gameBoard(Point(x, y)).getSide() != " ") {
-  //          println("Field(" + x + ", " + y + ") contains " + board.gameBoard(Point(x, y)))
-  //        }
-  //      }
-  //    }
-  //    println("")
-  //    println("Field (0, 2) contains " + board.gameBoard(Point(0, 2)))
-  //    println("")
-  //  }
-  //
-  //  //prints a list with pieces for each player
-  //  def outputPlayerFigures(list: ListBuffer[Piece]): Unit = {
-  //    if (list.head.getSide() == "b") println("Player 1: ") else println("Player 2: ")
-  //    list.foreach(println)
-  //    println("")
-  //  }
 
   // initialize TUI
   def go(): Unit = {
@@ -46,15 +23,12 @@ class Tui(controller: Controller) extends Observer {
 
   // read user input
   def readInput(): Unit = {
-
     val input = StdIn.readLine()
-
     input match {
       case "quit" =>
         controller.exit()
       case "restart" =>
         restart()
-//        controller.setRound()
       case p if input.startsWith("p") =>
         if (controller.playerTurn1(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))) {
           counter += 1
@@ -72,14 +46,6 @@ class Tui(controller: Controller) extends Observer {
           println("Wrong selection!")
           readInput()
         }
-
-
-
-//      case dest if input.startsWith("dest") =>
-//        controller.getSelectedPoint(Point(input.charAt(5).toString.toInt, input.charAt(6).toString.toInt))
-//        println("Choose source:")
-//        readInput()
-
       case _ =>
         println("wrong input mate")
         readInput()
