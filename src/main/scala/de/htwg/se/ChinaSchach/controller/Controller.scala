@@ -175,13 +175,21 @@ class Controller() extends Observable{
 
   def pawnReplace(destination: Point, list: List[(Int, Int)]): Unit = {
     if (list.contains((destination.x, destination.y)) && list.head == (0, 0)) {
-      val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
-      board.gameBoard += destination -> piece
-      listKillPlayer2.-=(piece)
+      if (listKillPlayer2.isEmpty) {
+        board.gameBoard += destination -> Pawn("b")
+      } else {
+        val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
+        board.gameBoard += destination -> piece
+        listKillPlayer2.-=(piece)
+      }
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
-      val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
-      board.gameBoard += destination -> piece
-      listKillPlayer1.-=(piece)
+      if (listKillPlayer1.isEmpty) {
+        board.gameBoard += destination -> Pawn("w")
+      } else {
+        val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
+        board.gameBoard += destination -> piece
+        listKillPlayer1.-=(piece)
+      }
     }
   }
 
