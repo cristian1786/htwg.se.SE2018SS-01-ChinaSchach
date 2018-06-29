@@ -185,12 +185,10 @@ class Controller() extends Observable{
       val piece: Piece = gui.promotePawnDialog(listKillPlayer2, "b")
       board.gameBoard += destination -> piece
       listKillPlayer2.-=(piece)
-//      notifyObservers()
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
       board.gameBoard += destination -> piece
       listKillPlayer1.-=(piece)
-//      notifyObservers()
     }
   }
 

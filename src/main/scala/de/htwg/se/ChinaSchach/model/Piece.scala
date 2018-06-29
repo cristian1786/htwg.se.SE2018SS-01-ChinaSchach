@@ -43,7 +43,6 @@ trait Piece {
         val idx = possibleMoves.indexOf(move)
         possibleMoves.take(idx)
       }
-      println("Here List" + listToCheck)
       for (z <- listToCheck) {
         if (board.gameBoard(source).getSide() == "w" && board.gameBoard(Point(source.x + z._1, source.y + z._2)).toString != "EmptyField( )"
           || board.gameBoard(source).getSide() == "b" && board.gameBoard(Point(source.x - z._1, source.y - z._2)).toString != "EmptyField( )") {
@@ -125,11 +124,9 @@ trait Piece {
     if (board.gameBoard(piecePoint).toString.contains("King") && board.gameBoard(point).toString.contains("Rook")
       && (piecePoint == Point(4, 0) || piecePoint == Point(4, 7))) {
       bool = rochadeIf(board, point)
-      println("ROCHADE OK " + bool)
     } else if (board.gameBoard(piecePoint).toString.contains("Rook") && board.gameBoard(point).toString.contains("King")
       && (point == Point(4, 0) || point == Point(4, 7))) {
       bool = rochadeIf(board, piecePoint)
-      println("ROCHADE OK " + bool)
     }
     bool
   }
