@@ -22,6 +22,8 @@ class Gui(controller: Controller) extends Observer {
   val chessWidth = 900
   val chessHeight = 900
 
+  val lightGreen = new Color(160, 255, 160)
+
   val frame = new MainFrame()
 
   frame.title = "Schach"
@@ -54,9 +56,9 @@ class Gui(controller: Controller) extends Observer {
       // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
         if ((x + y) % 2 == 0) {
-          fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
+          fieldButtons(x)(y).background = new Color(240,240,240)
         } else {
-          fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+          fieldButtons(x)(y).background = new Color(80, 80, 80)
         }
       }
     }
@@ -111,7 +113,7 @@ class Gui(controller: Controller) extends Observer {
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-          fieldButtons(x)(y).background = java.awt.Color.GREEN
+          fieldButtons(x)(y).background = lightGreen
           counter += 1
 
         } else if (controller.playerTurn2(Point(x, y)) && counter == 0) {
@@ -119,7 +121,7 @@ class Gui(controller: Controller) extends Observer {
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-            fieldButtons(x)(y).background = java.awt.Color.GREEN
+            fieldButtons(x)(y).background = lightGreen
             counter += 1
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
