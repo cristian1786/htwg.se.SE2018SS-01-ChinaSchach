@@ -89,17 +89,6 @@ class Controller() extends Observable{
     }
   }
 
-  /*// check playerturn for white
-  def playerTurn2(point: Point): Boolean = {
-    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-      getSelectedPoint(point)
-      true
-    } else  {
-      false
-    }*/
-
-  //}
-
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
       case None =>
