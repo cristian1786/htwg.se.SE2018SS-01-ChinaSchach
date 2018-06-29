@@ -105,7 +105,7 @@ class Gui(controller: Controller) extends Observer {
       y <- 0 until col
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-        if (controller.playerTurn(Point(x, y)) && counter == 0) {
+        if (controller.playerTurn1(Point(x, y)) && counter == 0) {
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
@@ -116,7 +116,7 @@ class Gui(controller: Controller) extends Observer {
             fieldButtons(x)(y).background = java.awt.Color.GREEN
             counter += 1
           }
-        } else if (controller.playerTurn(Point(x, y)) && counter == 0) {
+        } else if (controller.playerTurn2(Point(x, y)) && counter == 0) {
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()

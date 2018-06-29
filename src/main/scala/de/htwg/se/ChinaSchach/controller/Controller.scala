@@ -75,16 +75,21 @@ class Controller() extends Observable{
   }
 
   // check playerturn for black
-  def playerTurn(point: Point): Boolean = {
+  def playerTurn2(point: Point): Boolean = {
     if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
       getSelectedPoint(point)
       true
+    } else {
+      false
     }
-    else if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
+  }
+
+  // check playerturn for white
+  def playerTurn1(point: Point): Boolean = {
+    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
       getSelectedPoint(point)
       true
-    }
-    else {
+    } else {
       false
     }
   }
@@ -184,7 +189,7 @@ class Controller() extends Observable{
       }
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       if (listKillPlayer1.isEmpty) {
-        board.gameBoard += destination -> Pawn("w")
+          board.gameBoard += destination -> Pawn("w")
       } else {
         val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
         board.gameBoard += destination -> piece
