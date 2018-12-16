@@ -4,11 +4,12 @@ import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
+
 import scala.collection.mutable.Map
 import scala.collection.mutable.ListBuffer
 
 
-class Controller() extends Observable{
+class Controller() extends Observable with ControllerInterface {
 
   var board: Board = new Board
   var gui: Gui = _
