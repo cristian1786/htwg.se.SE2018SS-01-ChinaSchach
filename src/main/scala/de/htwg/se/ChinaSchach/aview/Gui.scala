@@ -56,9 +56,9 @@ class Gui(controller: Controller) extends Observer {
       // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
         if ((x + y) % 2 == 0) {
-          fieldButtons(x)(y).background = new Color(240,240,240)
+          fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
         } else {
-          fieldButtons(x)(y).background = new Color(80, 80, 80)
+          fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         }
       }
     }
@@ -167,9 +167,9 @@ class Gui(controller: Controller) extends Observer {
       x <- 0 until row
       y <- 0 until col
     } if ((x + y) % 2 == 0) {
-      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
-    } else {
       fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+    } else {
+      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     }
   }
 
