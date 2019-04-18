@@ -27,6 +27,8 @@ libraryDependencies := {
     "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2")
 }
 
+coverageExcludedPackages := "src\\main\\scala\\htwg\\se\\ChinaSchach\\aview"
+
 fork in run := true
 
 trapExit := false
