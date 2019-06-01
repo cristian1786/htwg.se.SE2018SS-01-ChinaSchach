@@ -1,8 +1,8 @@
 package de.htwg.se.ChinaSchach.model
 
-import scala.collection.mutable.ListBuffer
-
 import com.google.inject.Inject
+
+import scala.collection.mutable.ListBuffer
 
 case class Knight @Inject()(side: String) extends Piece {
   override def getPossibleMoves(): List[ListBuffer[(Int, Int)]] = {

@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach.aview
 
-import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
+import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
 import javax.swing.ImageIcon

@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
-import de.htwg.se.ChinaSchach.model.{Board, EmptyField, Piece}
+import de.htwg.se.ChinaSchach.model.{Board, Piece}
 import de.htwg.se.ChinaSchach.util.Point
 
 trait UndoManager {
