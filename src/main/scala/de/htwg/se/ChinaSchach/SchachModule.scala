@@ -10,14 +10,6 @@ class SchachModule extends AbstractModule with ScalaModule {
 
   override def configure(): Unit = {
 
-
-    bind[Piece].to[Bishop]
-    bind[Piece].to[EmptyField]
-    bind[Piece].to[King]
-    bind[Piece].to[Knight]
-    bind[Piece].to[Pawn]
-    bind[Piece].to[Queen]
-    bind[Piece].to[Rook]
     bind[ControllerInterface].to[Controller]
 
   }
