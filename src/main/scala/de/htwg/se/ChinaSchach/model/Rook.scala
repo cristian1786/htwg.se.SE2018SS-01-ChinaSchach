@@ -1,8 +1,10 @@
 package de.htwg.se.ChinaSchach.model
 
+import com.google.inject.Inject
+
 import scala.collection.mutable.ListBuffer
 
-case class Rook(side: String) extends Piece {
+case class Rook @Inject() (side: String) extends Piece {
   override def getPossibleMoves(): List[ListBuffer[(Int, Int)]] = {
     val possibleMoves1: ListBuffer[(Int, Int)] = ListBuffer.empty
     for (x <- 1 to 8)

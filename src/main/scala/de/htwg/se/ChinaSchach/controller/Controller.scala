@@ -29,6 +29,7 @@ class Controller() extends Observable with ControllerInterface {
   var round = 0
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
+  var undoManager: UndoManager = _
 
 
   // initialize controller
@@ -59,6 +60,7 @@ class Controller() extends Observable with ControllerInterface {
     rochadeDoneW = false
     rochadeDoneB = false
     playerInit()
+    undoManager = new UndoManagerImpl(board)
   }
 
   //initialize player
@@ -157,6 +159,9 @@ class Controller() extends Observable with ControllerInterface {
 
   def movePiece(source: Point, destination: Point): Unit = {
     gameWon(destination)
+
+    undoManager.undoStack = ((source, board.gameBoard(source)), (destination, board.gameBoard(destination)))::undoManager.undoStack
+
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
 
@@ -166,6 +171,16 @@ class Controller() extends Observable with ControllerInterface {
       rowOneEight(destination)
     }
     moveDone = false
+    notifyObservers()
+  }
+
+  def undo: Unit = {
+    undoManager.undoMove
+    notifyObservers()
+  }
+
+  def redo: Unit = {
+    undoManager.redoMove
     notifyObservers()
   }
 

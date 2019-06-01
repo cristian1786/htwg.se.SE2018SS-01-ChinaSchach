@@ -48,3 +48,4 @@ lib_managed/
 
 # Application
 /ChinaSchach.log
+.iml
