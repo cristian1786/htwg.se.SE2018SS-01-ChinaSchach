@@ -5,6 +5,7 @@ import de.htwg.se.ChinaSchach.util.Point
 
 trait Piece {
   def side: String
+
   def possibleMoves: List[ListBuffer[(Int, Int)]] = List.empty
 
   def getSide(): String = side

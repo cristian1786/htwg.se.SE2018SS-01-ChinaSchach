@@ -36,10 +36,10 @@ class Controller() extends Observable with ControllerInterface {
   def controllerInit(): Unit = {
     boardInit()
     guiInit()
-//    tuiInit()
+    //    tuiInit()
   }
 
-  def tuiInit() : Unit = {
+  def tuiInit(): Unit = {
     tui = new Tui(this)
     tui.go()
   }
@@ -80,7 +80,7 @@ class Controller() extends Observable with ControllerInterface {
   // check playerturn for black
   def playerTurn2(point: Point): Boolean = {
     if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
-//      getSelectedPoint(point)
+      //      getSelectedPoint(point)
       true
     } else {
       false
@@ -90,7 +90,7 @@ class Controller() extends Observable with ControllerInterface {
   // check playerturn for white
   def playerTurn1(point: Point): Boolean = {
     if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-//      getSelectedPoint(point)
+      //      getSelectedPoint(point)
       true
     } else {
       false
@@ -160,7 +160,7 @@ class Controller() extends Observable with ControllerInterface {
   def movePiece(source: Point, destination: Point): Unit = {
     gameWon(destination)
 
-    undoManager.undoStack = ((source, board.gameBoard(source)), (destination, board.gameBoard(destination)))::undoManager.undoStack
+    undoManager.undoStack = ((source, board.gameBoard(source)), (destination, board.gameBoard(destination))) :: undoManager.undoStack
 
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
@@ -205,7 +205,7 @@ class Controller() extends Observable with ControllerInterface {
       }
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       if (listKillPlayer1.isEmpty) {
-          board.gameBoard += destination -> Pawn("w")
+        board.gameBoard += destination -> Pawn("w")
       } else {
         val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
         board.gameBoard += destination -> piece
@@ -226,7 +226,7 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard = Map.empty[Point, Piece]
     boardInit()
     setRound()
-    if (gui != null  && tui != null) {
+    if (gui != null && tui != null) {
       gui.restartGame()
       gui.go()
       tui.go()

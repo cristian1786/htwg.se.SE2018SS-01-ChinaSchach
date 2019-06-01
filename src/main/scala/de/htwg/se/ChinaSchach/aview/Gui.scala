@@ -121,8 +121,8 @@ class Gui(controller: Controller) extends Observer {
           val xx = controller.sourcePoint.getX()
           val yy = controller.sourcePoint.getY()
           setGameBoardImages()
-            fieldButtons(x)(y).background = lightGreen
-            counter += 1
+          fieldButtons(x)(y).background = lightGreen
+          counter += 1
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(x, y))
         }
@@ -130,7 +130,7 @@ class Gui(controller: Controller) extends Observer {
   }
 
   // Observer update
-  override def update() : Unit = {
+  override def update(): Unit = {
     setCounter()
     setBackGround()
     setGameBoardImages()
@@ -199,9 +199,13 @@ class Gui(controller: Controller) extends Observer {
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") {
           val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) { controller.reset() }
+          if (res == Dialog.Result.Yes) {
+            controller.reset()
+          }
         }
-        contents += Button("Quit") { exitGame() }
+        contents += Button("Quit") {
+          exitGame()
+        }
       }, BorderPanel.Position.South)
     }
   }
@@ -219,7 +223,7 @@ class Gui(controller: Controller) extends Observer {
     setGameBoardImages()
     setCounter()
     labelRound.text = "Round: " + controller.round + " Turn: player 1"
-//    go()
+    //    go()
   }
 
   // Dialog to promote Pawn

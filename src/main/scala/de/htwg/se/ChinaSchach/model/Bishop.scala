@@ -4,7 +4,7 @@ import com.google.inject.Inject
 
 import scala.collection.mutable.ListBuffer
 
-case class Bishop @Inject() (side: String) extends Piece {
+case class Bishop @Inject()(side: String) extends Piece {
   //Bishop moves
   override def getPossibleMoves(): List[ListBuffer[(Int, Int)]] = {
     val possibleMoves1: ListBuffer[(Int, Int)] = ListBuffer.empty
