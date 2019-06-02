@@ -196,6 +196,15 @@ class Gui(controller: Controller) extends Observer {
         contents += Button("Quit") {
           exitGame()
         }
+        contents += Button("Next Player") {
+          controller.resetPlayerTurn
+        }
+        contents += Button("Undo") {
+          controller.undo
+        }
+        contents += Button("Redo") {
+          controller.redo
+        }
       }, BorderPanel.Position.South)
     }
   }

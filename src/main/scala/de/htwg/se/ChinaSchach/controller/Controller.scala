@@ -90,12 +90,12 @@ class Controller() extends Observable with ControllerInterface {
 
   def playerTurnCheckDest: Boolean = {
     if (player1.Turn && board.gameBoard(sourcePoint).getSide() == "w" && moveDone) {
-      player1.Turn = false
-      player2.Turn = true
+//      player1.Turn = false
+//      player2.Turn = true
       true
     } else if (player2.Turn && board.gameBoard(sourcePoint).getSide() == "b" && moveDone) {
-      player2.Turn = false
-      player1.Turn = true
+//      player2.Turn = false
+//      player1.Turn = true
       true
     } else {
       false
