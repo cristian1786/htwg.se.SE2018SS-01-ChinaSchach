@@ -108,12 +108,12 @@ class Gui(controller: Controller) extends Observer {
       y <- 0 until col
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-        if (controller.playerTurnCheck(Point(x, y)) && controller.moveDone != true) {
+        if (controller.playerTurnCheck(Point(x, y))) {
           controller.savePiecePoint(Point(x, y))
           fieldButtons(x)(y).background = lightGreen
           //counter += 1
 
-        } else if (controller.moveDone == true) {
+        } else if (controller.playerTurnCheckDest) {
           controller.getSelectedPoint(Point(x, y))
         }
     }

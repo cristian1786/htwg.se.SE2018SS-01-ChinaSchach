@@ -16,9 +16,11 @@ trait ControllerInterface extends Observable {
 
   def playerInit(): Unit
 
-  def playerTurn2(point: Point): Boolean
+  def playerTurnCheck(point: Point): Boolean
 
-  def playerTurn1(point: Point): Boolean
+  def playerTurnCheckDest: Boolean
+
+  def resetPlayerTurn: Unit
 
   def getSelectedPoint(point: Point): Unit
 

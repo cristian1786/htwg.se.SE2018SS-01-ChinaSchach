@@ -79,12 +79,21 @@ class Controller() extends Observable with ControllerInterface {
 
   // check playerturn for black
   def playerTurnCheck(point: Point): Boolean = {
-    if (player1.Turn == true && board.gameBoard(point).getSide() == "w") {
-      //      getSelectedPoint(point)
+    if (player1.Turn == true && board.gameBoard(point).getSide() == "w" && !moveDone) {
+      true
+    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b" && !moveDone) {
+      true
+    } else {
+      false
+    }
+  }
+
+  def playerTurnCheckDest: Boolean = {
+    if (player1.Turn && board.gameBoard(sourcePoint).getSide() == "w" && moveDone) {
       player1.Turn = false
       player2.Turn = true
       true
-    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b") {
+    } else if (player2.Turn && board.gameBoard(sourcePoint).getSide() == "b" && moveDone) {
       player2.Turn = false
       player1.Turn = true
       true
@@ -93,26 +102,36 @@ class Controller() extends Observable with ControllerInterface {
     }
   }
 
+  def resetPlayerTurn: Unit = {
+    if (player1.Turn) {
+      player1.Turn = false
+      player2.Turn = true
+    } else if (player2.Turn) {
+      player1.Turn = true
+      player2.Turn = false
+    }
+  }
+
 
   // check playerturn for black
-  def playerTurn2(point: Point): Boolean = {
-    if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
-      //      getSelectedPoint(point)
-      true
-    } else {
-      false
-    }
-  }
-
-  // check playerturn for white
-  def playerTurn1(point: Point): Boolean = {
-    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-      //      getSelectedPoint(point)
-      true
-    } else {
-      false
-    }
-  }
+  //  def playerTurn2(point: Point): Boolean = {
+  //    if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
+  //      //      getSelectedPoint(point)
+  //      true
+  //    } else {
+  //      false
+  //    }
+  //  }
+  //
+  //  // check playerturn for white
+  //  def playerTurn1(point: Point): Boolean = {
+  //    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
+  //      //      getSelectedPoint(point)
+  //      true
+  //    } else {
+  //      false
+  //    }
+  //  }
 
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
@@ -138,6 +157,7 @@ class Controller() extends Observable with ControllerInterface {
           doRochade(sourcePoint, point)
         } else if (!justIf) {
           moveDone = false
+          resetPlayerTurn
           notifyObservers()
         } else if (justIf) {
           ifEnemy(sourcePoint, point)
