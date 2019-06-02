@@ -65,6 +65,7 @@ class Controller() extends Observable with ControllerInterface {
   //initialize player
   def playerInit(): Unit = {
     player1 = new Player
+    player1.Turn = true
     player2 = new Player
 
     listPlayer1 = ListBuffer.empty
@@ -75,6 +76,23 @@ class Controller() extends Observable with ControllerInterface {
     listPlayer1.appendAll(player1.setPieces(board, "w"))
     listPlayer2.appendAll(player2.setPieces(board, "b"))
   }
+
+  // check playerturn for black
+  def playerTurnCheck(point: Point): Boolean = {
+    if (player1.Turn == true && board.gameBoard(point).getSide() == "w") {
+      //      getSelectedPoint(point)
+      player1.Turn = false
+      player2.Turn = true
+      true
+    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b") {
+      player2.Turn = false
+      player1.Turn = true
+      true
+    } else {
+      false
+    }
+  }
+
 
   // check playerturn for black
   def playerTurn2(point: Point): Boolean = {
