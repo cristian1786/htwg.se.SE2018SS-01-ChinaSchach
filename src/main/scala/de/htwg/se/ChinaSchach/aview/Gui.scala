@@ -96,7 +96,7 @@ class Gui(controller: Controller) extends Observer {
     if (res == Dialog.Result.Yes) {
       sys.exit(0)
     } else if (res == Dialog.Result.No) {
-      restartGame()
+      controller.reset()
     }
   }
 
@@ -110,17 +110,17 @@ class Gui(controller: Controller) extends Observer {
       case _: ButtonClicked =>
         if (controller.playerTurn1(Point(x, y)) && counter == 0) {
           controller.getSelectedPoint(Point(x, y))
-          val xx = controller.sourcePoint.getX()
-          val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
+//          val xx = controller.sourcePoint.getX()
+//          val yy = controller.sourcePoint.getY()
+//          setGameBoardImages()
           fieldButtons(x)(y).background = lightGreen
           counter += 1
 
         } else if (controller.playerTurn2(Point(x, y)) && counter == 0) {
           controller.getSelectedPoint(Point(x, y))
-          val xx = controller.sourcePoint.getX()
-          val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
+//          val xx = controller.sourcePoint.getX()
+//          val yy = controller.sourcePoint.getY()
+//          setGameBoardImages()
           fieldButtons(x)(y).background = lightGreen
           counter += 1
         } else if (counter % 2 != 0) {
@@ -219,12 +219,12 @@ class Gui(controller: Controller) extends Observer {
   }
 
   // restart game dialog helper function
-  def restartGame(): Unit = {
-    setGameBoardImages()
-    setCounter()
-    labelRound.text = "Round: " + controller.round + " Turn: player 1"
-    //    go()
-  }
+//  def restartGame(): Unit = {
+//    setGameBoardImages()
+//    setCounter()
+//    labelRound.text = "Round: " + controller.round + " Turn: player 1"
+//    //    go()
+//  }
 
   // Dialog to promote Pawn
   def promotePawnDialog(list: ListBuffer[Piece], side: String): Piece = {
