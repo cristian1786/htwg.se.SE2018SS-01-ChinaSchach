@@ -29,6 +29,7 @@ class Controller() extends Observable with ControllerInterface {
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
   var undoManager: UndoManager = _
+  var canMove: Boolean = _
 
 
   // initialize controller
@@ -58,6 +59,7 @@ class Controller() extends Observable with ControllerInterface {
     bottomKingDead = false
     rochadeDoneW = false
     rochadeDoneB = false
+    canMove = true
     playerInit()
     undoManager = new UndoManagerImpl(board)
   }
@@ -79,9 +81,9 @@ class Controller() extends Observable with ControllerInterface {
 
   // check playerturn for black
   def playerTurnCheck(point: Point): Boolean = {
-    if (player1.Turn == true && board.gameBoard(point).getSide() == "w" && !moveDone) {
+    if (player1.Turn == true && board.gameBoard(point).getSide() == "w" && !moveDone && canMove) {
       true
-    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b" && !moveDone) {
+    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b" && !moveDone && canMove) {
       true
     } else {
       false
@@ -89,13 +91,13 @@ class Controller() extends Observable with ControllerInterface {
   }
 
   def playerTurnCheckDest: Boolean = {
-    if (player1.Turn && board.gameBoard(sourcePoint).getSide() == "w" && moveDone) {
-//      player1.Turn = false
-//      player2.Turn = true
+    if (player1.Turn && board.gameBoard(sourcePoint).getSide() == "w" && moveDone && canMove) {
+      //      player1.Turn = false
+      //      player2.Turn = true
       true
-    } else if (player2.Turn && board.gameBoard(sourcePoint).getSide() == "b" && moveDone) {
-//      player2.Turn = false
-//      player1.Turn = true
+    } else if (player2.Turn && board.gameBoard(sourcePoint).getSide() == "b" && moveDone && canMove) {
+      //      player2.Turn = false
+      //      player1.Turn = true
       true
     } else {
       false
@@ -106,32 +108,13 @@ class Controller() extends Observable with ControllerInterface {
     if (player1.Turn) {
       player1.Turn = false
       player2.Turn = true
+      canMove = true
     } else if (player2.Turn) {
       player1.Turn = true
       player2.Turn = false
+      canMove = true
     }
   }
-
-
-  // check playerturn for black
-  //  def playerTurn2(point: Point): Boolean = {
-  //    if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
-  //      //      getSelectedPoint(point)
-  //      true
-  //    } else {
-  //      false
-  //    }
-  //  }
-  //
-  //  // check playerturn for white
-  //  def playerTurn1(point: Point): Boolean = {
-  //    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-  //      //      getSelectedPoint(point)
-  //      true
-  //    } else {
-  //      false
-  //    }
-  //  }
 
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
@@ -157,7 +140,6 @@ class Controller() extends Observable with ControllerInterface {
           doRochade(sourcePoint, point)
         } else if (!justIf) {
           moveDone = false
-          resetPlayerTurn
           notifyObservers()
         } else if (justIf) {
           ifEnemy(sourcePoint, point)
@@ -201,12 +183,14 @@ class Controller() extends Observable with ControllerInterface {
     if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
     }
+    canMove = false
     moveDone = false
     notifyObservers()
   }
 
   def undo: Unit = {
     undoManager.undoMove
+    canMove = true
     notifyObservers()
   }
 
