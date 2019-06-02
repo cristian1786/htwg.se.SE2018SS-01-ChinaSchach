@@ -226,14 +226,14 @@ class Controller() extends Observable with ControllerInterface {
     boardInit()
     setRound()
     if (gui != null && tui != null) {
-      gui.restartGame()
+      //gui.restartGame()
       gui.go()
       tui.go()
 
     } else if (tui != null) {
       tui.go()
     } else if (gui != null) {
-      gui.restartGame()
+      //gui.restartGame()
       gui.go()
       gui.frame.visible = true
     }
