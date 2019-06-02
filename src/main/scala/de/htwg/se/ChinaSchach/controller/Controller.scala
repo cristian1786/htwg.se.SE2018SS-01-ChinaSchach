@@ -119,40 +119,34 @@ class Controller() extends Observable with ControllerInterface {
       case None =>
         message = "Nothing selected"
       case Some(x) =>
-        if (!moveDone && x.getSide() != " ") {
-          savePiecePoint(x, point)
-        } else if (moveDone) {
-          val justIf = {
-            if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
-              sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-            } else {
-              sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-            }
+        val justIf = {
+          if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+            sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+          } else {
+            sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
           }
-          val ifRochade = {
-            if (sourcePiece.getSide() == board.gameBoard(point).getSide() && sourcePiece != board.gameBoard(point)
-              && !rochadeDoneW || !rochadeDoneB) {
-              sourcePiece.testRochade(board, sourcePoint, point)
-            } else {
-              false
-            }
+        }
+        val ifRochade = {
+          if (sourcePiece.getSide() == board.gameBoard(point).getSide() && sourcePiece != board.gameBoard(point)
+            && !rochadeDoneW || !rochadeDoneB) {
+            sourcePiece.testRochade(board, sourcePoint, point)
+          } else {
+            false
           }
-          if (ifRochade) {
-            doRochade(sourcePoint, point)
-          } else if (!justIf) {
-            moveDone = false
-            notifyObservers()
-          } else if (justIf) {
-            ifEnemy(sourcePoint, point)
-          }
-        } else {
-          message = "Empty Field selected"
+        }
+        if (ifRochade) {
+          doRochade(sourcePoint, point)
+        } else if (!justIf) {
+          moveDone = false
+          notifyObservers()
+        } else if (justIf) {
+          ifEnemy(sourcePoint, point)
         }
     }
   }
 
-  def savePiecePoint(piece: Piece, point: Point): Unit = {
-    sourcePiece = piece
+  def savePiecePoint(point: Point): Unit = {
+    sourcePiece = board.gameBoard(point)
     sourcePoint = point
     moveDone = true
     message = "Please select destination"

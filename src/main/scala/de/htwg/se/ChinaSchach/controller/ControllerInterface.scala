@@ -22,7 +22,7 @@ trait ControllerInterface extends Observable {
 
   def getSelectedPoint(point: Point): Unit
 
-  def savePiecePoint(piece: Piece, point: Point): Unit
+  def savePiecePoint(point: Point): Unit
 
   def ifEnemy(source: Point, destination: Point): Unit
 

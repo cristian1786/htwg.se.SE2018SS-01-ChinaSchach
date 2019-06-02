@@ -109,7 +109,7 @@ class Gui(controller: Controller) extends Observer {
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
         if (controller.playerTurnCheck(Point(x, y)) && controller.moveDone != true) {
-          controller.getSelectedPoint(Point(x, y))
+          controller.savePiecePoint(Point(x, y))
           fieldButtons(x)(y).background = lightGreen
           //counter += 1
 
@@ -145,9 +145,9 @@ class Gui(controller: Controller) extends Observer {
   // display and update top-Label
   def setTopLabel(): Unit = {
     if (controller.round % 2 == 0) {
-      labelRound.text = "Round: " + controller.round + " Turn: player 1"
+      labelRound.text = "Round: " + controller.round + " Turn: Player 1"
     } else {
-      labelRound.text = "Round: " + controller.round + " Turn: player 2"
+      labelRound.text = "Round: " + controller.round + " Turn: Player 2"
     }
   }
 
