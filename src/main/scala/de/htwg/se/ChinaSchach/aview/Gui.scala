@@ -15,9 +15,9 @@ class Gui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
 
-  val labelRound = new Label("Round: 0 Turn: player 1")
-  val player1Label = new Label("  player 1   ")
-  val player2Label = new Label("  player 2   ")
+  val labelRound = new Label("Round: 0 Turn: Sponge Bob")
+  val player1Label = new Label("  Sponge Bob   ")
+  val player2Label = new Label("  Peter Griffin   ")
 
   val chessWidth = 900
   val chessHeight = 900
@@ -136,18 +136,18 @@ class Gui(controller: Controller) extends Observer {
   // helper function which checks for win by calling controller variable
   def checkForWin(): Unit = {
     if (controller.bottomKingDead) {
-      gameWonDialog("Player 2 won!")
+      gameWonDialog("Peter Griffin won!")
     } else if (controller.topKingDead) {
-      gameWonDialog("Player 1 won!")
+      gameWonDialog("Sponge Bob won!")
     }
   }
 
   // display and update top-Label
   def setTopLabel(): Unit = {
-    if (controller.round % 2 == 0) {
-      labelRound.text = "Round: " + controller.round + " Turn: Player 1"
+    if (controller.player1.Turn) {
+      labelRound.text = "Round: " + controller.round + " Turn: Sponge Bob"
     } else {
-      labelRound.text = "Round: " + controller.round + " Turn: Player 2"
+      labelRound.text = "Round: " + controller.round + " Turn: Peter Griffin"
     }
   }
 

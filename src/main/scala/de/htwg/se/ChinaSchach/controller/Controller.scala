@@ -36,7 +36,7 @@ class Controller() extends Observable with ControllerInterface {
   def controllerInit(): Unit = {
     boardInit()
     guiInit()
-    //    tuiInit()
+    tuiInit()
   }
 
   def tuiInit(): Unit = {
@@ -114,6 +114,7 @@ class Controller() extends Observable with ControllerInterface {
       player2.Turn = false
       canMove = true
     }
+    notifyObservers()
   }
 
   def getSelectedPoint(point: Point): Unit = {
