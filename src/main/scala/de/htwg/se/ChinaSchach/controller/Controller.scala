@@ -303,6 +303,7 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
+    canMove = false
     round += 1
     notifyObservers()
   }
@@ -318,6 +319,7 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
+    canMove = false
     round += 1
     notifyObservers()
   }
