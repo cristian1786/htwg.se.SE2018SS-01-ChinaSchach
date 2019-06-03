@@ -174,6 +174,7 @@ class Controller() extends Observable with ControllerInterface {
     gameWon(destination)
 
     undoManager.undoStack = ((source, board.gameBoard(source)), (destination, board.gameBoard(destination))) :: undoManager.undoStack
+    undoManager.redoStack = ((source, EmptyField(" ")), (destination, board.gameBoard(source))) :: undoManager.redoStack
 
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
@@ -196,6 +197,7 @@ class Controller() extends Observable with ControllerInterface {
 
   def redo: Unit = {
     undoManager.redoMove
+    canMove = false
     notifyObservers()
   }
 
