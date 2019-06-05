@@ -139,7 +139,7 @@ class Gui(controller: Controller) extends Observer {
       gameWonDialog("Sponge Bob won!")
     }
   }
-
+  //asdasd
   // display and update top-Label
   def setTopLabel(): Unit = {
     if (controller.player1.Turn) {
