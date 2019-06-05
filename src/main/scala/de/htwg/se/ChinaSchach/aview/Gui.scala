@@ -87,6 +87,19 @@ class Gui(controller: Controller) extends Observer {
     }
   }
 
+  frame.menuBar = new MenuBar {
+    contents += new Menu("File") {
+      contents += new MenuItem(Action("Restart") {
+        //TODO maybe dialog option
+        controller.reset()
+
+      })
+      contents += new MenuItem(Action("Quit") {
+        exitGame()
+      })
+    }
+  }
+
   // game won dialog to choose if the players want to restart or quit the game
   def gameWonDialog(str: String): Unit = {
     val message = " Do you want to quit? (No restarts the game)"
@@ -119,17 +132,11 @@ class Gui(controller: Controller) extends Observer {
 
   // Observer update
   override def update(): Unit = {
-    //setCounter()
     setBackGround()
     setGameBoardImages()
     setTopLabel()
     checkForWin()
   }
-
-  // reset counter to 0
-  //  def setCounter(): Unit = {
-  //    counter = 0
-  //  }
 
   // helper function which checks for win by calling controller variable
   def checkForWin(): Unit = {
@@ -139,7 +146,7 @@ class Gui(controller: Controller) extends Observer {
       gameWonDialog("Sponge Bob won!")
     }
   }
-  //asdasd
+
   // display and update top-Label
   def setTopLabel(): Unit = {
     if (controller.player1.Turn) {
@@ -185,15 +192,6 @@ class Gui(controller: Controller) extends Observer {
       }, BorderPanel.Position.Center)
       add(labelRound, BorderPanel.Position.North)
       add(new GridPanel(1, 2) {
-        contents += Button("Restart Game") {
-          val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) {
-            controller.reset()
-          }
-        }
-        contents += Button("Quit") {
-          exitGame()
-        }
         contents += Button("Next Player") {
           controller.resetPlayerTurn
         }
@@ -214,14 +212,6 @@ class Gui(controller: Controller) extends Observer {
       controller.exit()
     }
   }
-
-  // restart game dialog helper function
-  //  def restartGame(): Unit = {
-  //    setGameBoardImages()
-  //    setCounter()
-  //    labelRound.text = "Round: " + controller.round + " Turn: player 1"
-  //    //    go()
-  //  }
 
   // Dialog to promote Pawn
   def promotePawnDialog(list: ListBuffer[Piece], side: String): Piece = {
