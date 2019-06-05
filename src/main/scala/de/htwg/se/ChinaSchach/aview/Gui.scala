@@ -22,11 +22,9 @@ class Gui(controller: Controller) extends Observer {
   val chessWidth = 900
   val chessHeight = 900
 
-  val lightGreen = new Color(160, 255, 160)
-
   val frame = new MainFrame()
 
-  frame.title = "Schach"
+  frame.title = "Chess"
   frame.preferredSize = new Dimension(chessWidth, chessHeight)
 
   val row = 8
@@ -56,7 +54,7 @@ class Gui(controller: Controller) extends Observer {
       // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
         if ((x + y) % 2 == 0) {
-          fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+          fieldButtons(x)(y).background = java.awt.Color.GRAY
         } else {
           fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         }
@@ -110,7 +108,7 @@ class Gui(controller: Controller) extends Observer {
       case _: ButtonClicked =>
         if (controller.playerTurnCheck(Point(x, y))) {
           controller.savePiecePoint(Point(x, y))
-          fieldButtons(x)(y).background = lightGreen
+          fieldButtons(x)(y).background = java.awt.Color.BLUE
           //counter += 1
 
         } else if (controller.playerTurnCheckDest) {
@@ -157,7 +155,7 @@ class Gui(controller: Controller) extends Observer {
       x <- 0 until row
       y <- 0 until col
     } if ((x + y) % 2 == 0) {
-      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+      fieldButtons(x)(y).background = java.awt.Color.GRAY
     } else {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     }
@@ -167,7 +165,7 @@ class Gui(controller: Controller) extends Observer {
     if ((x + y) % 2 == 0) {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     } else {
-      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+      fieldButtons(x)(y).background = java.awt.Color.GRAY
     }
   }
 

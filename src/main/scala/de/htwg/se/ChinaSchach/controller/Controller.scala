@@ -36,7 +36,7 @@ class Controller() extends Observable with ControllerInterface {
   def controllerInit(): Unit = {
     boardInit()
     guiInit()
-    tuiInit()
+    //tuiInit()
   }
 
   def tuiInit(): Unit = {
@@ -245,14 +245,13 @@ class Controller() extends Observable with ControllerInterface {
     boardInit()
     setRound()
     if (gui != null && tui != null) {
-      //gui.restartGame()
-      gui.go()
       tui.go()
+      gui.go()
+      gui.frame.visible = true
 
     } else if (tui != null) {
       tui.go()
     } else if (gui != null) {
-      //gui.restartGame()
       gui.go()
       gui.frame.visible = true
     }

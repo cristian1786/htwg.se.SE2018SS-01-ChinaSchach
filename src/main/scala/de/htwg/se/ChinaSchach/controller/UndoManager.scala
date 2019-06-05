@@ -17,20 +17,24 @@ class UndoManagerImpl(var board: Board) extends UndoManager {
   var redoStack: List[((Point, Piece), (Point, Piece))] = Nil
 
   def undoMove: Unit = {
-    val cells: ((Point, Piece), (Point, Piece)) = undoStack.head
-    undoStack = undoStack.tail
+    if (!undoStack.isEmpty) {
+      val cells: ((Point, Piece), (Point, Piece)) = undoStack.head
+      undoStack = undoStack.tail
 
-    board.gameBoard += cells._1._1 -> cells._1._2
-    board.gameBoard += cells._2._1 -> cells._2._2
+      board.gameBoard += cells._1._1 -> cells._1._2
+      board.gameBoard += cells._2._1 -> cells._2._2
+    }
 
   }
 
   def redoMove: Unit = {
-    val cells: ((Point, Piece), (Point, Piece)) = redoStack.head
-    redoStack = redoStack.tail
+    if (!redoStack.isEmpty) {
+      val cells: ((Point, Piece), (Point, Piece)) = redoStack.head
+      redoStack = redoStack.tail
 
-    board.gameBoard += cells._1._1 -> cells._1._2
-    board.gameBoard += cells._2._1 -> cells._2._2
+      board.gameBoard += cells._1._1 -> cells._1._2
+      board.gameBoard += cells._2._1 -> cells._2._2
+    }
   }
 }
 
