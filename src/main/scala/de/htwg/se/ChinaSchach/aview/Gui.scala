@@ -91,11 +91,10 @@ class Gui(controller: Controller) extends Observer {
     contents += new Menu("File") {
       contents += new MenuItem(Action("Restart") {
         //TODO maybe dialog option
-        controller.reset()
-
+        restartGame
       })
       contents += new MenuItem(Action("Quit") {
-        exitGame()
+        exitGame
       })
     }
   }
@@ -202,6 +201,14 @@ class Gui(controller: Controller) extends Observer {
           controller.redo
         }
       }, BorderPanel.Position.South)
+    }
+  }
+
+  // restart game dialog helper function
+  def restartGame(): Unit = {
+    val res = Dialog.showConfirmation(frame.contents.last, " Do you want to restart?", optionType = Dialog.Options.YesNo)
+    if (res == Dialog.Result.Yes) {
+      controller.reset()
     }
   }
 
