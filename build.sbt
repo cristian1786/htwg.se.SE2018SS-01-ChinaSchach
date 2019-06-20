@@ -30,6 +30,8 @@ libraryDependencies := {
     "com.typesafe.play" %% "play-json" % "2.6.6")
 }
 
+coverageExcludedPackages := ".*aview.*"
+
 fork in run := true
 
 trapExit := false

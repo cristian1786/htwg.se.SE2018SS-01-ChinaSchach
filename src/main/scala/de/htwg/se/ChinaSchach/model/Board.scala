@@ -8,6 +8,7 @@ class Board() {
 
   val MAX_NUMBER = 8
   var gameBoard = Map.empty[Point, Piece]
+  var round = 0
 
   // initialize map with pieces and empty fields
   def go(): Unit = {

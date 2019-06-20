@@ -11,6 +11,7 @@ import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
+
 class Gui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
@@ -155,9 +156,9 @@ class Gui(controller: Controller) extends Observer {
   // display and update top-Label
   def setTopLabel(): Unit = {
     if (controller.player1.Turn) {
-      labelRound.text = "Round: " + controller.round + " Turn: Sponge Bob"
+      labelRound.text = "Round: " + controller.board.round + " Turn: Sponge Bob"
     } else {
-      labelRound.text = "Round: " + controller.round + " Turn: Peter Griffin"
+      labelRound.text = "Round: " + controller.board.round + " Turn: Peter Griffin"
     }
   }
 
