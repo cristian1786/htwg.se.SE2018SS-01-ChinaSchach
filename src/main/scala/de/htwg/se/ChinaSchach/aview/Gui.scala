@@ -93,6 +93,12 @@ class Gui(controller: Controller) extends Observer {
         //TODO maybe dialog option
         restartGame
       })
+      contents += new MenuItem(Action("Save") {
+        controller.save
+      })
+      contents += new MenuItem(Action("Load") {
+        controller.load
+      })
       contents += new MenuItem(Action("Quit") {
         exitGame
       })

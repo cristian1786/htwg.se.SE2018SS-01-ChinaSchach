@@ -26,7 +26,8 @@ libraryDependencies := {
     "net.codingwell" %% "scala-guice" % "4.1.0",
     "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
     "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
-    "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2")
+    "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2",
+    "com.typesafe.play" %% "play-json" % "2.6.6")
 }
 
 fork in run := true

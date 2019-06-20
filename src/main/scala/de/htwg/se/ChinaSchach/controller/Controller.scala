@@ -1,5 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
+import de.htwg.se.ChinaSchach.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
@@ -30,6 +31,7 @@ class Controller() extends Observable with ControllerInterface {
   var rochadeDoneB: Boolean = _
   var undoManager: UndoManager = _
   var canMove: Boolean = _
+  val fileIO = new FileIO
 
 
   // initialize controller
@@ -322,5 +324,13 @@ class Controller() extends Observable with ControllerInterface {
     canMove = false
     round += 1
     notifyObservers()
+  }
+
+  def save: Unit = {
+    fileIO.save()
+  }
+
+  def load: Unit = {
+    fileIO.load()
   }
 }
