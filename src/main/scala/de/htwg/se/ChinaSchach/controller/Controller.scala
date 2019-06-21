@@ -327,10 +327,11 @@ class Controller() extends Observable with ControllerInterface {
   }
 
   def save: Unit = {
-    fileIO.save(board, this)
+    fileIO.save(this)
   }
 
   def load: Unit = {
-    fileIO.load()
+    fileIO.load(this)
+    notifyObservers()
   }
 }

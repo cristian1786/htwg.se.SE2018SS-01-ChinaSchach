@@ -9,10 +9,9 @@ import scala.io.Source
 
 class FileIO extends FileIOInterface {
 
-  override def load(): Unit = {
+  override def load(controller: Controller): Unit = {
     val src: String = Source.fromFile("C:\\SE_Schach_5\\htwg.se.SE2018SS-01-ChinaSchach\\saves\\testSave.json").getLines.mkString
     val json: JsValue = Json.parse(src)
-    //TODO read data from json file
     val rnd = (json \ "gameboard" \ "round").get
     val rochDW = (json \ "gameboard" \ "rochadeDoneW").get
     val rochDB = (json \ "gameboard" \ "rochadeDoneB").get
@@ -21,14 +20,36 @@ class FileIO extends FileIOInterface {
     val pTW = (json \ "gameboard" \ "playerTurnW").get
     val pTB = (json \ "gameboard" \ "playerTurnB").get
 
+    for (i <- 0 until 64) {
+      val boardPiecesLength = (json \ "gameboard" \ "board")(0).\(i).get.toString().size
+      val boardPiece = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(12, boardPiecesLength-6).toString
+      val bPSide = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(boardPiecesLength-5, boardPiecesLength-4).toString
+      val bPX = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(2, 3).toInt
+      val bPY = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(3, 4).toInt
 
-    print(canM, rochDW, rochDB, canM, moveD, pTW, pTB)
+      boardPiece match {
+        case "Pawn" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> Pawn(bPSide)
+        case "EmptyField" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> EmptyField(bPSide)
+        case "Rook" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> Rook(bPSide)
+        case "Knight" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> Knight(bPSide)
+        case "King" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> King(bPSide)
+        case "Queen" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> Queen(bPSide)
+        case "Bishop" =>
+          controller.board.gameBoard += Point(bPX, bPY) -> Bishop(bPSide)
+      }
+    }
   }
 
-  override def save(gameboard: Board, controller: Controller): Unit = {
+  override def save(controller: Controller): Unit = {
     import java.io.{File, PrintWriter}
     val pw = new PrintWriter(new File("C:\\SE_Schach_5\\htwg.se.SE2018SS-01-ChinaSchach\\saves\\testSave.json"))
-    pw.write(Json.prettyPrint(chessToJson(gameboard, controller)))
+    pw.write(Json.prettyPrint(chessToJson(controller)))
     pw.close()
   }
 
@@ -40,10 +61,10 @@ class FileIO extends FileIOInterface {
     )
   }*/
 
-  def chessToJson(gameboard: Board, controller: Controller):JsValue = {
+  def chessToJson(controller: Controller):JsValue = {
     Json.obj(
       "gameboard" -> Json.obj(
-        "round" -> JsNumber(gameboard.round),
+        "round" -> JsNumber(controller.board.round),
         "rochadeDoneW" -> JsBoolean(controller.rochadeDoneW),
         "rochadeDoneB" -> JsBoolean(controller.rochadeDoneB),
         "canMove" -> JsBoolean(controller.canMove),
@@ -58,7 +79,7 @@ class FileIO extends FileIOInterface {
               //var str = row.toString+col.toString
               var str = ""+row+col
               Json.obj(
-                str ->  gameboard.gameBoard.get(Point(row, col)).toString
+                str ->  controller.board.gameBoard.get(Point(row, col)).toString
               )
             }
           )

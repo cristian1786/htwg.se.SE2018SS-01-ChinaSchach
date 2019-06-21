@@ -4,7 +4,7 @@ import de.htwg.se.ChinaSchach.util.Point
 
 import scala.collection.mutable.Map
 
-class Board() {
+case class Board() {
 
   val MAX_NUMBER = 8
   var gameBoard = Map.empty[Point, Piece]
