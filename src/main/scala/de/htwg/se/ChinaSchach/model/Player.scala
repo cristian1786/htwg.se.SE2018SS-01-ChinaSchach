@@ -6,7 +6,7 @@ import scala.collection.mutable.ListBuffer
 class Player() {
   val rows = 7
   val cols = 7
-  var Turn = false
+  var Turn: Boolean = false
 
   // Assigns figures to the player(s)
   def setPieces(board: Board, side: String): ListBuffer[Piece] = {

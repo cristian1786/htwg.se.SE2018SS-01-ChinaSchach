@@ -12,13 +12,13 @@ class FileIO extends FileIOInterface {
   override def load(controller: Controller): Unit = {
     val src: String = Source.fromFile("C:\\SE_Schach_5\\htwg.se.SE2018SS-01-ChinaSchach\\saves\\testSave.json").getLines.mkString
     val json: JsValue = Json.parse(src)
-    val rnd = (json \ "gameboard" \ "round").get
-    val rochDW = (json \ "gameboard" \ "rochadeDoneW").get
-    val rochDB = (json \ "gameboard" \ "rochadeDoneB").get
-    val canM = (json \ "gameboard" \ "canMove").get
-    val moveD = (json \ "gameboard" \ "moveDone").get
-    val pTW = (json \ "gameboard" \ "playerTurnW").get
-    val pTB = (json \ "gameboard" \ "playerTurnB").get
+    controller.board.round = (json \ "gameboard" \ "round").get.as[Int]
+    controller.rochadeDoneW = (json \ "gameboard" \ "rochadeDoneW").get.toString().toBoolean
+    controller.rochadeDoneB = (json \ "gameboard" \ "rochadeDoneB").get.toString().toBoolean
+    controller.canMove = (json \ "gameboard" \ "canMove").get.toString().toBoolean
+    controller.moveDone = (json \ "gameboard" \ "moveDone").get.toString().toBoolean
+    controller.player1.Turn = (json \ "gameboard" \ "playerTurnW").get.toString().toBoolean
+    controller.player2.Turn = (json \ "gameboard" \ "playerTurnB").get.toString().toBoolean
 
     for (i <- 0 until 64) {
       val boardPiecesLength = (json \ "gameboard" \ "board")(0).\(i).get.toString().size
