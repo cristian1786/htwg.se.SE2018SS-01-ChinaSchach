@@ -5,8 +5,25 @@ import de.htwg.se.ChinaSchach.FileIOComponent.FileIOInterface
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
 import de.htwg.se.ChinaSchach.controller._
+import scala.io.Source
 
 class FileIO extends FileIOInterface {
+
+  override def load(): Unit = {
+    val src: String = Source.fromFile("C:\\SE_Schach_5\\htwg.se.SE2018SS-01-ChinaSchach\\saves\\testSave.json").getLines.mkString
+    val json: JsValue = Json.parse(src)
+    //TODO read data from json file
+    val rnd = (json \ "gameboard" \ "round").get
+    val rochDW = (json \ "gameboard" \ "rochadeDoneW").get
+    val rochDB = (json \ "gameboard" \ "rochadeDoneB").get
+    val canM = (json \ "gameboard" \ "canMove").get
+    val moveD = (json \ "gameboard" \ "moveDone").get
+    val pTW = (json \ "gameboard" \ "playerTurnW").get
+    val pTB = (json \ "gameboard" \ "playerTurnB").get
+
+
+    print(canM, rochDW, rochDB, canM, moveD, pTW, pTB)
+  }
 
   override def save(gameboard: Board, controller: Controller): Unit = {
     import java.io.{File, PrintWriter}
@@ -15,10 +32,6 @@ class FileIO extends FileIOInterface {
     pw.close()
   }
 
-  override def load(): Unit = {
-
-  }
-  
   /*implicit val boardWrites = new Writes[Board] {
     def writes(gameboard: Board): JsValue = Json.obj(
         "point" -> JsString(gameboard.gameBoard.get)
@@ -50,11 +63,6 @@ class FileIO extends FileIOInterface {
             }
           )
         )
-      //print(gameboard.gameBoard.get(Point(2,1)))
-      //print(gameboard.gameBoard.head)
-      //gameboard.gameBoard foreach (x => printf("%s, %s\n", x._1, x._2))
-      //gameboard.gameBoard foreach {case (key, value) => printf("%s, %s\n", key, value)}
-      //print("\n" + controller.round)
     )
   }
 }
