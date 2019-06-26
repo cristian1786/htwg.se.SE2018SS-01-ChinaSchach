@@ -44,10 +44,10 @@ class Tui(controller: Controller) extends Observer {
           readInput()
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))
-          if (controller.round % 2 == 0) {
-            println("Round: " + controller.round + " Turn: player 1\n")
+          if (controller.board.round % 2 == 0) {
+            println("Round: " + controller.board.round + " Turn: player 1\n")
           } else {
-            println("Round: " + controller.round + " Turn: player 2\n")
+            println("Round: " + controller.board.round + " Turn: player 2\n")
           }
           println("Select source point:")
           readInput()

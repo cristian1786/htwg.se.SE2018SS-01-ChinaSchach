@@ -1,5 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
+import de.htwg.se.ChinaSchach.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
@@ -25,11 +26,12 @@ class Controller() extends Observable with ControllerInterface {
   var message = ""
   var sourcePiece: Piece = _
   var sourcePoint: Point = _
-  var round = 0
+  //var round = 0
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
   var undoManager: UndoManager = _
   var canMove: Boolean = _
+  val fileIO = new FileIO
 
 
   // initialize controller
@@ -180,7 +182,7 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
 
-    round += 1
+    board.round += 1
 
     if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
@@ -263,7 +265,7 @@ class Controller() extends Observable with ControllerInterface {
   }
 
   def setRound(): Unit = {
-    round = 0
+    board.round = 0
   }
 
   def doRochade(sourcePoint: Point, point: Point): Unit = {
@@ -304,7 +306,7 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     canMove = false
-    round += 1
+    board.round += 1
     notifyObservers()
   }
 
@@ -320,7 +322,16 @@ class Controller() extends Observable with ControllerInterface {
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
     canMove = false
-    round += 1
+    board.round += 1
+    notifyObservers()
+  }
+
+  def save: Unit = {
+    fileIO.save(this)
+  }
+
+  def load: Unit = {
+    fileIO.load(this)
     notifyObservers()
   }
 }
