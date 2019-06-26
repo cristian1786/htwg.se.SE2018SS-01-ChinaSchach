@@ -1,5 +1,7 @@
 package de.htwg.se.ChinaSchach.model
 
-case class EmptyField(side: String) extends Piece {
+import com.google.inject.Inject
+
+case class EmptyField @Inject()(side: String) extends Piece {
 
 }

@@ -1,6 +1,7 @@
 package de.htwg.se.ChinaSchach.model
 
 import de.htwg.se.ChinaSchach.util.Point
+
 import scala.collection.mutable.Map
 
 class Board() {

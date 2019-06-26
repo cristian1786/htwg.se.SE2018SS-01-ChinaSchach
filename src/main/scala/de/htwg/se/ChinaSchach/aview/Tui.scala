@@ -34,11 +34,11 @@ class Tui(controller: Controller) extends Observer {
       case "restart" =>
         restart()
       case p if input.startsWith("p") && input.length == 4 =>
-        if (controller.playerTurn1(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
+        if (controller.playerTurnCheck(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
           counter += 1
           println("Choose destination:")
           readInput()
-        } else if (controller.playerTurn2(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
+        } else if (controller.playerTurnCheck(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
           counter += 1
           println("Select destination point:")
           readInput()

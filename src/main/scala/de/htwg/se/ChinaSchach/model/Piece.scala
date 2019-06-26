@@ -1,10 +1,12 @@
 package de.htwg.se.ChinaSchach.model
 
-import scala.collection.mutable.ListBuffer
 import de.htwg.se.ChinaSchach.util.Point
+
+import scala.collection.mutable.ListBuffer
 
 trait Piece {
   def side: String
+
   def possibleMoves: List[ListBuffer[(Int, Int)]] = List.empty
 
   def getSide(): String = side

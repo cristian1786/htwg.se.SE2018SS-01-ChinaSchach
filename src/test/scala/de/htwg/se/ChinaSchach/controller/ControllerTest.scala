@@ -11,7 +11,7 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 1))
+        c.savePiecePoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 2))
         assert(c.board.gameBoard(Point(0, 2)).toString == "Pawn(w)")
       }
@@ -20,7 +20,7 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 1))
+        c.savePiecePoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 3))
         assert(c.board.gameBoard(Point(0, 3)).toString == "Pawn(w)")
       }
@@ -29,43 +29,43 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
         //forward right
-        c.getSelectedPoint(Point(1, 0))
+        c.savePiecePoint(Point(1, 0))
         c.getSelectedPoint(Point(2, 2))
         assert(c.board.gameBoard(Point(2, 2)).toString == "Knight(w)")
         //forward left
-        c.getSelectedPoint(Point(1, 7))
+        c.savePiecePoint(Point(1, 7))
         c.getSelectedPoint(Point(2, 5))
         assert(c.board.gameBoard(Point(2, 5)).toString == "Knight(b)")
         //right up
-        c.getSelectedPoint(Point(2, 2))
+        c.savePiecePoint(Point(2, 2))
         c.getSelectedPoint(Point(4, 3))
         assert(c.board.gameBoard(Point(4, 3)).toString == "Knight(w)")
         //left up
-        c.getSelectedPoint(Point(2, 5))
+        c.savePiecePoint(Point(2, 5))
         c.getSelectedPoint(Point(4, 4))
         assert(c.board.gameBoard(Point(4, 4)).toString == "Knight(b)")
         //right down
-        c.getSelectedPoint(Point(4, 3))
+        c.savePiecePoint(Point(4, 3))
         c.getSelectedPoint(Point(6, 2))
         assert(c.board.gameBoard(Point(6, 2)).toString == "Knight(w)")
         //left down
-        c.getSelectedPoint(Point(4, 4))
+        c.savePiecePoint(Point(4, 4))
         c.getSelectedPoint(Point(6, 5))
         assert(c.board.gameBoard(Point(6, 5)).toString == "Knight(b)")
         //forward left
-        c.getSelectedPoint(Point(6, 2))
+        c.savePiecePoint(Point(6, 2))
         c.getSelectedPoint(Point(5, 4))
         assert(c.board.gameBoard(Point(5, 4)).toString == "Knight(w)")
         //forward right
-        c.getSelectedPoint(Point(6, 5))
+        c.savePiecePoint(Point(6, 5))
         c.getSelectedPoint(Point(5, 3))
         assert(c.board.gameBoard(Point(5, 3)).toString == "Knight(b)")
         //backwards left
-        c.getSelectedPoint(Point(5, 4))
+        c.savePiecePoint(Point(5, 4))
         c.getSelectedPoint(Point(4, 2))
         assert(c.board.gameBoard(Point(4, 2)).toString == "Knight(w)")
         //backwards right
-        c.getSelectedPoint(Point(5, 3))
+        c.savePiecePoint(Point(5, 3))
         c.getSelectedPoint(Point(6, 5))
         assert(c.board.gameBoard(Point(6, 5)).toString == "Knight(b)")
       }
@@ -74,9 +74,9 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 1))
+        c.savePiecePoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 2))
-        c.getSelectedPoint(Point(1, 6))
+        c.savePiecePoint(Point(1, 6))
         c.getSelectedPoint(Point(1, 4))
         assert(c.board.gameBoard(Point(0, 2)).toString == "Pawn(w)")
         assert(c.board.gameBoard(Point(1, 4)).toString == "Pawn(b)")
@@ -92,10 +92,10 @@ class ControllerTest extends WordSpec with Matchers {
         c.board.gameBoard += Point(2, 7) -> EmptyField(" ")
         c.board.gameBoard += Point(3, 7) -> EmptyField(" ")
 
-        c.getSelectedPoint(Point(4, 0))
+        c.savePiecePoint(Point(4, 0))
         c.getSelectedPoint(Point(0, 0))
 
-        c.getSelectedPoint(Point(4, 7))
+        c.savePiecePoint(Point(4, 7))
         c.getSelectedPoint(Point(0, 7))
 
         assert(c.board.gameBoard(Point(2, 0)).toString == "King(w)")
@@ -113,10 +113,10 @@ class ControllerTest extends WordSpec with Matchers {
         c.board.gameBoard += Point(5, 7) -> EmptyField(" ")
         c.board.gameBoard += Point(6, 7) -> EmptyField(" ")
 
-        c.getSelectedPoint(Point(4, 0))
+        c.savePiecePoint(Point(4, 0))
         c.getSelectedPoint(Point(7, 0))
 
-        c.getSelectedPoint(Point(4, 7))
+        c.savePiecePoint(Point(4, 7))
         c.getSelectedPoint(Point(7, 7))
 
         assert(c.board.gameBoard(Point(6, 0)).toString == "King(w)")
@@ -131,7 +131,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard += Point(4, 6) -> Queen("w")
 
-        c.getSelectedPoint(Point(4, 6))
+        c.savePiecePoint(Point(4, 6))
         c.getSelectedPoint(Point(4, 7))
         assert(c.topKingDead == true)
         assert(c.board.gameBoard(Point(4, 7)).toString == "Queen(w)")
@@ -143,7 +143,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard += Point(4, 1) -> Queen("b")
 
-        c.getSelectedPoint(Point(4, 1))
+        c.savePiecePoint(Point(4, 1))
         c.getSelectedPoint(Point(4, 0))
         assert(c.bottomKingDead == true)
         assert(c.board.gameBoard(Point(4, 0)).toString == "Queen(b)")
@@ -155,7 +155,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard += Point(3, 1) -> Queen("b")
 
-        c.getSelectedPoint(Point(3, 1))
+        c.savePiecePoint(Point(3, 1))
         c.getSelectedPoint(Point(3, 0))
         assert(!c.listPlayer1.contains(Queen("w")))
         assert(c.listKillPlayer1.contains(Queen("w")))
@@ -166,7 +166,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard += Point(3, 6) -> Queen("w")
 
-        c.getSelectedPoint(Point(3, 6))
+        c.savePiecePoint(Point(3, 6))
         c.getSelectedPoint(Point(3, 7))
         assert(!c.listPlayer2.contains(Queen("b")))
         assert(c.listKillPlayer2.contains(Queen("b")))
@@ -177,7 +177,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard += Point(3, 5) -> Pawn("w")
 
-        c.getSelectedPoint(Point(3, 5))
+        c.savePiecePoint(Point(3, 5))
         c.getSelectedPoint(Point(4, 6))
         assert(c.listKillPlayer2.contains(Pawn("b")))
         assert(c.board.gameBoard(Point(4, 6)).toString == "Pawn(w)")
@@ -188,11 +188,11 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 1))
+        c.savePiecePoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 3))
-        c.getSelectedPoint(Point(4, 1))
+        c.savePiecePoint(Point(4, 1))
         c.getSelectedPoint(Point(4, 3))
-        c.getSelectedPoint(Point(3, 0))
+        c.savePiecePoint(Point(3, 0))
         c.getSelectedPoint(Point(6, 3))
         assert(c.board.gameBoard(Point(6, 3)).toString == "Queen(w)")
         assert(c.board.gameBoard(Point(3, 0)).toString == "EmptyField( )")
@@ -208,13 +208,13 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 1))
+        c.savePiecePoint(Point(0, 1))
         c.getSelectedPoint(Point(0, 2))
         assert(c.board.gameBoard(Point(0, 2)).toString == "Pawn(w)")
-        c.getSelectedPoint(Point(0, 6))
+        c.savePiecePoint(Point(0, 6))
         c.getSelectedPoint(Point(0, 5))
         assert(c.board.gameBoard(Point(0, 5)).toString == "Pawn(b)")
-        c.getSelectedPoint(Point(0, 2))
+        c.savePiecePoint(Point(0, 2))
         c.getSelectedPoint(Point(0, 4))
         assert(c.board.gameBoard(Point(0, 4)).toString != "Pawn(w)")
       }
@@ -224,7 +224,7 @@ class ControllerTest extends WordSpec with Matchers {
         c.boardInit()
         c.board.gameBoard(Point(0, 5)) -> Pawn("w")
 
-        c.getSelectedPoint(Point(0, 5))
+        c.savePiecePoint(Point(0, 5))
         c.getSelectedPoint(Point(0, 6))
         assert(c.board.gameBoard(Point(0, 6)).toString != "Pawn(w)")
       }
@@ -233,7 +233,7 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(3, 0))
+        c.savePiecePoint(Point(3, 0))
         c.getSelectedPoint(Point(3, 1))
         assert(c.board.gameBoard(Point(3, 1)).toString != "Queen(w)")
       }
@@ -242,10 +242,10 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(4, 0))
+        c.savePiecePoint(Point(4, 0))
         c.getSelectedPoint(Point(0, 0))
 
-        c.getSelectedPoint(Point(4, 7))
+        c.savePiecePoint(Point(4, 7))
         c.getSelectedPoint(Point(0, 7))
 
         assert(c.board.gameBoard(Point(2, 0)).toString != "King(w)")
@@ -259,10 +259,10 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(4, 0))
+        c.savePiecePoint(Point(4, 0))
         c.getSelectedPoint(Point(7, 0))
 
-        c.getSelectedPoint(Point(4, 7))
+        c.savePiecePoint(Point(4, 7))
         c.getSelectedPoint(Point(7, 7))
 
         assert(c.board.gameBoard(Point(6, 0)).toString != "King(w)")
@@ -276,13 +276,13 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(3, 0))
+        c.savePiecePoint(Point(3, 0))
         c.getSelectedPoint(Point(3, 4))
         assert(c.board.gameBoard(Point(3, 4)).toString != "Queen(w)")
-        c.getSelectedPoint(Point(3, 0))
+        c.savePiecePoint(Point(3, 0))
         c.getSelectedPoint(Point(7, 4))
         assert(c.board.gameBoard(Point(7, 4)).toString != "Queen(w)")
-        c.getSelectedPoint(Point(3, 0))
+        c.savePiecePoint(Point(3, 0))
         c.getSelectedPoint(Point(0, 3))
         assert(c.board.gameBoard(Point(0, 3)).toString != "Queen(w)")
       }
@@ -291,10 +291,10 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(0, 0))
+        c.savePiecePoint(Point(0, 0))
         c.getSelectedPoint(Point(0, 4))
         assert(c.board.gameBoard(Point(0, 4)).toString != "Rook(w)")
-        c.getSelectedPoint(Point(0, 7))
+        c.savePiecePoint(Point(0, 7))
         c.getSelectedPoint(Point(0, 3))
         assert(c.board.gameBoard(Point(7, 4)).toString != "Rook(b)")
       }
@@ -303,10 +303,10 @@ class ControllerTest extends WordSpec with Matchers {
         val c = new Controller()
         c.boardInit()
 
-        c.getSelectedPoint(Point(2, 0))
+        c.savePiecePoint(Point(2, 0))
         c.getSelectedPoint(Point(4, 2))
         assert(c.board.gameBoard(Point(4, 2)).toString != "Bishop(w)")
-        c.getSelectedPoint(Point(2, 0))
+        c.savePiecePoint(Point(2, 0))
         c.getSelectedPoint(Point(0, 2))
         assert(c.board.gameBoard(Point(0, 2)).toString != "Bishop(w)")
       }

@@ -4,11 +4,11 @@ import de.htwg.se.ChinaSchach.aview._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
-import scala.collection.mutable.Map
-import scala.collection.mutable.ListBuffer
+
+import scala.collection.mutable.{ListBuffer, Map}
 
 
-class Controller() extends Observable{
+class Controller() extends Observable with ControllerInterface {
 
   var board: Board = new Board
   var gui: Gui = _
@@ -28,16 +28,18 @@ class Controller() extends Observable{
   var round = 0
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
+  var undoManager: UndoManager = _
+  var canMove: Boolean = _
 
 
   // initialize controller
   def controllerInit(): Unit = {
     boardInit()
     guiInit()
-//    tuiInit()
+    //tuiInit()
   }
 
-  def tuiInit() : Unit = {
+  def tuiInit(): Unit = {
     tui = new Tui(this)
     tui.go()
   }
@@ -57,12 +59,15 @@ class Controller() extends Observable{
     bottomKingDead = false
     rochadeDoneW = false
     rochadeDoneB = false
+    canMove = true
     playerInit()
+    undoManager = new UndoManagerImpl(board)
   }
 
   //initialize player
   def playerInit(): Unit = {
     player1 = new Player
+    player1.Turn = true
     player2 = new Player
 
     listPlayer1 = ListBuffer.empty
@@ -75,23 +80,41 @@ class Controller() extends Observable{
   }
 
   // check playerturn for black
-  def playerTurn2(point: Point): Boolean = {
-    if (round % 2 != 0 && board.gameBoard(point).getSide() == "b") {
-//      getSelectedPoint(point)
+  def playerTurnCheck(point: Point): Boolean = {
+    if (player1.Turn == true && board.gameBoard(point).getSide() == "w" && !moveDone && canMove) {
+      true
+    } else if (player2.Turn == true && board.gameBoard(point).getSide() == "b" && !moveDone && canMove) {
       true
     } else {
       false
     }
   }
 
-  // check playerturn for white
-  def playerTurn1(point: Point): Boolean = {
-    if (round % 2 == 0 && board.gameBoard(point).getSide() == "w") {
-//      getSelectedPoint(point)
+  def playerTurnCheckDest: Boolean = {
+    if (player1.Turn && board.gameBoard(sourcePoint).getSide() == "w" && moveDone && canMove) {
+      //      player1.Turn = false
+      //      player2.Turn = true
+      true
+    } else if (player2.Turn && board.gameBoard(sourcePoint).getSide() == "b" && moveDone && canMove) {
+      //      player2.Turn = false
+      //      player1.Turn = true
       true
     } else {
       false
     }
+  }
+
+  def resetPlayerTurn: Unit = {
+    if (player1.Turn) {
+      player1.Turn = false
+      player2.Turn = true
+      canMove = true
+    } else if (player2.Turn) {
+      player1.Turn = true
+      player2.Turn = false
+      canMove = true
+    }
+    notifyObservers()
   }
 
   def getSelectedPoint(point: Point): Unit = {
@@ -99,40 +122,34 @@ class Controller() extends Observable{
       case None =>
         message = "Nothing selected"
       case Some(x) =>
-        if (!moveDone && x.getSide() != " ") {
-          savePiecePoint(x, point)
-        } else if (moveDone) {
-          val justIf = {
-            if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
-              sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-            } else {
-              sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
-            }
+        val justIf = {
+          if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
+            sourcePiece.movesAllowedP(board, sourcePoint, point, sourcePiece.getPossibleMoves())
+          } else {
+            sourcePiece.movesAllowed(board, sourcePoint, point, sourcePiece.getPossibleMoves())
           }
-          val ifRochade = {
-            if (sourcePiece.getSide() == board.gameBoard(point).getSide() && sourcePiece != board.gameBoard(point)
-              && !rochadeDoneW || !rochadeDoneB) {
-              sourcePiece.testRochade(board, sourcePoint, point)
-            } else {
-              false
-            }
+        }
+        val ifRochade = {
+          if (sourcePiece.getSide() == board.gameBoard(point).getSide() && sourcePiece != board.gameBoard(point)
+            && !rochadeDoneW || !rochadeDoneB) {
+            sourcePiece.testRochade(board, sourcePoint, point)
+          } else {
+            false
           }
-          if (ifRochade) {
-            doRochade(sourcePoint, point)
-          } else if (!justIf) {
-            moveDone = false
-            notifyObservers()
-          } else if (justIf) {
-            ifEnemy(sourcePoint, point)
-          }
-        } else {
-          message = "Empty Field selected"
+        }
+        if (ifRochade) {
+          doRochade(sourcePoint, point)
+        } else if (!justIf) {
+          moveDone = false
+          notifyObservers()
+        } else if (justIf) {
+          ifEnemy(sourcePoint, point)
         }
     }
   }
 
-  def savePiecePoint(piece: Piece, point: Point): Unit = {
-    sourcePiece = piece
+  def savePiecePoint(point: Point): Unit = {
+    sourcePiece = board.gameBoard(point)
     sourcePoint = point
     moveDone = true
     message = "Please select destination"
@@ -156,6 +173,10 @@ class Controller() extends Observable{
 
   def movePiece(source: Point, destination: Point): Unit = {
     gameWon(destination)
+
+    undoManager.undoStack = ((source, board.gameBoard(source)), (destination, board.gameBoard(destination))) :: undoManager.undoStack
+    undoManager.redoStack = ((source, EmptyField(" ")), (destination, board.gameBoard(source))) :: undoManager.redoStack
+
     board.gameBoard += destination -> board.gameBoard(source)
     board.gameBoard += source -> EmptyField(" ")
 
@@ -164,7 +185,20 @@ class Controller() extends Observable{
     if (sourcePiece.toString == "Pawn(w)" || sourcePiece.toString == "Pawn(b)") {
       rowOneEight(destination)
     }
+    canMove = false
     moveDone = false
+    notifyObservers()
+  }
+
+  def undo: Unit = {
+    undoManager.undoMove
+    canMove = true
+    notifyObservers()
+  }
+
+  def redo: Unit = {
+    undoManager.redoMove
+    canMove = false
     notifyObservers()
   }
 
@@ -189,7 +223,7 @@ class Controller() extends Observable{
       }
     } else if (list.contains((destination.x, destination.y)) && list.head == (0, 7)) {
       if (listKillPlayer1.isEmpty) {
-          board.gameBoard += destination -> Pawn("w")
+        board.gameBoard += destination -> Pawn("w")
       } else {
         val piece: Piece = gui.promotePawnDialog(listKillPlayer1, "w")
         board.gameBoard += destination -> piece
@@ -210,15 +244,14 @@ class Controller() extends Observable{
     board.gameBoard = Map.empty[Point, Piece]
     boardInit()
     setRound()
-    if (gui != null  && tui != null) {
-      gui.restartGame()
-      gui.go()
+    if (gui != null && tui != null) {
       tui.go()
+      gui.go()
+      gui.frame.visible = true
 
     } else if (tui != null) {
       tui.go()
     } else if (gui != null) {
-      gui.restartGame()
       gui.go()
       gui.frame.visible = true
     }
@@ -270,6 +303,7 @@ class Controller() extends Observable{
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
+    canMove = false
     round += 1
     notifyObservers()
   }
@@ -285,6 +319,7 @@ class Controller() extends Observable{
     board.gameBoard += source -> EmptyField(" ")
     board.gameBoard += point -> EmptyField(" ")
     moveDone = false
+    canMove = false
     round += 1
     notifyObservers()
   }

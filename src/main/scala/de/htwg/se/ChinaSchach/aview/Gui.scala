@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach.aview
 
-import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller._
+import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
 import javax.swing.ImageIcon
@@ -15,18 +15,16 @@ class Gui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
 
-  val labelRound = new Label("Round: 0 Turn: player 1")
-  val player1Label = new Label("  player 1   ")
-  val player2Label = new Label("  player 2   ")
+  val labelRound = new Label("Round: 0 Turn: Sponge Bob")
+  val player1Label = new Label("  Sponge Bob   ")
+  val player2Label = new Label("  Peter Griffin   ")
 
   val chessWidth = 900
   val chessHeight = 900
 
-  val lightGreen = new Color(160, 255, 160)
-
   val frame = new MainFrame()
 
-  frame.title = "Schach"
+  frame.title = "Chess"
   frame.preferredSize = new Dimension(chessWidth, chessHeight)
 
   val row = 8
@@ -56,9 +54,9 @@ class Gui(controller: Controller) extends Observer {
       // colorizes Fields/Buttons to mimic chess board
       for (x <- 0 until row) {
         if ((x + y) % 2 == 0) {
-          fieldButtons(x)(y).background = new Color(240,240,240)
+          fieldButtons(x)(y).background = java.awt.Color.GRAY
         } else {
-          fieldButtons(x)(y).background = new Color(80, 80, 80)
+          fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
         }
       }
     }
@@ -96,7 +94,7 @@ class Gui(controller: Controller) extends Observer {
     if (res == Dialog.Result.Yes) {
       sys.exit(0)
     } else if (res == Dialog.Result.No) {
-      restartGame()
+      controller.reset()
     }
   }
 
@@ -108,30 +106,20 @@ class Gui(controller: Controller) extends Observer {
       y <- 0 until col
     } fieldButtons(x)(y).reactions += {
       case _: ButtonClicked =>
-        if (controller.playerTurn1(Point(x, y)) && counter == 0) {
-          controller.getSelectedPoint(Point(x, y))
-          val xx = controller.sourcePoint.getX()
-          val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
-          fieldButtons(x)(y).background = lightGreen
-          counter += 1
+        if (controller.playerTurnCheck(Point(x, y))) {
+          controller.savePiecePoint(Point(x, y))
+          fieldButtons(x)(y).background = java.awt.Color.BLUE
+          //counter += 1
 
-        } else if (controller.playerTurn2(Point(x, y)) && counter == 0) {
-          controller.getSelectedPoint(Point(x, y))
-          val xx = controller.sourcePoint.getX()
-          val yy = controller.sourcePoint.getY()
-          setGameBoardImages()
-            fieldButtons(x)(y).background = lightGreen
-            counter += 1
-        } else if (counter % 2 != 0) {
+        } else if (controller.playerTurnCheckDest) {
           controller.getSelectedPoint(Point(x, y))
         }
     }
   }
 
   // Observer update
-  override def update() : Unit = {
-    setCounter()
+  override def update(): Unit = {
+    //setCounter()
     setBackGround()
     setGameBoardImages()
     setTopLabel()
@@ -139,25 +127,25 @@ class Gui(controller: Controller) extends Observer {
   }
 
   // reset counter to 0
-  def setCounter(): Unit = {
-    counter = 0
-  }
+  //  def setCounter(): Unit = {
+  //    counter = 0
+  //  }
 
   // helper function which checks for win by calling controller variable
   def checkForWin(): Unit = {
     if (controller.bottomKingDead) {
-      gameWonDialog("Player 2 won!")
+      gameWonDialog("Peter Griffin won!")
     } else if (controller.topKingDead) {
-      gameWonDialog("Player 1 won!")
+      gameWonDialog("Sponge Bob won!")
     }
   }
 
   // display and update top-Label
   def setTopLabel(): Unit = {
-    if (controller.round % 2 == 0) {
-      labelRound.text = "Round: " + controller.round + " Turn: player 1"
+    if (controller.player1.Turn) {
+      labelRound.text = "Round: " + controller.round + " Turn: Sponge Bob"
     } else {
-      labelRound.text = "Round: " + controller.round + " Turn: player 2"
+      labelRound.text = "Round: " + controller.round + " Turn: Peter Griffin"
     }
   }
 
@@ -167,9 +155,9 @@ class Gui(controller: Controller) extends Observer {
       x <- 0 until row
       y <- 0 until col
     } if ((x + y) % 2 == 0) {
-      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
+      fieldButtons(x)(y).background = java.awt.Color.GRAY
     } else {
-      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+      fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     }
   }
 
@@ -177,7 +165,7 @@ class Gui(controller: Controller) extends Observer {
     if ((x + y) % 2 == 0) {
       fieldButtons(x)(y).background = java.awt.Color.DARK_GRAY
     } else {
-      fieldButtons(x)(y).background = java.awt.Color.LIGHT_GRAY
+      fieldButtons(x)(y).background = java.awt.Color.GRAY
     }
   }
 
@@ -199,9 +187,22 @@ class Gui(controller: Controller) extends Observer {
       add(new GridPanel(1, 2) {
         contents += Button("Restart Game") {
           val res = Dialog.showConfirmation(contents.head, " Do you want to restart?", optionType = Dialog.Options.YesNo)
-          if (res == Dialog.Result.Yes) { controller.reset() }
+          if (res == Dialog.Result.Yes) {
+            controller.reset()
+          }
         }
-        contents += Button("Quit") { exitGame() }
+        contents += Button("Quit") {
+          exitGame()
+        }
+        contents += Button("Next Player") {
+          controller.resetPlayerTurn
+        }
+        contents += Button("Undo") {
+          controller.undo
+        }
+        contents += Button("Redo") {
+          controller.redo
+        }
       }, BorderPanel.Position.South)
     }
   }
@@ -215,12 +216,12 @@ class Gui(controller: Controller) extends Observer {
   }
 
   // restart game dialog helper function
-  def restartGame(): Unit = {
-    setGameBoardImages()
-    setCounter()
-    labelRound.text = "Round: " + controller.round + " Turn: player 1"
-//    go()
-  }
+  //  def restartGame(): Unit = {
+  //    setGameBoardImages()
+  //    setCounter()
+  //    labelRound.text = "Round: " + controller.round + " Turn: player 1"
+  //    //    go()
+  //  }
 
   // Dialog to promote Pawn
   def promotePawnDialog(list: ListBuffer[Piece], side: String): Piece = {
