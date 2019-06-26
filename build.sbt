@@ -1,7 +1,7 @@
 name          := "htwg-se-SE2018SS-01-ChinaSchach"
 organization  := "de.htwg.se"
 version       := "0.0.1"
-scalaVersion  := "2.12.8"
+scalaVersion  := "2.12.6"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
