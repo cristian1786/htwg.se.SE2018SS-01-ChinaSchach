@@ -5,6 +5,6 @@ import de.htwg.se.ChinaSchach.controller.Controller
 
 trait FileIOInterface {
 
-  def save(controller: Controller)
-  def load(controller: Controller)
+  def save(controller: Controller, file: String)
+  def load(controller: Controller, file: String)
 }

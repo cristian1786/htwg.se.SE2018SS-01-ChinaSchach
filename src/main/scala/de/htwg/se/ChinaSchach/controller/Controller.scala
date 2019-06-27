@@ -7,6 +7,7 @@ import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
 
 import scala.collection.mutable.{ListBuffer, Map}
+import scala.reflect.io.File
 
 
 class Controller() extends Observable with ControllerInterface {
@@ -326,12 +327,12 @@ class Controller() extends Observable with ControllerInterface {
     notifyObservers()
   }
 
-  def save: Unit = {
-    fileIO.save(this)
+  def save(file: String): Unit = {
+    fileIO.save(this, file)
   }
 
-  def load: Unit = {
-    fileIO.load(this)
+  def load(file: String): Unit = {
+    fileIO.load(this, file)
     notifyObservers()
   }
 }

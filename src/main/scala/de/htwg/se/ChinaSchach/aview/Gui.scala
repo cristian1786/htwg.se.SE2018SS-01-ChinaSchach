@@ -4,12 +4,13 @@ import de.htwg.se.ChinaSchach.controller._
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
-import javax.swing.ImageIcon
+import javax.swing.{ImageIcon, JFileChooser}
 
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
+
 
 
 class Gui(controller: Controller) extends Observer {
@@ -33,6 +34,8 @@ class Gui(controller: Controller) extends Observer {
   var fieldButtons = Array.ofDim[FieldButton](row, col)
 
   var counter = 0
+
+  val fc = new FileChooser
 
   // initialize Gui
   def go(): Unit = {
@@ -95,10 +98,14 @@ class Gui(controller: Controller) extends Observer {
         restartGame
       })
       contents += new MenuItem(Action("Save") {
-        controller.save
+        val returnVal = fc.showSaveDialog(frame.contents.last)
+        val file = fc.selectedFile.getAbsolutePath
+        controller.save(file)
       })
       contents += new MenuItem(Action("Load") {
-        controller.load
+        fc.showOpenDialog(frame.contents.last)
+        val file = fc.selectedFile.getAbsolutePath
+        controller.load(file)
       })
       contents += new MenuItem(Action("Quit") {
         exitGame
