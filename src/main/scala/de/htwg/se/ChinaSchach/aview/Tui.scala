@@ -61,7 +61,7 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-  def checkForWin() : Unit = {
+  def checkForWin(): Unit = {
     if (controller.bottomKingDead) {
       println("PLAYER 2 WON!")
       controller.reset()
@@ -76,15 +76,15 @@ class Tui(controller: Controller) extends Observer {
     readInput()
   }
 
-  override def update() : Unit = {
+  override def update(): Unit = {
     drawGameboard()
     checkForWin()
     counter = 0
   }
 
-  def drawGameboard() : Unit = {
+  def drawGameboard(): Unit = {
     val g = controller.board.gameBoard.values.toList
-    val list = g.map { case EmptyField(" ") => "--"; case x => x}
+    val list = g.map { case EmptyField(" ") => "--"; case x => x }
 
     println("SCHACH\n")
     println("=========================================================================================================================================================================")
