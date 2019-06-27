@@ -1,5 +1,6 @@
 package de.htwg.se.ChinaSchach.controller
 
+import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 import de.htwg.se.ChinaSchach.model.{EmptyField, Pawn, Queen}
 import de.htwg.se.ChinaSchach.util.Point
 import org.scalatest.{Matchers, WordSpec}

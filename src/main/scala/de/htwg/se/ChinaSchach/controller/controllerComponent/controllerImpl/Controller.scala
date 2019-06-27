@@ -1,6 +1,8 @@
-package de.htwg.se.ChinaSchach.controller
+package de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl
 
 import de.htwg.se.ChinaSchach.aview._
+import de.htwg.se.ChinaSchach.controller.controllerComponent.ControllerInterface
+import de.htwg.se.ChinaSchach.controller.{UndoManager, UndoManagerImpl}
 import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable

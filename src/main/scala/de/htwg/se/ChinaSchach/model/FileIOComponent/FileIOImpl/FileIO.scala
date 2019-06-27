@@ -1,10 +1,10 @@
 package de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl
 
-import play.api.libs.json._
+import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
+import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOInterface
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
-import de.htwg.se.ChinaSchach.controller._
-import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOInterface
+import play.api.libs.json._
 
 import scala.io.Source
 
@@ -22,11 +22,11 @@ class FileIO extends FileIOInterface {
     controller.player2.Turn = (json \ "gameboard" \ "playerTurnB").get.toString().toBoolean
 
     for (i <- 0 until 64) {
-      val boardPiecesLength = (json \ "gameboard" \ "board")(0).\(i).get.toString().size
-      val boardPiece = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(12, boardPiecesLength-6).toString
-      val bPSide = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(boardPiecesLength-5, boardPiecesLength-4).toString
-      val bPX = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(2, 3).toInt
-      val bPY = (json \ "gameboard" \ "board")(0).\(i).get.toString().slice(3, 4).toInt
+      val boardPiecesLength = (json \ "gameboard" \ "board") (0).\(i).get.toString().size
+      val boardPiece = (json \ "gameboard" \ "board") (0).\(i).get.toString().slice(12, boardPiecesLength - 6).toString
+      val bPSide = (json \ "gameboard" \ "board") (0).\(i).get.toString().slice(boardPiecesLength - 5, boardPiecesLength - 4).toString
+      val bPX = (json \ "gameboard" \ "board") (0).\(i).get.toString().slice(2, 3).toInt
+      val bPY = (json \ "gameboard" \ "board") (0).\(i).get.toString().slice(3, 4).toInt
 
       boardPiece match {
         case "Pawn" =>
@@ -62,7 +62,7 @@ class FileIO extends FileIOInterface {
     )
   }*/
 
-  def chessToJson(controller: Controller):JsValue = {
+  def chessToJson(controller: Controller): JsValue = {
     Json.obj(
       "gameboard" -> Json.obj(
         "round" -> JsNumber(controller.board.round),
@@ -73,18 +73,18 @@ class FileIO extends FileIOInterface {
         "playerTurnW" -> JsBoolean(controller.player1.Turn),
         "playerTurnB" -> JsBoolean(controller.player2.Turn),
         "board" -> Json.arr(
-            for {
-              row <- 0 to 7;
-              col <- 0 to 7
-            } yield {
-              //var str = row.toString+col.toString
-              var str = ""+row+col
-              Json.obj(
-                str ->  controller.board.gameBoard.get(Point(row, col)).toString
-              )
-            }
-          )
+          for {
+            row <- 0 to 7;
+            col <- 0 to 7
+          } yield {
+            //var str = row.toString+col.toString
+            var str = "" + row + col
+            Json.obj(
+              str -> controller.board.gameBoard.get(Point(row, col)).toString
+            )
+          }
         )
+      )
     )
   }
 }

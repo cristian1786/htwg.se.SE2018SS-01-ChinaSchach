@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach
 
 import com.google.inject.Guice
-import de.htwg.se.ChinaSchach.controller.ControllerInterface
+import de.htwg.se.ChinaSchach.controller.controllerComponent.ControllerInterface
 
 object ChinaSchach {
 

@@ -1,6 +1,6 @@
 package de.htwg.se.ChinaSchach.aview
 
-import de.htwg.se.ChinaSchach.controller.Controller
+import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 import de.htwg.se.ChinaSchach.model.EmptyField
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
