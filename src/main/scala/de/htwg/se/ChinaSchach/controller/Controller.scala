@@ -1,13 +1,12 @@
 package de.htwg.se.ChinaSchach.controller
 
-import de.htwg.se.ChinaSchach.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.aview._
+import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
 
 import scala.collection.mutable.{ListBuffer, Map}
-import scala.reflect.io.File
 
 
 class Controller() extends Observable with ControllerInterface {
@@ -27,7 +26,6 @@ class Controller() extends Observable with ControllerInterface {
   var message = ""
   var sourcePiece: Piece = _
   var sourcePoint: Point = _
-  //var round = 0
   var rochadeDoneW: Boolean = _
   var rochadeDoneB: Boolean = _
   var undoManager: UndoManager = _

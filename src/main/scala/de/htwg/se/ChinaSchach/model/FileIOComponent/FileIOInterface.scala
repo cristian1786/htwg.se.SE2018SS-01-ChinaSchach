@@ -1,6 +1,5 @@
-package de.htwg.se.ChinaSchach.FileIOComponent
+package de.htwg.se.ChinaSchach.model.FileIOComponent
 
-import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.controller.Controller
 
 trait FileIOInterface {

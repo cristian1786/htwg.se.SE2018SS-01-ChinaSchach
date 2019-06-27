@@ -1,10 +1,11 @@
-package de.htwg.se.ChinaSchach.FileIOComponent.FileIOImpl
+package de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl
 
 import play.api.libs.json._
-import de.htwg.se.ChinaSchach.FileIOComponent.FileIOInterface
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.util.Point
 import de.htwg.se.ChinaSchach.controller._
+import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOInterface
+
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
