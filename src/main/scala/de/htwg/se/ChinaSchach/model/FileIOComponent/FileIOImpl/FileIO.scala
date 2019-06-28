@@ -10,8 +10,8 @@ import scala.io.Source
 
 class FileIO extends FileIOInterface {
 
-  override def load(controller: Controller, file: String): Unit = {
-    val src: String = Source.fromFile(file).getLines.mkString
+  override def load(controller: Controller, path: String): Unit = {
+    val src: String = Source.fromFile(path).getLines.mkString
     val json: JsValue = Json.parse(src)
     controller.board.round = (json \ "gameboard" \ "round").get.as[Int]
     controller.rochadeDoneW = (json \ "gameboard" \ "rochadeDoneW").get.toString().toBoolean
@@ -47,9 +47,9 @@ class FileIO extends FileIOInterface {
     }
   }
 
-  override def save(controller: Controller, file: String): Unit = {
+  override def save(controller: Controller, path: String): Unit = {
     import java.io.{File, PrintWriter}
-    val pw = new PrintWriter(new File(file))
+    val pw = new PrintWriter(new File(path))
     pw.write(Json.prettyPrint(chessToJson(controller)))
     pw.close()
   }

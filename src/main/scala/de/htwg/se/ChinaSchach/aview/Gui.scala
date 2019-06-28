@@ -98,14 +98,20 @@ class Gui(controller: Controller) extends Observer {
         restartGame
       })
       contents += new MenuItem(Action("Save") {
-        val returnVal = fc.showSaveDialog(frame.contents.last)
-        val file = fc.selectedFile.getAbsolutePath
-        controller.save(file)
+        val result = fc.showSaveDialog(frame.contents.last)
+        if (result == FileChooser.Result.Approve) {
+          val path = fc.selectedFile.getAbsolutePath
+          controller.save(path)
+        }
+
       })
       contents += new MenuItem(Action("Load") {
-        fc.showOpenDialog(frame.contents.last)
-        val file = fc.selectedFile.getAbsolutePath
-        controller.load(file)
+        val result = fc.showOpenDialog(frame.contents.last)
+        if (result == FileChooser.Result.Approve) {
+          val path = fc.selectedFile.getAbsolutePath
+          controller.load(path)
+        }
+
       })
       contents += new MenuItem(Action("Quit") {
         exitGame
