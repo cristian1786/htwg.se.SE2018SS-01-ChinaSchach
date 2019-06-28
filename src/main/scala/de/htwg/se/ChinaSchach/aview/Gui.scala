@@ -1,16 +1,15 @@
 package de.htwg.se.ChinaSchach.aview
 
-import de.htwg.se.ChinaSchach.controller._
+import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
-import javax.swing.{ImageIcon, JFileChooser}
+import javax.swing.ImageIcon
 
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
 import scala.swing._
 import scala.swing.event.ButtonClicked
-
 
 
 class Gui(controller: Controller) extends Observer {

@@ -1,6 +1,5 @@
-package de.htwg.se.ChinaSchach.controller
+package de.htwg.se.ChinaSchach.controller.controllerComponent
 
-import de.htwg.se.ChinaSchach.model.Piece
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
 
