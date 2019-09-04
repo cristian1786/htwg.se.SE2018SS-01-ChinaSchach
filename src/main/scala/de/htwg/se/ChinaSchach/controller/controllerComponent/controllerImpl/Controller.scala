@@ -7,9 +7,9 @@ import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.model._
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
+import play.api.libs.json.{JsBoolean, JsNumber, JsValue, Json}
 
 import scala.collection.mutable.{ListBuffer, Map}
-
 
 class Controller() extends Observable with ControllerInterface {
 
@@ -36,15 +36,21 @@ class Controller() extends Observable with ControllerInterface {
 
 
   // initialize controller
-  def controllerInit(): Unit = {
+  def controllerInit(): Unit  = {
     boardInit()
-    guiInit()
-    //tuiInit()
+    //guiInit()
+    tuiInit()
   }
 
   def tuiInit(): Unit = {
     tui = new Tui(this)
     tui.go()
+    var input = ""
+    do {
+      input = scala.io.StdIn.readLine()
+      tui.readInput(input)
+
+    } while (input != "exit")
   }
 
   // initialize gui
@@ -65,6 +71,8 @@ class Controller() extends Observable with ControllerInterface {
     canMove = true
     playerInit()
     undoManager = new UndoManagerImpl(board)
+
+    println(boardToString().mkString("\n"))
   }
 
   //initialize player
@@ -245,17 +253,14 @@ class Controller() extends Observable with ControllerInterface {
 
   def reset(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
-    boardInit()
+    //boardInit()
     setRound()
     if (gui != null && tui != null) {
-      tui.go()
-      gui.go()
+      //gui.go()
       gui.frame.visible = true
 
-    } else if (tui != null) {
-      tui.go()
     } else if (gui != null) {
-      gui.go()
+      //gui.go()
       gui.frame.visible = true
     }
     notifyObservers()
@@ -334,5 +339,39 @@ class Controller() extends Observable with ControllerInterface {
   def load(path: String): Unit = {
     fileIO.load(this, path)
     notifyObservers()
+  }
+
+  def boardToJson(): JsValue = {
+    Json.obj(
+      "board" -> Json.arr(
+        for {
+          row <- 0 to 7;
+          col <- 0 to 7
+        } yield {
+          var str = "" + row + col
+          Json.obj(
+            str -> board.gameBoard.get(Point(row, col)).toString
+          )
+        }
+      )
+    )
+  }
+
+  def boardToString(): Array[String] = {
+    var array = new Array[String](64)
+    var i = 0
+    for {
+      row <- 0 to 7
+      col <- 0 to 7
+    } yield {
+      board.gameBoard.get(Point(row, col)) match {
+        case Some(x) => {
+          array(i) = x.toString
+          i += 1
+        }
+        case None => ""
+      }
+    }
+    array
   }
 }

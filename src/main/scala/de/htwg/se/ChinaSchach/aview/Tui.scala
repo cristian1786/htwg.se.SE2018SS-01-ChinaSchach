@@ -1,47 +1,43 @@
 package de.htwg.se.ChinaSchach.aview
 
+import de.htwg.se.ChinaSchach.controller.controllerComponent.ControllerInterface
 import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 import de.htwg.se.ChinaSchach.model.EmptyField
 import de.htwg.se.ChinaSchach.observer.Observer
 import de.htwg.se.ChinaSchach.util.Point
 
 import scala.io.StdIn
+import scala.xml.dtd.impl.PointedHedgeExp
 
 //TODO: implement TUI
-class Tui(controller: Controller) extends Observer {
-
+case class Tui(controller: Controller) extends Observer {
   controller.addObserver(this)
 
   var counter = 0
 
   // initialize TUI
   def go(): Unit = {
-    drawGameboard()
+    println(drawGameboard())
+
     println("The board uses Point-Coordinates (X, Y) to initialize each chessfield with a corresponding piece if existant.")
     println("Please select and move a Chesspiece by using 'p XY'.")
     println("Format: X = Integer, Y = Integer")
     println("It is possible to 'quit' and 'restart' anytime.\n")
     println("Select source point:")
-    readInput()
   }
-
   // read user input
-  def readInput(): Unit = {
-    val input = StdIn.readLine()
+  def readInput(input: String): Unit = {
     input match {
-      case "quit" =>
-        controller.exit()
       case "restart" =>
         restart()
+      case "show" => println(drawGameboard())
       case p if input.startsWith("p") && input.length == 4 =>
         if (controller.playerTurnCheck(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
           counter += 1
           println("Choose destination:")
-          readInput()
         } else if (controller.playerTurnCheck(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
           counter += 1
           println("Select destination point:")
-          readInput()
         } else if (counter % 2 != 0) {
           controller.getSelectedPoint(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt))
           if (controller.board.round % 2 == 0) {
@@ -50,14 +46,11 @@ class Tui(controller: Controller) extends Observer {
             println("Round: " + controller.board.round + " Turn: player 2\n")
           }
           println("Select source point:")
-          readInput()
         } else {
           println("Wrong selection! Its not your turn!")
-          readInput()
         }
       case _ =>
         println("wrong input mate")
-        readInput()
     }
   }
 
@@ -73,7 +66,6 @@ class Tui(controller: Controller) extends Observer {
 
   def restart(): Unit = {
     controller.reset()
-    readInput()
   }
 
   override def update(): Unit = {
@@ -82,29 +74,30 @@ class Tui(controller: Controller) extends Observer {
     counter = 0
   }
 
-  def drawGameboard(): Unit = {
+  def drawGameboard(): String = {
     val g = controller.board.gameBoard.values.toList
     val list = g.map { case EmptyField(" ") => "--"; case x => x }
 
-    println("SCHACH\n")
-    println("=========================================================================================================================================================================")
-
-    printf("| 00: %-15s| 10: %-15s| 20: %-15s| 30: %-15s| 40: %-15s| 50: %-15s| 60: %-15s| 70: %-15s|\n", list(53), list(1), list(14), list(62), list(35), list(15), list(57), list(10))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 01: %-15s| 11: %-15s| 21: %-15s| 31: %-15s| 41: %-15s| 51: %-15s| 61: %-15s| 71: %-15s|\n", list(38), list(31), list(0), list(36), list(48), list(47), list(22), list(52))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 02: %-15s| 12: %-15s| 22: %-15s| 32: %-15s| 42: %-15s| 52: %-15s| 62: %-15s| 72: %-15s|\n", list(32), list(55), list(25), list(13), list(20), list(23), list(11), list(50))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 03: %-15s| 13: %-15s| 23: %-15s| 33: %-15s| 43: %-15s| 53: %-15s| 63: %-15s| 73: %-15s|\n", list(40), list(27), list(3), list(34), list(44), list(21), list(19), list(4))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 04: %-15s| 14: %-15s| 24: %-15s| 34: %-15s| 44: %-15s| 54: %-15s| 64: %-15s| 74: %-15s|\n", list(59), list(46), list(9), list(58), list(51), list(54), list(24), list(12))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 05: %-15s| 15: %-15s| 25: %-15s| 35: %-15s| 45: %-15s| 55: %-15s| 65: %-15s| 75: %-15s|\n", list(45), list(17), list(7), list(33), list(41), list(8), list(5), list(43))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 06: %-15s| 16: %-15s| 26: %-15s| 36: %-15s| 46: %-15s| 56: %-15s| 66: %-15s| 76: %-15s|\n", list(37), list(61), list(18), list(39), list(29), list(2), list(49), list(28))
-    println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    printf("| 07: %-15s| 17: %-15s| 27: %-15s| 37: %-15s| 47: %-15s| 57: %-15s| 67: %-15s| 77: %-15s|\n", list(56), list(30), list(60), list(63), list(6), list(42), list(26), list(16))
-
-    println("=========================================================================================================================================================================\n")
+    var s = ""
+    s +=
+    "SCHACH\n" +
+      "=========================================================================================================================================================================\n" +
+      "| 00: " + list(53) + "| 10: %-15s|" + list(1) + "20: %-15s|" + list(14) + "30: %-15s|" + list(62) + " 40: %-15s|" + list(35) + " 50: %-15s|" + list(15) + " 60: %-15s|" + list(57) + " 70: %-15s|" + list(10) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 01: %-15s|" + list(38) + "11: %-15s|" + list(31) + " 21: %-15s|" + list(0) + " 31: %-15s|" + list(36) + " 41: %-15s|" + list(48) + " 51: %-15s|" + list(47) + " 61: %-15s|" + list(22) + " 71: %-15s|" + list(52) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 02: %-15s|" + list(32) + " 12: %-15s|" + list(55) + " 22: %-15s|" + list(25) + " 32: %-15s|" + list(13) + " 42: %-15s|" + list(20) + " 52: %-15s|" + list(23) + " 62: %-15s|" + list(11) + " 72: %-15s|" + list(50) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 03: %-15s|" + list(40) + " 13: %-15s|" + list(27) + " 23: %-15s|" + list(3) + " 33: %-15s|" + list(34) + " 43: %-15s|" + list(44) + " 53: %-15s|" + list(21) + " 63: %-15s|" + list(19) + " 73: %-15s|" + list(4) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 04: %-15s|" + list(59) + " 14: %-15s|" + list(46) + " 24: %-15s|" + list(9) + " 34: %-15s|" + list(58) + " 44: %-15s|" + list(51) + " 54: %-15s|" + list(54) + " 64: %-15s|" + list(24) + " 74: %-15s|" + list(12) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 05: %-15s|" + list(45) + " 15: %-15s|" + list(17) + " 25: %-15s|" + list(7) + " 35: %-15s|" + list(33) + " 45: %-15s|" + list(41) + " 55: %-15s|" + list(8) + " 65: %-15s|" + list(5) + " 75: %-15s|" + list(43) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 06: %-15s|" + list(37) + " 16: %-15s|" + list(61) + " 26: %-15s|" + list(18) + " 36: %-15s|" + list(39) + " 46: %-15s|" + list(29) + " 56: %-15s|" + list(2) + " 66: %-15s|" + list(49) + " 76: %-15s|" + list(28) + "\n" +
+      "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+      "| 07: %-15s|" + list(56) + " 17: %-15s|" + list(30) + " 27: %-15s|" + list(60) + " 37: %-15s|" + list(63) + " 47: %-15s|" + list(6) + " 57: %-15s|" + list(42) + " 67: %-15s|" + list(26) + " 77: %-15s|" + list(16) + "\n" +
+      "=========================================================================================================================================================================\n"
+    s
   }
 }

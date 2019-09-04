@@ -12,7 +12,7 @@ import scala.swing._
 import scala.swing.event.ButtonClicked
 
 
-class Gui(controller: Controller) extends Observer {
+case class Gui(controller: Controller) extends Observer {
 
   controller.addObserver(this)
 
@@ -42,6 +42,8 @@ class Gui(controller: Controller) extends Observer {
     buttonActionListener()
     drawBoard()
   }
+
+
 
   //initialize Button for each field
   def initializeButtons(): Unit = {
