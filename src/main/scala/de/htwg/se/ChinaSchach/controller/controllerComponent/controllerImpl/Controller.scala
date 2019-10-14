@@ -38,7 +38,7 @@ class Controller() extends Observable with ControllerInterface {
 
   // initialize controller
     boardInit()
-    guiInit()
+    //guiInit()
     //tuiInit()
 
   def tuiInit(): Unit = {
