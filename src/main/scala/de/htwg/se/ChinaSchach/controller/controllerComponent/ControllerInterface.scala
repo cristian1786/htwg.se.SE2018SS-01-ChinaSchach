@@ -5,7 +5,7 @@ import de.htwg.se.ChinaSchach.util.Point
 
 trait ControllerInterface extends Observable {
 
-  def controllerInit(): Unit
+  //def controllerInit(): Unit
 
   def tuiInit(): Unit
 
@@ -50,5 +50,9 @@ trait ControllerInterface extends Observable {
   def bigRochadeMove(source: Point, point: Point): Unit
 
   def smallRochadeMove(source: Point, point: Point): Unit
+
+  def drawGameboard(): String
+
+  def boardToString(): Array[String]
 
 }

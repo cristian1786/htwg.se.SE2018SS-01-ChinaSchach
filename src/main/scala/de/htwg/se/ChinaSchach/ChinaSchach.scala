@@ -3,16 +3,16 @@ package de.htwg.se.ChinaSchach
 import com.google.inject.Guice
 import de.htwg.se.ChinaSchach.aview.{Gui, Tui}
 import de.htwg.se.ChinaSchach.controller.controllerComponent.ControllerInterface
-import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
+//import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 
 object ChinaSchach {
 
   val injector = Guice.createInjector(new SchachModule)
   var controller = injector.getInstance(classOf[ControllerInterface])
 
-  controller.controllerInit()
+  //controller.controllerInit()
   //
-  //val gui = Gui(controller)
+  //val tui = Tui(controller)
   //controller.controllerInit()
   def main(args: Array[String]): Unit = {
     /*var input = ""
@@ -21,6 +21,5 @@ object ChinaSchach {
       tui.readInput(input)
 
     } while (input != "exit")*/
-
   }
 }
