@@ -127,6 +127,13 @@ class Controller() extends Observable with ControllerInterface {
     notifyObservers()
   }
 
+  def getPiece(point: Point): String = {
+    board.gameBoard.get(point) match {
+      case None => "--"
+      case Some(x) => x.toString
+    }
+  }
+
   def getSelectedPoint(point: Point): Unit = {
     board.gameBoard.get(point) match {
       case None =>

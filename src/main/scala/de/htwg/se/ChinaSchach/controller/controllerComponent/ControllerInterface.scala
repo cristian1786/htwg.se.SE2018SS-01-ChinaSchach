@@ -21,6 +21,8 @@ trait ControllerInterface extends Observable {
 
   def resetPlayerTurn: Unit
 
+  def getPiece(point: Point): String
+
   def getSelectedPoint(point: Point): Unit
 
   def savePiecePoint(point: Point): Unit
