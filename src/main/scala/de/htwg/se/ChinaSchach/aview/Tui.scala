@@ -17,7 +17,7 @@ case class Tui(controller: Controller) extends Observer {
 
   // initialize TUI
   def go(): Unit = {
-    println(drawGameboard())
+    println(drawGameboard2())
 
     println("The board uses Point-Coordinates (X, Y) to initialize each chessfield with a corresponding piece if existant.")
     println("Please select and move a Chesspiece by using 'p XY'.")
@@ -30,7 +30,7 @@ case class Tui(controller: Controller) extends Observer {
     input match {
       case "restart" =>
         restart()
-      case "show" => println(drawGameboard())
+      case "show" => println(drawGameboard2())
       case p if input.startsWith("p") && input.length == 4 =>
         if (controller.playerTurnCheck(Point(input.charAt(2).toString.toInt, input.charAt(3).toString.toInt)) && counter == 0) {
           counter += 1
@@ -69,12 +69,12 @@ case class Tui(controller: Controller) extends Observer {
   }
 
   override def update(): Unit = {
-    drawGameboard()
-    checkForWin()
-    counter = 0
+    //drawGameboard2()
+    //checkForWin()
+    //counter = 0
   }
 
-  def drawGameboard(): String = {
+  def drawGameboard2(): String = {
     val g = controller.board.gameBoard.values.toList
     val list = g.map { case EmptyField(" ") => "--"; case x => x }
 

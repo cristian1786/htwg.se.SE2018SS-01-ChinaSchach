@@ -259,7 +259,7 @@ class Controller() extends Observable with ControllerInterface {
 
   def reset(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
-    //boardInit()
+    boardInit()
     setRound()
     if (gui != null && tui != null) {
       //gui.go()
