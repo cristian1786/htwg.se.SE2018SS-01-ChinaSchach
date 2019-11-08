@@ -39,7 +39,7 @@ class Controller() extends Observable with ControllerInterface {
   // initialize controller
     boardInit()
     //guiInit()
-    //tuiInit()
+    tuiInit()
 
   def tuiInit(): Unit = {
     //tui = new Tui(this)
@@ -407,4 +407,6 @@ class Controller() extends Observable with ControllerInterface {
         "=========================================================================================================================================================================\n"
     s
   }
+
+  def gameToJson(): JsValue = fileIO.chessToJson(this)
 }
