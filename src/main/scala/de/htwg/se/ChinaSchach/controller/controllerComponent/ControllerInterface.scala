@@ -1,7 +1,9 @@
 package de.htwg.se.ChinaSchach.controller.controllerComponent
 
+import de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl.Controller
 import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
+import play.api.libs.json.JsValue
 
 trait ControllerInterface extends Observable {
 
@@ -56,5 +58,7 @@ trait ControllerInterface extends Observable {
   def drawGameboard(): String
 
   def boardToString(): Array[String]
+
+  def gameToJson(): JsValue
 
 }

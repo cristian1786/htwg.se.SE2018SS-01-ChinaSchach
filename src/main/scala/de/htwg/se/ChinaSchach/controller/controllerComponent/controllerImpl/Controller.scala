@@ -407,4 +407,6 @@ class Controller() extends Observable with ControllerInterface {
         "=========================================================================================================================================================================\n"
     s
   }
+
+  def gameToJson(): JsValue = fileIO.chessToJson(this)
 }
