@@ -5,7 +5,7 @@ import de.htwg.se.ChinaSchach.model.{EmptyField, Pawn, Queen}
 import de.htwg.se.ChinaSchach.util.Point
 import org.scalatest.{Matchers, WordSpec}
 
-/*class ControllerTest extends WordSpec with Matchers {
+class ControllerTest extends WordSpec with Matchers {
   "Controller" should {
     "return true" when {
       "Pawn moves 1 space forward" in {
@@ -313,4 +313,4 @@ import org.scalatest.{Matchers, WordSpec}
       }
     }
   }
-}*/
+}
