@@ -265,7 +265,7 @@ class Controller() extends ControllerInterface with Publisher {
 
   def reset(): Unit = {
     board.gameBoard = Map.empty[Point, Piece]
-    //boardInit()
+    boardInit()
     setRound()
     if (gui != null && tui != null) {
       //gui.go()
