@@ -175,6 +175,11 @@ class Controller() extends ControllerInterface with Publisher {
     message = "Please select destination"
   }
 
+  def moveFct(point1: Point, point2: Point): Unit = {
+    savePiecePoint(point1)
+    getSelectedPoint(point2)
+  }
+
   def ifEnemy(source: Point, destination: Point): Unit = {
     if (board.gameBoard(destination).getSide() != " ") {
       if (board.gameBoard(source).getSide() == "w") {

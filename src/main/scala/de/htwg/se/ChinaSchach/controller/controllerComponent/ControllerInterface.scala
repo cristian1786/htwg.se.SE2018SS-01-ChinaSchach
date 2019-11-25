@@ -31,6 +31,8 @@ trait ControllerInterface extends Publisher {
 
   def savePiecePoint(point: Point): Unit
 
+  def moveFct(point1: Point, point2: Point): Unit
+
   def ifEnemy(source: Point, destination: Point): Unit
 
   def movePiece(source: Point, destination: Point): Unit
