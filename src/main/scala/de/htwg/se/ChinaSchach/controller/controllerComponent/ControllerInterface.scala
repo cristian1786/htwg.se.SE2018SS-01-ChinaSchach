@@ -5,7 +5,9 @@ import de.htwg.se.ChinaSchach.observer.Observable
 import de.htwg.se.ChinaSchach.util.Point
 import play.api.libs.json.JsValue
 
-trait ControllerInterface extends Observable {
+import scala.swing.Publisher
+
+trait ControllerInterface extends Publisher {
 
   //def controllerInit(): Unit
 
@@ -62,3 +64,7 @@ trait ControllerInterface extends Observable {
   def gameToJson(): JsValue
 
 }
+
+import scala.swing.event.Event
+
+class Changed extends Event

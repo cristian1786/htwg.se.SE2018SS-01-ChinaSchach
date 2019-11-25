@@ -11,7 +11,7 @@ import scala.xml.dtd.impl.PointedHedgeExp
 
 //TODO: implement TUI
 case class Tui(controller: Controller) extends Observer {
-  controller.addObserver(this)
+  //controller.addObserver(this)
 
   var counter = 0
 

@@ -14,7 +14,7 @@ import scala.swing.event.ButtonClicked
 
 case class Gui(controller: Controller) extends Observer {
 
-  controller.addObserver(this)
+  //controller.addObserver(this)
 
   val labelRound = new Label("Round: 0 Turn: Sponge Bob")
   val player1Label = new Label("  Sponge Bob   ")

@@ -1,7 +1,7 @@
 package de.htwg.se.ChinaSchach.controller.controllerComponent.controllerImpl
 
 import de.htwg.se.ChinaSchach.aview._
-import de.htwg.se.ChinaSchach.controller.controllerComponent.ControllerInterface
+import de.htwg.se.ChinaSchach.controller.controllerComponent.{Changed, ControllerInterface}
 import de.htwg.se.ChinaSchach.controller.{UndoManager, UndoManagerImpl}
 import de.htwg.se.ChinaSchach.model.FileIOComponent.FileIOImpl.FileIO
 import de.htwg.se.ChinaSchach.model._
@@ -10,8 +10,9 @@ import de.htwg.se.ChinaSchach.util.Point
 import play.api.libs.json.{JsBoolean, JsNumber, JsValue, Json}
 
 import scala.collection.mutable.{ListBuffer, Map}
+import scala.swing.Publisher
 
-class Controller() extends Observable with ControllerInterface {
+class Controller() extends ControllerInterface with Publisher {
 
   var board: Board = new Board
   var gui: Gui = _
@@ -124,7 +125,8 @@ class Controller() extends Observable with ControllerInterface {
       player2.Turn = false
       canMove = true
     }
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def getPiece(point: Point): String = {
@@ -158,7 +160,8 @@ class Controller() extends Observable with ControllerInterface {
           doRochade(sourcePoint, point)
         } else if (!justIf) {
           moveDone = false
-          notifyObservers()
+          publish(new Changed)
+          //notifyObservers()
         } else if (justIf) {
           ifEnemy(sourcePoint, point)
         }
@@ -204,19 +207,22 @@ class Controller() extends Observable with ControllerInterface {
     }
     canMove = false
     moveDone = false
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def undo: Unit = {
     undoManager.undoMove
     canMove = true
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def redo: Unit = {
     undoManager.redoMove
     canMove = false
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def rowOneEight(destination: Point): Unit = {
@@ -269,7 +275,8 @@ class Controller() extends Observable with ControllerInterface {
       //gui.go()
       gui.frame.visible = true
     }
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def exit(): Unit = {
@@ -319,7 +326,8 @@ class Controller() extends Observable with ControllerInterface {
     moveDone = false
     canMove = false
     board.round += 1
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def smallRochadeMove(source: Point, point: Point): Unit = {
@@ -335,7 +343,8 @@ class Controller() extends Observable with ControllerInterface {
     moveDone = false
     canMove = false
     board.round += 1
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def save(path: String): Unit = {
@@ -344,7 +353,8 @@ class Controller() extends Observable with ControllerInterface {
 
   def load(path: String): Unit = {
     fileIO.load(this, path)
-    notifyObservers()
+    publish(new Changed)
+    //notifyObservers()
   }
 
   def boardToJson(): JsValue = {
