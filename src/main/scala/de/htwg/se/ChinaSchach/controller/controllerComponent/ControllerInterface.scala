@@ -61,4 +61,8 @@ trait ControllerInterface extends Observable {
 
   def gameToJson(): JsValue
 
+  def getKillsPlayer1: Array[String]
+
+  def getKillsPlayer2: Array[String]
+
 }

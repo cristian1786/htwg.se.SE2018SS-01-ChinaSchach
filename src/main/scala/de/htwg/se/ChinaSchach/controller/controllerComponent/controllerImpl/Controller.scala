@@ -409,4 +409,14 @@ class Controller() extends Observable with ControllerInterface {
   }
 
   def gameToJson(): JsValue = fileIO.chessToJson(this)
+
+  def getKillsPlayer1: Array[String] = {
+    val listKills: Array[String] = (listKillPlayer1.map(_.toString).toArray)
+    listKills
+  }
+
+  def getKillsPlayer2: Array[String] = {
+    val listKills: Array[String] = (listKillPlayer2.map(_.toString).toArray)
+    listKills
+  }
 }
